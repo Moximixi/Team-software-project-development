@@ -1,30 +1,22 @@
-import java.awt.EventQueue;
+package teamproject;
 
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
 import java.awt.CardLayout;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JTabbedPane;
-import javax.swing.JLayeredPane;
-import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.SpringLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
+import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.JTable;
+import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+import java.awt.SystemColor;
+import java.awt.Rectangle;
+import java.awt.Canvas;
 
 public class MyDemo {
 
@@ -33,6 +25,8 @@ public class MyDemo {
 	private JPanel panel_trainPlan;
 	private JPanel panel_document;
 	private JPanel panel_userInfo;
+	private JTable table;
+	private JTable trainpan_table;
 
 	/**
 	 * Launch the application.
@@ -70,7 +64,46 @@ public class MyDemo {
 		panel.setLayout(new CardLayout(0, 0));
 		
 		JPanel panel_homePage = new JPanel();
+		panel_homePage.setForeground(new Color(0, 0, 255));
 		panel.add(panel_homePage);
+		
+		table = new JTable();
+		JPanel panel_trainPlan;
+		panel_trainPlan = new JPanel();
+		panel.add(panel_trainPlan);
+		panel_trainPlan.add(table);
+		
+		trainpan_table = new JTable();
+		trainpan_table.setColumnSelectionAllowed(true);
+		trainpan_table.setCellSelectionEnabled(true);
+		trainpan_table.setBounds(new Rectangle(20, 100, 0, 0));
+		trainpan_table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u9AD8\u82F1\u8BFE\u7A0B\u7FA4", "4.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u4E13\u4E1A\u57FA\u7840\u77E5\u8BC6\u7FA4", "", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4", null},
+				{"\u4F53\u80B2\u7ADE\u6280\u4E0E\u4F11\u95F2\u8FD0\u52A8\u8BFE\u7A0B\u7FA4", "2.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4", "5.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E00\uFF09", null},
+				{"\u521B\u65B0\u521B\u4E1A\u5FC3\u7406\u7C7B\u8BFE\u7A0B\u7FA4", "6.0", "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", "5.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E8C\uFF09", null},
+				{"\u827A\u672F\u7D20\u517B\u7C7B", "2.0", "\u5B9E\u9A8C\u6280\u80FD\u57F9\u517B\u73AF\u8282", null, "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E09\uFF09", null},
+				{"\u7ECF\u7BA1\u6CD5\u7C7B", "2.0", "\u521B\u65B0\u521B\u4E1A\u77E5\u8BC6\u7FA4", null, "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", "5.0"},
+				{null, null, null, null, "\u6269\u5C55\u77E5\u8BC6\u7FA4", "5.0"},
+				{null, null, null, null, "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", null},
+				{null, null, null, null, "\u521B\u65B0\u521B\u4E1A\u77E5\u8BC6\u7FA4", null},
+			},
+			new String[] {
+				"\u901A\u8BC6\u9009\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206", "\u57FA\u7840\u6559\u80B2\u5FC5\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206", "\u57FA\u7840\u6559\u80B2\u9009\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206"
+			}
+		));
+		trainpan_table.getColumnModel().getColumn(0).setPreferredWidth(164);
+		trainpan_table.getColumnModel().getColumn(0).setMinWidth(27);
+		trainpan_table.getColumnModel().getColumn(0).setMaxWidth(164);
+		trainpan_table.getColumnModel().getColumn(1).setPreferredWidth(50);
+		trainpan_table.getColumnModel().getColumn(2).setPreferredWidth(164);
+		trainpan_table.getColumnModel().getColumn(3).setPreferredWidth(50);
+		trainpan_table.getColumnModel().getColumn(4).setPreferredWidth(164);
+		trainpan_table.getColumnModel().getColumn(5).setPreferredWidth(50);
+		trainpan_table.setBackground(SystemColor.textHighlightText);
+		panel_trainPlan.add(trainpan_table);
+		
+		
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setText("我的首页");
@@ -90,14 +123,6 @@ public class MyDemo {
 		JTextPane textPane_2 = new JTextPane();
 		textPane_2.setText("选课");
 		panel_courseSelect.add(textPane_2);
-		
-		JPanel panel_trainPlan;
-		panel_trainPlan = new JPanel();
-		panel.add(panel_trainPlan);
-		
-		JTextPane textPane_3 = new JTextPane();
-		textPane_3.setText("培养方案");
-		panel_trainPlan.add(textPane_3);
 		
 		JPanel panel_document;
 		panel_document = new JPanel();
