@@ -1,5 +1,3 @@
-package teamproject;
-
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
@@ -22,6 +20,8 @@ import java.awt.FlowLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+
+//2222222222222222222222222222222222222222222222222222222222
 public class MyDemo {
 
 	private JFrame frame;
@@ -31,7 +31,7 @@ public class MyDemo {
 	private JPanel panel_userInfo;
 	private JTable table;
 	private JTable trainpan_table;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -114,14 +114,14 @@ public class MyDemo {
 		
 		
 		JTextPane textPane = new JTextPane();
-		textPane.setText("ÎÒµÄÊ×Ò³");
+		textPane.setText("ï¿½Òµï¿½ï¿½ï¿½Ò³");
 		panel_homePage.add(textPane);
 		
 		JPanel panel_querySocres = new JPanel();
 		panel.add(panel_querySocres);
 		
 		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setText("²éÑ¯³É¼¨");
+		textPane_1.setText("ï¿½ï¿½Ñ¯ï¿½É¼ï¿½");
 		panel_querySocres.add(textPane_1);
 		
 		JPanel panel_courseSelect;
@@ -129,7 +129,7 @@ public class MyDemo {
 		panel.add(panel_courseSelect);
 		
 		JTextPane textPane_2 = new JTextPane();
-		textPane_2.setText("Ñ¡¿Î");
+		textPane_2.setText("Ñ¡ï¿½ï¿½");
 		panel_courseSelect.add(textPane_2);
 		
 		JPanel panel_document;
