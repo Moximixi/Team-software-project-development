@@ -17,6 +17,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.SystemColor;
 import java.awt.Rectangle;
 import java.awt.Canvas;
+import java.awt.Font;
+import java.awt.FlowLayout;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class MyDemo {
 
@@ -70,20 +74,24 @@ public class MyDemo {
 		table = new JTable();
 		JPanel panel_trainPlan;
 		panel_trainPlan = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_trainPlan.getLayout();
+		flowLayout.setVgap(150);
 		panel.add(panel_trainPlan);
 		panel_trainPlan.add(table);
 		
 		trainpan_table = new JTable();
+		trainpan_table.setBorder(new LineBorder(Color.GRAY, 3));
+		trainpan_table.setFont(new Font("\u5B8B\u4F53", trainpan_table.getFont().getStyle(), trainpan_table.getFont().getSize() + 4));
 		trainpan_table.setColumnSelectionAllowed(true);
 		trainpan_table.setCellSelectionEnabled(true);
 		trainpan_table.setBounds(new Rectangle(20, 100, 0, 0));
 		trainpan_table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"\u9AD8\u82F1\u8BFE\u7A0B\u7FA4", "4.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u4E13\u4E1A\u57FA\u7840\u77E5\u8BC6\u7FA4", "", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4", null},
-				{"\u4F53\u80B2\u7ADE\u6280\u4E0E\u4F11\u95F2\u8FD0\u52A8\u8BFE\u7A0B\u7FA4", "2.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4", "5.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E00\uFF09", null},
-				{"\u521B\u65B0\u521B\u4E1A\u5FC3\u7406\u7C7B\u8BFE\u7A0B\u7FA4", "6.0", "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", "5.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E8C\uFF09", null},
-				{"\u827A\u672F\u7D20\u517B\u7C7B", "2.0", "\u5B9E\u9A8C\u6280\u80FD\u57F9\u517B\u73AF\u8282", null, "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E09\uFF09", null},
-				{"\u7ECF\u7BA1\u6CD5\u7C7B", "2.0", "\u521B\u65B0\u521B\u4E1A\u77E5\u8BC6\u7FA4", null, "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", "5.0"},
+				{"       \u9AD8\u82F1\u8BFE\u7A0B\u7FA4", "4.0", " \u8F6F\u4EF6\u5DE5\u7A0B\u4E13\u4E1A\u57FA\u7840\u77E5\u8BC6\u7FA4", "", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4", null},
+				{" \u4F53\u80B2\u7ADE\u6280\u4E0E\u4F11\u95F2\u8FD0\u52A8\u8BFE\u7A0B\u7FA4", "2.0", "    \u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4", "5.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E00\uFF09", null},
+				{"  \u521B\u65B0\u521B\u4E1A\u5FC3\u7406\u7C7B\u8BFE\u7A0B\u7FA4", "6.0", "   \u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", "5.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E8C\uFF09", null},
+				{"       \u827A\u672F\u7D20\u517B\u7C7B", "2.0", "    \u5B9E\u9A8C\u6280\u80FD\u57F9\u517B\u73AF\u8282", null, "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E09\uFF09", null},
+				{"      \u7ECF\u7BA1\u6CD5\u7C7B", "2.0", "     \u521B\u65B0\u521B\u4E1A\u77E5\u8BC6\u7FA4", null, "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", "5.0"},
 				{null, null, null, null, "\u6269\u5C55\u77E5\u8BC6\u7FA4", "5.0"},
 				{null, null, null, null, "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", null},
 				{null, null, null, null, "\u521B\u65B0\u521B\u4E1A\u77E5\u8BC6\u7FA4", null},
@@ -92,11 +100,11 @@ public class MyDemo {
 				"\u901A\u8BC6\u9009\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206", "\u57FA\u7840\u6559\u80B2\u5FC5\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206", "\u57FA\u7840\u6559\u80B2\u9009\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206"
 			}
 		));
-		trainpan_table.getColumnModel().getColumn(0).setPreferredWidth(164);
+		trainpan_table.getColumnModel().getColumn(0).setPreferredWidth(215);
 		trainpan_table.getColumnModel().getColumn(0).setMinWidth(27);
-		trainpan_table.getColumnModel().getColumn(0).setMaxWidth(164);
+		trainpan_table.getColumnModel().getColumn(0).setMaxWidth(220);
 		trainpan_table.getColumnModel().getColumn(1).setPreferredWidth(50);
-		trainpan_table.getColumnModel().getColumn(2).setPreferredWidth(164);
+		trainpan_table.getColumnModel().getColumn(2).setPreferredWidth(190);
 		trainpan_table.getColumnModel().getColumn(3).setPreferredWidth(50);
 		trainpan_table.getColumnModel().getColumn(4).setPreferredWidth(164);
 		trainpan_table.getColumnModel().getColumn(5).setPreferredWidth(50);
