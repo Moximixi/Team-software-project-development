@@ -29,6 +29,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
 
 public class MyDemo {
 	
@@ -43,8 +46,8 @@ public class MyDemo {
 	private JTextField textField_courseNum;
 	private JTextField textField_courseMajor;
 	private JTextField textField_courseCollege;
-	private JTable table_1;
-	private JTable table_2;
+	private JTable table_courseList;
+	private JTable table_courseSelected;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTable table_3;
 	private JTable table_4;
@@ -52,6 +55,10 @@ public class MyDemo {
 	private JTable table_6;
 	private JTable table_7;
 	private JTable table_8;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTable table_1;
+	private JTable table_2;
 
 	/**
 	 * Launch the application.
@@ -88,9 +95,73 @@ public class MyDemo {
 		frame.getContentPane().add(panel);
 		panel.setLayout(new CardLayout(0, 0));
 		
+		JPanel panel_logIn = new JPanel();
+		panel.add(panel_logIn);
+		panel_logIn.setLayout(null);
+		
 		JPanel panel_homePage = new JPanel();
 		panel.add(panel_homePage);
 		panel_homePage.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.inactiveCaptionBorder);
+		panel_1.setBounds(172, 91, 546, 317);
+		panel_logIn.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblJnu = new JLabel("JNU");
+		lblJnu.setForeground(new Color(30, 144, 255));
+		lblJnu.setFont(new Font("宋体", Font.BOLD, 25));
+		lblJnu.setBounds(14, 13, 75, 30);
+		panel_1.add(lblJnu);
+		
+		JLabel label_4 = new JLabel("自助管理系统登录");
+		label_4.setForeground(SystemColor.controlDkShadow);
+		label_4.setFont(new Font("宋体", Font.BOLD, 20));
+		label_4.setBounds(61, 21, 218, 18);
+		panel_1.add(label_4);
+		
+		textField = new JTextField();
+		textField.setBounds(193, 97, 205, 24);
+		panel_1.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(193, 149, 205, 24);
+		panel_1.add(textField_1);
+		
+		JButton btnNewButton_1 = new JButton("登录");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				panel.removeAll();
+				panel.add(panel_homePage);//刷新
+				panel.updateUI();
+			}
+		});
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton_1.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_1.setFont(new Font("宋体", Font.BOLD, 20));
+		btnNewButton_1.setForeground(Color.WHITE);
+		btnNewButton_1.setBounds(122, 221, 276, 30);
+		panel_1.add(btnNewButton_1);
+		
+		JLabel label_5 = new JLabel("账号：");
+		label_5.setForeground(Color.GRAY);
+		label_5.setFont(new Font("宋体", Font.BOLD, 20));
+		label_5.setBounds(128, 103, 63, 18);
+		panel_1.add(label_5);
+		
+		JLabel label_6 = new JLabel("密码：");
+		label_6.setForeground(Color.GRAY);
+		label_6.setFont(new Font("宋体", Font.BOLD, 20));
+		label_6.setBounds(128, 152, 63, 18);
+		panel_1.add(label_6);
+		
 		
 		JPanel panel_AllNotice = new JPanel();
 		panel_AllNotice.setBounds(40, 86, 510, 370);
@@ -437,44 +508,20 @@ public class MyDemo {
 		panel.add(panel_courseSelect_queryCourse);
 		panel_courseSelect_queryCourse.setLayout(null);
 		
-		JTextPane textPane_courseName = new JTextPane();
-		textPane_courseName.setFont(new Font("宋体", Font.BOLD, 20));
-		textPane_courseName.setText("课程名称：");
-		textPane_courseName.setBounds(100, 79, 116, 34);
-		panel_courseSelect_queryCourse.add(textPane_courseName);
-		
 		textField_courseName = new JTextField();
 		textField_courseName.setBounds(220, 79, 112, 33);
 		panel_courseSelect_queryCourse.add(textField_courseName);
 		textField_courseName.setColumns(10);
-		
-		JTextPane textPane_courseNum = new JTextPane();
-		textPane_courseNum.setText("课程编号：");
-		textPane_courseNum.setFont(new Font("宋体", Font.BOLD, 20));
-		textPane_courseNum.setBounds(460, 80, 116, 34);
-		panel_courseSelect_queryCourse.add(textPane_courseNum);
 		
 		textField_courseNum = new JTextField();
 		textField_courseNum.setColumns(10);
 		textField_courseNum.setBounds(580, 80, 112, 33);
 		panel_courseSelect_queryCourse.add(textField_courseNum);
 		
-		JTextPane textPane_courseMajor = new JTextPane();
-		textPane_courseMajor.setText("所属专业：");
-		textPane_courseMajor.setFont(new Font("宋体", Font.BOLD, 20));
-		textPane_courseMajor.setBounds(460, 142, 116, 34);
-		panel_courseSelect_queryCourse.add(textPane_courseMajor);
-		
 		textField_courseMajor = new JTextField();
 		textField_courseMajor.setColumns(10);
 		textField_courseMajor.setBounds(580, 142, 112, 33);
 		panel_courseSelect_queryCourse.add(textField_courseMajor);
-		
-		JTextPane textPane_courseCollege = new JTextPane();
-		textPane_courseCollege.setText("所属学院：");
-		textPane_courseCollege.setFont(new Font("宋体", Font.BOLD, 20));
-		textPane_courseCollege.setBounds(102, 147, 116, 34);
-		panel_courseSelect_queryCourse.add(textPane_courseCollege);
 		
 		textField_courseCollege = new JTextField();
 		textField_courseCollege.setColumns(10);
@@ -495,32 +542,52 @@ public class MyDemo {
 		button_query.setBounds(460, 278, 181, 48);
 		panel_courseSelect_queryCourse.add(button_query);
 		
+		JLabel label_courseName = new JLabel("课程名称：");
+		label_courseName.setFont(new Font("宋体", Font.BOLD, 20));
+		label_courseName.setBounds(116, 76, 116, 34);
+		panel_courseSelect_queryCourse.add(label_courseName);
+		
+		JLabel label_course = new JLabel("所属学院：");
+		label_course.setFont(new Font("宋体", Font.BOLD, 20));
+		label_course.setBounds(116, 146, 116, 34);
+		panel_courseSelect_queryCourse.add(label_course);
+		
+		JLabel label_courseNum = new JLabel("课程编号：");
+		label_courseNum.setFont(new Font("宋体", Font.BOLD, 20));
+		label_courseNum.setBounds(475, 76, 116, 34);
+		panel_courseSelect_queryCourse.add(label_courseNum);
+		
+		JLabel label_courseMajor = new JLabel("所属专业：");
+		label_courseMajor.setFont(new Font("宋体", Font.BOLD, 20));
+		label_courseMajor.setBounds(475, 142, 116, 34);
+		panel_courseSelect_queryCourse.add(label_courseMajor);
+		
 		JPanel panel_courseSelect_courseList = new JPanel();
 		panel.add(panel_courseSelect_courseList);
 		panel_courseSelect_courseList.setLayout(null);
 		
 		JButton button = new JButton("选课");
-		button.setBounds(91, 109, 72, 27);
+		button.setBounds(91, 186, 72, 27);
 		panel_courseSelect_courseList.add(button);
 		
 		JButton button_1 = new JButton("选课");
-		button_1.setBounds(91, 149, 72, 27);
+		button_1.setBounds(91, 226, 72, 27);
 		panel_courseSelect_courseList.add(button_1);
 		
 		JButton button_2 = new JButton("选课");
-		button_2.setBounds(91, 189, 72, 27);
+		button_2.setBounds(91, 266, 72, 27);
 		panel_courseSelect_courseList.add(button_2);
 		
 		JButton button_3 = new JButton("选课");
-		button_3.setBounds(91, 229, 72, 27);
+		button_3.setBounds(91, 306, 72, 27);
 		panel_courseSelect_courseList.add(button_3);
 		
-		table_1 = new JTable();
-		table_1.setFont(new Font("宋体", Font.BOLD, 20));
-		table_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_1.setRowHeight(40);//指定每一行的行高40
+		table_courseList = new JTable();
+		table_courseList.setFont(new Font("宋体", Font.BOLD, 20));
+		table_courseList.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_courseList.setRowHeight(40);//指定每一行的行高40
 		
-		table_1.setModel(new DefaultTableModel(
+		table_courseList.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"  \u72B6\u6001", "\u8BFE\u7A0B\u7F16\u53F7", "\u8BFE\u7A0B\u540D", "\u5B66\u5206", "\u65F6\u95F4", "\u5730\u70B9", "\u5907\u6CE8", "\u8003\u8BD5\u65F6\u95F4"},
 				{"", null, null, null, null, null, null, null},
@@ -531,37 +598,53 @@ public class MyDemo {
 			new String[] {
 				"\u72B6\u6001", "\u8BFE\u7A0B\u7F16\u53F7", "\u8BFE\u7A0B\u540D", "\u5B66\u5206", "\u65F6\u95F4", "\u5730\u70B9", "\u5907\u6CE8", "\u8003\u8BD5\u65F6\u95F4"
 			}
-		));
-		table_1.getColumnModel().getColumn(1).setResizable(false);
-		table_1.getColumnModel().getColumn(2).setResizable(false);
-		table_1.setBounds(83, 60, 722, 200);
-		panel_courseSelect_courseList.add(table_1);
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true, true, true, true, true, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_courseList.getColumnModel().getColumn(1).setResizable(false);
+		table_courseList.getColumnModel().getColumn(2).setResizable(false);
+		table_courseList.setBounds(80, 141, 722, 200);
+		panel_courseSelect_courseList.add(table_courseList);
+		
+		JLabel lblNewLabel_5 = new JLabel("开 课 列 表");
+		lblNewLabel_5.setFont(new Font("宋体", Font.BOLD, 25));
+		lblNewLabel_5.setBounds(349, 97, 226, 31);
+		panel_courseSelect_courseList.add(lblNewLabel_5);
+		
+		table_2 = new JTable();
+		table_2.setBounds(80, 86, 722, 55);
+		panel_courseSelect_courseList.add(table_2);
 		
 		JPanel panel_courseSelect_courseSelected = new JPanel();
 		panel.add(panel_courseSelect_courseSelected);
 		panel_courseSelect_courseSelected.setLayout(null);
 		
 		JButton button_4 = new JButton("退课");
-		button_4.setBounds(91, 109, 72, 27);
+		button_4.setBounds(90, 188, 72, 27);
 		panel_courseSelect_courseSelected.add(button_4);
 		
 		JButton button_5 = new JButton("退课");
-		button_5.setBounds(91, 149, 72, 27);
+		button_5.setBounds(90, 228, 72, 27);
 		panel_courseSelect_courseSelected.add(button_5);
 		
 		JButton button_6 = new JButton("退课");
-		button_6.setBounds(91, 189, 72, 27);
+		button_6.setBounds(90, 268, 72, 27);
 		panel_courseSelect_courseSelected.add(button_6);
 		
 		JButton button_7 = new JButton("退课");
-		button_7.setBounds(91, 229, 72, 27);
+		button_7.setBounds(90, 308, 72, 27);
 		panel_courseSelect_courseSelected.add(button_7);
 		
-		table_2 = new JTable();
-		table_2.setFont(new Font("宋体", Font.BOLD, 20));
-		table_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_2.setRowHeight(40);//指定每一行的行高40
-		table_2.setModel(new DefaultTableModel(
+		table_courseSelected = new JTable();
+		table_courseSelected.setFont(new Font("宋体", Font.BOLD, 20));
+		table_courseSelected.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_courseSelected.setRowHeight(40);//指定每一行的行高40
+		table_courseSelected.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"  \u72B6\u6001", "\u8BFE\u7A0B\u7F16\u53F7", "\u8BFE\u7A0B\u540D", "\u5B66\u5206", "\u65F6\u95F4", "\u5730\u70B9", "\u5907\u6CE8", "\u8003\u8BD5\u65F6\u95F4"},
 				{null, null, null, null, null, null, null, null},
@@ -572,10 +655,27 @@ public class MyDemo {
 			new String[] {
 				"\u72B6\u6001", "\u8BFE\u7A0B\u7F16\u53F7", "\u8BFE\u7A0B\u540D", "\u5B66\u5206", "\u65F6\u95F4", "\u5730\u70B9", "\u5907\u6CE8", "\u8003\u8BD5\u65F6\u95F4"
 			}
-		));
-		table_2.setFont(new Font("宋体", Font.BOLD, 20));
-		table_2.setBounds(83, 60, 722, 200);
-		panel_courseSelect_courseSelected.add(table_2);
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true, true, true, true, true, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_courseSelected.setFont(new Font("宋体", Font.BOLD, 20));
+		table_courseSelected.setBounds(80, 141, 722, 200);
+		panel_courseSelect_courseSelected.add(table_courseSelected);
+		
+		JLabel label_7 = new JLabel("已 选 课 程");
+		label_7.setFont(new Font("宋体", Font.BOLD, 25));
+		label_7.setBounds(349, 97, 226, 31);
+		panel_courseSelect_courseSelected.add(label_7);
+		
+		table_1 = new JTable();
+		table_1.setBorder(new CompoundBorder());
+		table_1.setBounds(80, 86, 722, 55);
+		panel_courseSelect_courseSelected.add(table_1);
 		
 		// 查询选课界面的“查询”按钮
 		button_query.addMouseListener(new MouseAdapter() {
@@ -775,7 +875,7 @@ public class MyDemo {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				panel.removeAll();
-				panel.add(panel_logOut);
+				panel.add(panel_logIn);
 				panel.updateUI();
 			}
 		});
