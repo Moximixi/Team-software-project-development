@@ -98,6 +98,14 @@ public class MyDemo {
 		panel_homePage.add(label);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("校内通知");
+		rdbtnNewRadioButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//panel.removeAll();
+				//panel.add(panel_SchoolNotice);
+				//panel.updateUI();
+			}
+		});
 		buttonGroup.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setBounds(130, 40, 80, 35);
 		panel_homePage.add(rdbtnNewRadioButton);
@@ -198,12 +206,6 @@ public class MyDemo {
 		panel_homePage.add(panel_SchoolForum);
 		panel_SchoolForum.setLayout(null);
 		
-		JTextPane textPane_8 = new JTextPane();
-		textPane_8.setBounds(0, 0, 114, 27);
-		textPane_8.setText("学校论坛");
-		textPane_8.setFont(new Font("宋体", Font.PLAIN, 18));
-		panel_SchoolForum.add(textPane_8);
-		
 		JButton button_11 = new JButton("进入论坛");
 		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -211,6 +213,11 @@ public class MyDemo {
 		});
 		button_11.setBounds(207, 141, 93, 23);
 		panel_SchoolForum.add(button_11);
+		
+		JLabel lblNewLabel_4 = new JLabel("学校论坛");
+		lblNewLabel_4.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel_4.setBounds(0, 0, 114, 27);
+		panel_SchoolForum.add(lblNewLabel_4);
 		
 		JPanel panel_SchoolNotice = new JPanel();
 		panel_SchoolNotice.setLayout(null);
