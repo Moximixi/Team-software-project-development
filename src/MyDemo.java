@@ -29,6 +29,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
+import java.awt.Panel;
 
 public class MyDemo {
 	
@@ -52,6 +54,7 @@ public class MyDemo {
 	private JTable table_6;
 	private JTable table_7;
 	private JTable table_8;
+	private JTable table_9;
 
 	/**
 	 * Launch the application.
@@ -657,10 +660,65 @@ public class MyDemo {
 		panel_search = new JPanel();
 		panel.add(panel_search);
 		
+		//个人信息界面
 		JPanel panel_userInfo;
 		panel_userInfo = new JPanel();
+		panel_userInfo.setLayout(null);//自由移动
 		panel.add(panel_userInfo);
 		
+		table_9 = new JTable();
+		table_9.setSize(400, 200);
+		table_9.setLocation(439, 54);
+		table_9.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u7F51\u7AD9", "\u767B\u5F55\u540D", "\u5BC6\u7801"},
+				{"电费", 2016003322, 0033222},
+				{"教务处", 2016003322, 0033222},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		));
+		
+		JButton button12 = new JButton("保存");
+		button12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button12.setFont(new Font("宋体", Font.PLAIN, 14));
+		button12.setBounds(371, 381, 72, 27);
+		panel_userInfo.add(button12);
+		
+		panel_courseSelect_courseList.add(button);
+		panel_userInfo.add(table_9);
+		
+		JLabel lblNewLabel_5 = new JLabel("姓名：王小二");
+		lblNewLabel_5.setBounds(41, 89, 100, 16);
+		panel_userInfo.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("学号：2016003322");
+		lblNewLabel_6.setBounds(41, 128, 200, 16);
+		panel_userInfo.add(lblNewLabel_6);
+		
+		JLabel label_4 = new JLabel("性别：男");
+		label_4.setBounds(41, 165, 200, 16);
+		panel_userInfo.add(label_4);
+		
+		JLabel label_5 = new JLabel("出生日期：19980426");
+		label_5.setBounds(41, 200, 200, 16);
+		panel_userInfo.add(label_5);
+		
+		//登出界面
 		JPanel panel_logOut;
 		panel_logOut = new JPanel();
 		panel.add(panel_logOut);
@@ -769,6 +827,17 @@ public class MyDemo {
 			}
 		});
 		menuBar.add(menu_userInfo);
+			
+		JMenu menu = new JMenu("用户个人信息");
+		menu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				panel.removeAll();
+				panel.add(panel_userInfo);
+				panel.updateUI();
+			}
+		});
+		menuBar.add(menu);
 		
 		JMenu menu_logOut = new JMenu("注销");
 		menu_logOut.addMouseListener(new MouseAdapter() {
@@ -780,6 +849,7 @@ public class MyDemo {
 			}
 		});
 		menuBar.add(menu_logOut);
+		
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
 	}
