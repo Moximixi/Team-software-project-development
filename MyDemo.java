@@ -1,3 +1,5 @@
+package test;
+
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
@@ -10,13 +12,21 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollBar;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+
 import javax.swing.JTextPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.ibm.icu.util.Calendar;
 
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -25,8 +35,13 @@ import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class MyDemo {
 	
@@ -49,6 +64,7 @@ public class MyDemo {
 	private JTable table_5;
 	private JTable table_6;
 	private JTable table_7;
+	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -482,12 +498,231 @@ public class MyDemo {
 		trainpan_table.setBackground(SystemColor.textHighlightText);
 		panel_trainPlan.add(trainpan_table);
 		
-		JPanel panel_document = new JPanel();
+		
+		JPanel panel_document;
+		panel_document = new JPanel();
 		panel.add(panel_document);
+		JPanel panel_application;
+		panel_application = new JPanel();
+		panel.add(panel_application);
+		
+		JLabel label_6 = new JLabel("\u8BF7\u5047\u539F\u56E0");
+		label_6.setFont(new Font("华文行楷", Font.PLAIN, 18));
+		
+		JLabel label_5 = new JLabel("\u8BF7\u5047\u65F6\u95F4");
+		label_5.setFont(new Font("华文行楷", Font.PLAIN, 18));
+		
+		JLabel label_4 = new JLabel("\u5B66\u53F7");
+		label_4.setFont(new Font("华文行楷", Font.PLAIN, 18));
+		
+		JLabel label_31 = new JLabel("\u59D3\u540D");
+		label_31.setFont(new Font("华文行楷", Font.PLAIN, 18));
+		
+		JLabel label_21 = new JLabel("\u8BF7\u5047\u6761");
+		label_21.setFont(new Font("华文行楷", Font.PLAIN, 26));
+		
+		JTextField textField = new JTextField();
+		textField.setColumns(10);
+		
+		JTextField textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		spinner.setModel(new SpinnerDateModel(new Date(1555948800000L), null, null, Calendar.DAY_OF_MONTH));
+		
+		JLabel label_7 = new JLabel("\u2014\u2014");
+		
+		JSpinner spinner_1 = new JSpinner();
+		spinner_1.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		spinner_1.setModel(new SpinnerDateModel(new Date(1555948800000L), null, null, Calendar.DAY_OF_YEAR));
+		
+		JEditorPane editorPane = new JEditorPane();
+		GroupLayout gl_panel_application = new GroupLayout(panel_application);
+		gl_panel_application.setHorizontalGroup(
+			gl_panel_application.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_application.createSequentialGroup()
+					.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_application.createSequentialGroup()
+							.addGap(259)
+							.addComponent(label_21))
+						.addGroup(gl_panel_application.createSequentialGroup()
+							.addGap(42)
+							.addGroup(gl_panel_application.createParallelGroup(Alignment.TRAILING)
+								.addComponent(label_6)
+								.addComponent(label_5))
+							.addGap(18)
+							.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_application.createSequentialGroup()
+									.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_application.createSequentialGroup()
+											.addGap(13)
+											.addComponent(label_31)
+											.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+											.addComponent(textField, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+										.addComponent(spinner, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+									.addGap(23)
+									.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+										.addGroup(Alignment.TRAILING, gl_panel_application.createSequentialGroup()
+											.addComponent(label_4)
+											.addGap(18)
+											.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+											.addGap(112))
+										.addGroup(Alignment.TRAILING, gl_panel_application.createSequentialGroup()
+											.addComponent(label_7)
+											.addGap(38)
+											.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+											.addGap(68)))
+									.addGap(146))
+								.addComponent(editorPane, GroupLayout.PREFERRED_SIZE, 374, GroupLayout.PREFERRED_SIZE))))
+					.addGap(187))
+		);
+		gl_panel_application.setVerticalGroup(
+			gl_panel_application.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_application.createSequentialGroup()
+					.addContainerGap(13, Short.MAX_VALUE)
+					.addComponent(label_21)
+					.addGap(24)
+					.addGroup(gl_panel_application.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label_31)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_4)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(31)
+					.addGroup(gl_panel_application.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label_7)
+						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_5)
+						.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_application.createSequentialGroup()
+							.addGap(45)
+							.addComponent(label_6))
+						.addGroup(gl_panel_application.createSequentialGroup()
+							.addGap(30)
+							.addComponent(editorPane, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(166, Short.MAX_VALUE))
+		);
+		panel_application.setLayout(gl_panel_application);
+		
+		JLabel label1 = new JLabel("\u6700\u8FD1\u4F7F\u7528");
+		label1.setFont(new Font("华文行楷", Font.PLAIN, 20));
+		label1.setHorizontalAlignment(SwingConstants.LEFT);
+		label1.setVerticalAlignment(SwingConstants.TOP);
+		
+		String[] recentDoc={"请假条.doc","课程替换申请.doc","补选课申请.doc"};
+		JComboBox comboBox_1 = new JComboBox(recentDoc);
+		comboBox_1.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		comboBox_1.setToolTipText("");
+		
+		JButton button1 = new JButton("\u6253\u5F00");
+		button1.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		button1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(panel_application);
+				panel.updateUI();
+			}
+		});
+		button1.setVerticalAlignment(SwingConstants.BOTTOM);
+		
+		JLabel label_11 = new JLabel("\u5168\u90E8\u6587\u6863");
+		label_11.setFont(new Font("华文行楷", Font.PLAIN, 20));
+		label_11.setHorizontalAlignment(SwingConstants.LEFT);
+		label_11.setVerticalAlignment(SwingConstants.BOTTOM);
+		
+		String[] allDoc={"请假条.doc","奖学金申请.doc","课程替换申请.doc","补选课申请.doc","创新学分申请.doc","转专业申请.doc"};
+		JComboBox comboBox = new JComboBox(allDoc);
+		comboBox.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		comboBox.setToolTipText("");
+		
+		JButton button_111 = new JButton("\u6253\u5F00");
+		button_111.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		GroupLayout gl_panel_document = new GroupLayout(panel_document);
+		gl_panel_document.setHorizontalGroup(
+			gl_panel_document.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_document.createSequentialGroup()
+					.addGap(46)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.TRAILING)
+						.addComponent(label1)
+						.addComponent(label_11))
+					.addGap(18)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(comboBox_1, 0, 178, Short.MAX_VALUE))
+					.addGap(18)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.LEADING)
+						.addComponent(button1)
+						.addComponent(button_111))
+					.addGap(507))
+		);
+		gl_panel_document.setVerticalGroup(
+			gl_panel_document.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_document.createSequentialGroup()
+					.addGap(63)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button1)
+						.addComponent(label1))
+					.addGap(67)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_111)
+						.addComponent(label_11))
+					.addContainerGap(305, Short.MAX_VALUE))
+		);
+		panel_document.setLayout(gl_panel_document);
 		
 		JPanel panel_search;
 		panel_search = new JPanel();
 		panel.add(panel_search);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		
+		JButton button_12 = new JButton("搜索");
+		button_12.setFont(new Font("华文行楷", Font.PLAIN, 14));
+		
+		JLabel lblCongratulationsyouGetNothing = new JLabel("Congratulations!");
+		lblCongratulationsyouGetNothing.setFont(new Font("华文行楷", Font.PLAIN, 26));
+		
+		JLabel lblWeGetNothing = new JLabel("We get nothing for you,so find out by yourself.");
+		lblWeGetNothing.setFont(new Font("华文行楷", Font.PLAIN, 26));
+		GroupLayout gl_panel_search = new GroupLayout(panel_search);
+		gl_panel_search.setHorizontalGroup(
+			gl_panel_search.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_search.createSequentialGroup()
+					.addGap(49)
+					.addGroup(gl_panel_search.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblCongratulationsyouGetNothing)
+						.addComponent(lblWeGetNothing))
+					.addGap(28)
+					.addGroup(gl_panel_search.createParallelGroup(Alignment.TRAILING)
+						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_12, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(134, Short.MAX_VALUE))
+		);
+		gl_panel_search.setVerticalGroup(
+			gl_panel_search.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_search.createSequentialGroup()
+					.addGroup(gl_panel_search.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_search.createSequentialGroup()
+							.addGap(64)
+							.addComponent(lblCongratulationsyouGetNothing))
+						.addGroup(gl_panel_search.createSequentialGroup()
+							.addGap(63)
+							.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
+					.addGroup(gl_panel_search.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_search.createSequentialGroup()
+							.addGap(34)
+							.addComponent(lblWeGetNothing))
+						.addGroup(gl_panel_search.createSequentialGroup()
+							.addGap(18)
+							.addComponent(button_12, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+					.addGap(325))
+		);
+		panel_search.setLayout(gl_panel_search);
 		
 		JPanel panel_userInfo;
 		panel_userInfo = new JPanel();
@@ -572,7 +807,7 @@ public class MyDemo {
 		JMenu menu_document = new JMenu("文档应用");
 		menu_document.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
 				panel.add(panel_document);
 				panel.updateUI();
