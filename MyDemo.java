@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.CardLayout;
@@ -28,7 +29,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MyDemo {
-	//
 	private JFrame frame;
 	private JPanel panel_search;
 	private JPanel panel_userInfo;
@@ -87,11 +87,10 @@ public class MyDemo {
 		panel.add(panel_homePage);
 		panel_homePage.setLayout(null);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setFont(new Font("宋体", Font.PLAIN, 18));
-		textPane.setText("全部通知");
-		textPane.setBounds(40, 40, 80, 30);
-		panel_homePage.add(textPane);
+		JLabel label = new JLabel("全部通知");
+		label.setFont(new Font("宋体", Font.PLAIN, 18));
+		label.setBounds(40, 40, 80, 30);
+		panel_homePage.add(label);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("校内通知");
 		buttonGroup.add(rdbtnNewRadioButton);
@@ -140,48 +139,6 @@ public class MyDemo {
 		panel_homePage.add(panel_RelativeInformation);
 		panel_RelativeInformation.setLayout(null);
 		
-		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setBounds(0, 0, 114, 27);
-		textPane_1.setText("个人相关信息");
-		textPane_1.setFont(new Font("宋体", Font.PLAIN, 18));
-		panel_RelativeInformation.add(textPane_1);
-		
-		JTextPane textPane_2 = new JTextPane();
-		textPane_2.setText("一卡通");
-		textPane_2.setFont(new Font("宋体", Font.PLAIN, 18));
-		textPane_2.setBounds(0, 74, 60, 27);
-		panel_RelativeInformation.add(textPane_2);
-		
-		JTextPane textPane_3 = new JTextPane();
-		textPane_3.setText("电  费");
-		textPane_3.setFont(new Font("宋体", Font.PLAIN, 18));
-		textPane_3.setBounds(0, 155, 60, 27);
-		panel_RelativeInformation.add(textPane_3);
-		
-		JTextPane textPane_4 = new JTextPane();
-		textPane_4.setText("余额：80元");
-		textPane_4.setFont(new Font("宋体", Font.PLAIN, 12));
-		textPane_4.setBounds(70, 55, 96, 27);
-		panel_RelativeInformation.add(textPane_4);
-		
-		JTextPane textPane_5 = new JTextPane();
-		textPane_5.setText("余额：190元");
-		textPane_5.setFont(new Font("宋体", Font.PLAIN, 12));
-		textPane_5.setBounds(70, 141, 96, 27);
-		panel_RelativeInformation.add(textPane_5);
-		
-		JTextPane textPane_6 = new JTextPane();
-		textPane_6.setText("账号状态：正常");
-		textPane_6.setFont(new Font("宋体", Font.PLAIN, 12));
-		textPane_6.setBounds(70, 86, 96, 27);
-		panel_RelativeInformation.add(textPane_6);
-		
-		JTextPane textPane_7 = new JTextPane();
-		textPane_7.setText("使用情况：正常");
-		textPane_7.setFont(new Font("宋体", Font.PLAIN, 12));
-		textPane_7.setBounds(70, 166, 96, 27);
-		panel_RelativeInformation.add(textPane_7);
-		
 		JButton btnNewButton = new JButton("充值");
 		btnNewButton.setBounds(197, 55, 93, 23);
 		panel_RelativeInformation.add(btnNewButton);
@@ -197,6 +154,39 @@ public class MyDemo {
 		JButton button_10 = new JButton("查看记录");
 		button_10.setBounds(197, 166, 93, 23);
 		panel_RelativeInformation.add(button_10);
+		
+		JLabel lblNewLabel = new JLabel("个人相关信息");
+		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel.setBounds(0, 0, 114, 27);
+		panel_RelativeInformation.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("一卡通");
+		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 18));
+		lblNewLabel_1.setBounds(0, 74, 60, 27);
+		panel_RelativeInformation.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("余额：80元");
+		lblNewLabel_2.setFont(new Font("宋体", Font.PLAIN, 12));
+		lblNewLabel_2.setBounds(70, 55, 96, 27);
+		panel_RelativeInformation.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("账号状态:正常");
+		lblNewLabel_3.setBounds(70, 84, 86, 27);
+		panel_RelativeInformation.add(lblNewLabel_3);
+		
+		JLabel label_1 = new JLabel("电  费");
+		label_1.setFont(new Font("宋体", Font.PLAIN, 18));
+		label_1.setBounds(0, 149, 60, 27);
+		panel_RelativeInformation.add(label_1);
+		
+		JLabel label_2 = new JLabel("余额：190元");
+		label_2.setFont(new Font("宋体", Font.PLAIN, 12));
+		label_2.setBounds(70, 137, 96, 27);
+		panel_RelativeInformation.add(label_2);
+		
+		JLabel label_3 = new JLabel("使用情况:正常");
+		label_3.setBounds(70, 166, 86, 27);
+		panel_RelativeInformation.add(label_3);
 		
 		JPanel panel_SchoolForum = new JPanel();
 		panel_SchoolForum.setBounds(567, 282, 300, 174);
