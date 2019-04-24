@@ -92,43 +92,92 @@ public class MyDemo {
 		panel.add(panel_homePage);
 		panel_homePage.setLayout(null);
 		
+		JPanel panel_AllNotice = new JPanel();
+		panel_AllNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_AllNotice);
+		panel_AllNotice.setLayout(null);
+		
+		JPanel panel_CollegeNotice = new JPanel();
+		panel_CollegeNotice.setLayout(null);
+		panel_CollegeNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_CollegeNotice);
+		
+		JPanel panel_AdministrationNotice = new JPanel();
+		panel_AdministrationNotice.setLayout(null);
+		panel_AdministrationNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_AdministrationNotice);
+		
+		JPanel panel_EmploymentNotice = new JPanel();
+		panel_EmploymentNotice.setLayout(null);
+		panel_EmploymentNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_EmploymentNotice);
+		
+		JPanel panel_SchoolNotice = new JPanel();
+		panel_SchoolNotice.setLayout(null);
+		panel_SchoolNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_SchoolNotice);
+		
 		JLabel label = new JLabel("全部通知");
 		label.setFont(new Font("宋体", Font.PLAIN, 18));
 		label.setBounds(40, 40, 80, 30);
 		panel_homePage.add(label);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("校内通知");
-		rdbtnNewRadioButton.addMouseListener(new MouseAdapter() {
+		JRadioButton SchoolNotice = new JRadioButton("校内通知");
+		SchoolNotice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//panel.removeAll();
-				//panel.add(panel_SchoolNotice);
-				//panel.updateUI();
+				panel.removeAll();
+				panel.add(panel_homePage);
+				panel_SchoolNotice.setVisible(true);
+				panel_AllNotice.setVisible(false);
+				panel_CollegeNotice.setVisible(false);
+				panel_EmploymentNotice.setVisible(false);
+				panel_AdministrationNotice.setVisible(false);
+				panel.updateUI();
 			}
 		});
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(130, 40, 80, 35);
-		panel_homePage.add(rdbtnNewRadioButton);
+		buttonGroup.add(SchoolNotice);
+		SchoolNotice.setBounds(130, 40, 80, 35);
+		panel_homePage.add(SchoolNotice);
 		
-		JRadioButton radioButton = new JRadioButton("学院通知");
-		buttonGroup.add(radioButton);
-		radioButton.setBounds(210, 40, 80, 35);
-		panel_homePage.add(radioButton);
+		JRadioButton CollegeNotice = new JRadioButton("学院通知");
+		CollegeNotice.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(panel_homePage);
+				panel_SchoolNotice.setVisible(false);
+				panel_AllNotice.setVisible(false);
+				panel_CollegeNotice.setVisible(true);
+				panel_EmploymentNotice.setVisible(false);
+				panel_AdministrationNotice.setVisible(false);
+				panel.updateUI();
+			}
+		});
+		buttonGroup.add(CollegeNotice);
+		CollegeNotice.setBounds(210, 40, 80, 35);
+		panel_homePage.add(CollegeNotice);
 		
-		JRadioButton radioButton_1 = new JRadioButton("学院通知");
-		buttonGroup.add(radioButton_1);
-		radioButton_1.setBounds(290, 40, 80, 35);
-		panel_homePage.add(radioButton_1);
+		JRadioButton EmploymentNotice = new JRadioButton("就业通知");
+		EmploymentNotice.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(panel_homePage);
+				panel_SchoolNotice.setVisible(false);
+				panel_AllNotice.setVisible(false);
+				panel_CollegeNotice.setVisible(false);
+				panel_EmploymentNotice.setVisible(true);
+				panel_AdministrationNotice.setVisible(false);
+				panel.updateUI();
+			}
+		});
+		buttonGroup.add(EmploymentNotice);
+		EmploymentNotice.setBounds(389, 40, 80, 35);
+		panel_homePage.add(EmploymentNotice);
 		
-		JRadioButton radioButton_2 = new JRadioButton("教务处通知");
-		buttonGroup.add(radioButton_2);
-		radioButton_2.setBounds(372, 40, 90, 35);
-		panel_homePage.add(radioButton_2);
 		
-		JPanel panel_AllNotice = new JPanel();
-		panel_AllNotice.setBounds(40, 86, 510, 370);
-		panel_homePage.add(panel_AllNotice);
-		panel_AllNotice.setLayout(null);
+		
 		
 		JScrollBar scrollBar = new JScrollBar();
 		scrollBar.setBounds(490, 0, 20, 370);
@@ -138,7 +187,8 @@ public class MyDemo {
 		table_3.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
-				{null, null, null},
+				{"1", "1", null},
+				{"1", "1", null},
 			},
 			new String[] {
 				"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"
@@ -219,57 +269,130 @@ public class MyDemo {
 		lblNewLabel_4.setBounds(0, 0, 114, 27);
 		panel_SchoolForum.add(lblNewLabel_4);
 		
-		JPanel panel_SchoolNotice = new JPanel();
-		panel_SchoolNotice.setLayout(null);
-		panel_SchoolNotice.setBounds(40, 86, 510, 370);
-		panel_homePage.add(panel_SchoolNotice);
+
 		
 		JScrollBar scrollBar_1 = new JScrollBar();
 		scrollBar_1.setBounds(490, 0, 20, 370);
 		panel_SchoolNotice.add(scrollBar_1);
 		
 		table_4 = new JTable();
+		table_4.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
+				{"2", "2", "2"},
+				{null, "2", null},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		));
 		table_4.setBounds(10, 20, 470, 350);
 		panel_SchoolNotice.add(table_4);
 		
-		JPanel panel_CollegeNotice = new JPanel();
+		/*JPanel panel_CollegeNotice = new JPanel();
 		panel_CollegeNotice.setLayout(null);
 		panel_CollegeNotice.setBounds(40, 86, 510, 370);
-		panel_homePage.add(panel_CollegeNotice);
+		panel_homePage.add(panel_CollegeNotice);*/
 		
 		JScrollBar scrollBar_2 = new JScrollBar();
 		scrollBar_2.setBounds(490, 0, 20, 370);
 		panel_CollegeNotice.add(scrollBar_2);
 		
 		table_5 = new JTable();
+		table_5.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", null},
+				{"33", "3333", null},
+				{"3", null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		));
 		table_5.setBounds(10, 20, 470, 350);
 		panel_CollegeNotice.add(table_5);
 		
-		JPanel panel_AdministrationNotice = new JPanel();
+		/*JPanel panel_AdministrationNotice = new JPanel();
 		panel_AdministrationNotice.setLayout(null);
 		panel_AdministrationNotice.setBounds(40, 86, 510, 370);
-		panel_homePage.add(panel_AdministrationNotice);
+		panel_homePage.add(panel_AdministrationNotice);*/
 		
 		JScrollBar scrollBar_3 = new JScrollBar();
 		scrollBar_3.setBounds(490, 0, 20, 370);
 		panel_AdministrationNotice.add(scrollBar_3);
 		
 		table_6 = new JTable();
+		table_6.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u901A\u77E5", "\u53D1\u5E03\u65F6\u95F4", "\u53D1\u5E03\u65F6\u95F4"},
+				{"44", "4", null},
+				{"4", null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		));
 		table_6.setBounds(10, 20, 470, 350);
 		panel_AdministrationNotice.add(table_6);
 		
-		JPanel panel_Employmentnotice = new JPanel();
+		/*JPanel panel_Employmentnotice = new JPanel();
 		panel_Employmentnotice.setLayout(null);
 		panel_Employmentnotice.setBounds(40, 86, 510, 370);
-		panel_homePage.add(panel_Employmentnotice);
+		panel_homePage.add(panel_Employmentnotice);*/
 		
 		JScrollBar scrollBar_4 = new JScrollBar();
 		scrollBar_4.setBounds(490, 0, 20, 370);
-		panel_Employmentnotice.add(scrollBar_4);
+		panel_EmploymentNotice.add(scrollBar_4);
 		
 		table_7 = new JTable();
+		table_7.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", null},
+				{"55", "555", null},
+				{null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		));
 		table_7.setBounds(10, 20, 470, 350);
-		panel_Employmentnotice.add(table_7);
+		panel_EmploymentNotice.add(table_7);
+		
+		JRadioButton AdministrationNotice = new JRadioButton("教务处通知");
+		AdministrationNotice.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				panel.removeAll();
+				panel.add(panel_homePage);
+				panel_SchoolNotice.setVisible(false);
+				panel_AllNotice.setVisible(false);
+				panel_CollegeNotice.setVisible(false);
+				panel_EmploymentNotice.setVisible(false);
+				panel_AdministrationNotice.setVisible(true);
+				panel.updateUI();
+			}
+		});
+		AdministrationNotice.setBounds(292, 40, 90, 35);
+		panel_homePage.add(AdministrationNotice);
+		buttonGroup.add(AdministrationNotice);
+		
+		JRadioButton AllNotice = new JRadioButton("全部通知");
+		buttonGroup.add(AllNotice);
+		AllNotice.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(panel_homePage);
+				panel_SchoolNotice.setVisible(false);
+				panel_AllNotice.setVisible(true);
+				panel_CollegeNotice.setVisible(false);
+				panel_EmploymentNotice.setVisible(false);
+				panel_AdministrationNotice.setVisible(false);
+				panel.updateUI();
+			}
+		});
+		AllNotice.setBounds(471, 40, 80, 35);
+		panel_homePage.add(AllNotice);
 		
 		JPanel panel_querySocres = new JPanel();
 		panel.add(panel_querySocres);
