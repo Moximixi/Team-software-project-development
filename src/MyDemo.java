@@ -187,8 +187,8 @@ public class MyDemo {
 		table_3.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
-				{"1", "1", null},
-				{"1", "1", null},
+				{"\u8FD9\u662F\u5168\u90E8\u901A\u77E5", "1", "1"},
+				{"\u8FD9\u662F\u5168\u90E8\u901A\u77E5", "1", null},
 			},
 			new String[] {
 				"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"
@@ -301,9 +301,9 @@ public class MyDemo {
 		table_5 = new JTable();
 		table_5.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", null},
-				{"33", "3333", null},
-				{"3", null, null},
+				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
+				{"\u5B66\u9662\u901A\u77E5", "3333", "3"},
+				{"\u5B66\u9662\u901A\u77E5", null, null},
 			},
 			new String[] {
 				"New column", "New column", "New column"
@@ -325,8 +325,8 @@ public class MyDemo {
 		table_6.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u65F6\u95F4", "\u53D1\u5E03\u65F6\u95F4"},
-				{"44", "4", null},
-				{"4", null, null},
+				{"\u6559\u52A1\u5904\u901A\u77E5", "4", null},
+				{"4", null, "4"},
 			},
 			new String[] {
 				"New column", "New column", "New column"
@@ -347,9 +347,9 @@ public class MyDemo {
 		table_7 = new JTable();
 		table_7.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", null},
+				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
 				{"55", "555", null},
-				{null, null, null},
+				{null, null, ""},
 			},
 			new String[] {
 				"New column", "New column", "New column"
