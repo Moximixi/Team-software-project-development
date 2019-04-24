@@ -59,6 +59,9 @@ public class MyDemo {
 	private JTextField textField_1;
 	private JTable table_1;
 	private JTable table_2;
+	
+	public JLabel label_logIn = new JLabel("自助管理系统登录");
+	
 
 	/**
 	 * Launch the application.
@@ -115,11 +118,11 @@ public class MyDemo {
 		lblJnu.setBounds(14, 13, 75, 30);
 		panel_1.add(lblJnu);
 		
-		JLabel label_4 = new JLabel("自助管理系统登录");
-		label_4.setForeground(SystemColor.controlDkShadow);
-		label_4.setFont(new Font("宋体", Font.BOLD, 20));
-		label_4.setBounds(61, 21, 218, 18);
-		panel_1.add(label_4);
+		//JLabel label_4 = new JLabel("自助管理系统登录");
+		label_logIn.setForeground(SystemColor.controlDkShadow);
+		label_logIn.setFont(new Font("宋体", Font.BOLD, 20));
+		label_logIn.setBounds(61, 21, 218, 18);
+		panel_1.add(label_logIn);
 		
 		textField = new JTextField();
 		textField.setBounds(193, 97, 205, 24);
