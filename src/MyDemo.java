@@ -27,6 +27,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class MyDemo {
 	
@@ -49,6 +51,7 @@ public class MyDemo {
 	private JTable table_5;
 	private JTable table_6;
 	private JTable table_7;
+	private JTable table_8;
 
 	/**
 	 * Launch the application.
@@ -263,6 +266,40 @@ public class MyDemo {
 		
 		JPanel panel_querySocres = new JPanel();
 		panel.add(panel_querySocres);
+		panel_querySocres.setLayout(null);
+		
+		table_8 = new JTable();
+		table_8.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u8BFE\u7A0B", "\u6210\u7EE9"},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"\u8BFE\u7A0B", "\u6210\u7EE9"
+			}
+		));
+		table_8.setBounds(62, 34, 595, 208);
+		panel_querySocres.add(table_8);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"选择成绩", "大一上学期", "大一下学期", "大二上学期", "大二下学期", "大三上学期", "大三下学期", "大四上学期", "大四下学期"}));
+		comboBox.setBounds(122, 322, 184, 21);
+		panel_querySocres.add(comboBox);
+		
+		JButton button_12 = new JButton("查询");
+		button_12.setBounds(389, 321, 112, 23);
+		panel_querySocres.add(button_12);
 		
 		//选课
 		JPanel panel_courseSelect_queryCourse = new JPanel();
@@ -516,7 +553,7 @@ public class MyDemo {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				panel.removeAll();
-				panel.add(panel_courseSelect_queryCourse);
+				panel.add(panel_querySocres);
 				panel.updateUI();
 			}
 		});
