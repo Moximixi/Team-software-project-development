@@ -140,6 +140,7 @@ public class MyDemo {
 		SchoolNotice.setBounds(130, 40, 80, 35);
 		panel_homePage.add(SchoolNotice);
 		
+		
 		JRadioButton CollegeNotice = new JRadioButton("学院通知");
 		CollegeNotice.addMouseListener(new MouseAdapter() {
 			@Override
