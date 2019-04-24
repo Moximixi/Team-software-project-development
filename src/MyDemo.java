@@ -199,7 +199,7 @@ public class MyDemo {
 		panel_AllNotice.add(table_3);
 		
 		JPanel panel_RelativeInformation = new JPanel();
-		panel_RelativeInformation.setBounds(570, 40, 300, 231);
+		panel_RelativeInformation.setBounds(580, 40, 290, 231);
 		panel_homePage.add(panel_RelativeInformation);
 		panel_RelativeInformation.setLayout(null);
 		
@@ -253,7 +253,7 @@ public class MyDemo {
 		panel_RelativeInformation.add(label_3);
 		
 		JPanel panel_SchoolForum = new JPanel();
-		panel_SchoolForum.setBounds(567, 282, 300, 174);
+		panel_SchoolForum.setBounds(580, 282, 290, 174);
 		panel_homePage.add(panel_SchoolForum);
 		panel_SchoolForum.setLayout(null);
 		
@@ -262,7 +262,7 @@ public class MyDemo {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		button_11.setBounds(207, 141, 93, 23);
+		button_11.setBounds(197, 141, 93, 23);
 		panel_SchoolForum.add(button_11);
 		
 		JLabel lblNewLabel_4 = new JLabel("学校论坛");
