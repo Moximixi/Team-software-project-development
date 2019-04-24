@@ -7,6 +7,8 @@ import javax.swing.JMenu;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.JMenuItem;
 import java.awt.event.MouseAdapter;
@@ -20,12 +22,13 @@ import java.awt.Rectangle;
 import java.awt.SystemColor;
 
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MyDemo {
-
+	//
 	private JFrame frame;
 	private JPanel panel_search;
 	private JPanel panel_userInfo;
@@ -38,6 +41,12 @@ public class MyDemo {
 	private JTextField textField_courseCollege;
 	private JTable table_1;
 	private JTable table_2;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTable table_3;
+	private JTable table_4;
+	private JTable table_5;
+	private JTable table_6;
+	private JTable table_7;
 
 	/**
 	 * Launch the application.
@@ -76,6 +85,189 @@ public class MyDemo {
 		
 		JPanel panel_homePage = new JPanel();
 		panel.add(panel_homePage);
+		panel_homePage.setLayout(null);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setFont(new Font("宋体", Font.PLAIN, 18));
+		textPane.setText("全部通知");
+		textPane.setBounds(40, 40, 80, 30);
+		panel_homePage.add(textPane);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("校内通知");
+		buttonGroup.add(rdbtnNewRadioButton);
+		rdbtnNewRadioButton.setBounds(130, 40, 80, 35);
+		panel_homePage.add(rdbtnNewRadioButton);
+		
+		JRadioButton radioButton = new JRadioButton("学院通知");
+		buttonGroup.add(radioButton);
+		radioButton.setBounds(210, 40, 80, 35);
+		panel_homePage.add(radioButton);
+		
+		JRadioButton radioButton_1 = new JRadioButton("学院通知");
+		buttonGroup.add(radioButton_1);
+		radioButton_1.setBounds(290, 40, 80, 35);
+		panel_homePage.add(radioButton_1);
+		
+		JRadioButton radioButton_2 = new JRadioButton("教务处通知");
+		buttonGroup.add(radioButton_2);
+		radioButton_2.setBounds(372, 40, 90, 35);
+		panel_homePage.add(radioButton_2);
+		
+		JPanel panel_AllNotice = new JPanel();
+		panel_AllNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_AllNotice);
+		panel_AllNotice.setLayout(null);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBounds(490, 0, 20, 370);
+		panel_AllNotice.add(scrollBar);
+		
+		table_3 = new JTable();
+		table_3.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
+				{null, null, null},
+			},
+			new String[] {
+				"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"
+			}
+		));
+		table_3.setBounds(10, 20, 470, 350);
+		panel_AllNotice.add(table_3);
+		
+		JPanel panel_RelativeInformation = new JPanel();
+		panel_RelativeInformation.setBounds(570, 40, 300, 231);
+		panel_homePage.add(panel_RelativeInformation);
+		panel_RelativeInformation.setLayout(null);
+		
+		JTextPane textPane_1 = new JTextPane();
+		textPane_1.setBounds(0, 0, 114, 27);
+		textPane_1.setText("个人相关信息");
+		textPane_1.setFont(new Font("宋体", Font.PLAIN, 18));
+		panel_RelativeInformation.add(textPane_1);
+		
+		JTextPane textPane_2 = new JTextPane();
+		textPane_2.setText("一卡通");
+		textPane_2.setFont(new Font("宋体", Font.PLAIN, 18));
+		textPane_2.setBounds(0, 74, 60, 27);
+		panel_RelativeInformation.add(textPane_2);
+		
+		JTextPane textPane_3 = new JTextPane();
+		textPane_3.setText("电  费");
+		textPane_3.setFont(new Font("宋体", Font.PLAIN, 18));
+		textPane_3.setBounds(0, 155, 60, 27);
+		panel_RelativeInformation.add(textPane_3);
+		
+		JTextPane textPane_4 = new JTextPane();
+		textPane_4.setText("余额：80元");
+		textPane_4.setFont(new Font("宋体", Font.PLAIN, 12));
+		textPane_4.setBounds(70, 55, 96, 27);
+		panel_RelativeInformation.add(textPane_4);
+		
+		JTextPane textPane_5 = new JTextPane();
+		textPane_5.setText("余额：190元");
+		textPane_5.setFont(new Font("宋体", Font.PLAIN, 12));
+		textPane_5.setBounds(70, 141, 96, 27);
+		panel_RelativeInformation.add(textPane_5);
+		
+		JTextPane textPane_6 = new JTextPane();
+		textPane_6.setText("账号状态：正常");
+		textPane_6.setFont(new Font("宋体", Font.PLAIN, 12));
+		textPane_6.setBounds(70, 86, 96, 27);
+		panel_RelativeInformation.add(textPane_6);
+		
+		JTextPane textPane_7 = new JTextPane();
+		textPane_7.setText("使用情况：正常");
+		textPane_7.setFont(new Font("宋体", Font.PLAIN, 12));
+		textPane_7.setBounds(70, 166, 96, 27);
+		panel_RelativeInformation.add(textPane_7);
+		
+		JButton btnNewButton = new JButton("充值");
+		btnNewButton.setBounds(197, 55, 93, 23);
+		panel_RelativeInformation.add(btnNewButton);
+		
+		JButton button_8 = new JButton("挂失");
+		button_8.setBounds(197, 86, 93, 23);
+		panel_RelativeInformation.add(button_8);
+		
+		JButton button_9 = new JButton("充值");
+		button_9.setBounds(197, 141, 93, 23);
+		panel_RelativeInformation.add(button_9);
+		
+		JButton button_10 = new JButton("查看记录");
+		button_10.setBounds(197, 166, 93, 23);
+		panel_RelativeInformation.add(button_10);
+		
+		JPanel panel_SchoolForum = new JPanel();
+		panel_SchoolForum.setBounds(567, 282, 300, 174);
+		panel_homePage.add(panel_SchoolForum);
+		panel_SchoolForum.setLayout(null);
+		
+		JTextPane textPane_8 = new JTextPane();
+		textPane_8.setBounds(0, 0, 114, 27);
+		textPane_8.setText("学校论坛");
+		textPane_8.setFont(new Font("宋体", Font.PLAIN, 18));
+		panel_SchoolForum.add(textPane_8);
+		
+		JButton button_11 = new JButton("进入论坛");
+		button_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		button_11.setBounds(207, 141, 93, 23);
+		panel_SchoolForum.add(button_11);
+		
+		JPanel panel_SchoolNotice = new JPanel();
+		panel_SchoolNotice.setLayout(null);
+		panel_SchoolNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_SchoolNotice);
+		
+		JScrollBar scrollBar_1 = new JScrollBar();
+		scrollBar_1.setBounds(490, 0, 20, 370);
+		panel_SchoolNotice.add(scrollBar_1);
+		
+		table_4 = new JTable();
+		table_4.setBounds(10, 20, 470, 350);
+		panel_SchoolNotice.add(table_4);
+		
+		JPanel panel_CollegeNotice = new JPanel();
+		panel_CollegeNotice.setLayout(null);
+		panel_CollegeNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_CollegeNotice);
+		
+		JScrollBar scrollBar_2 = new JScrollBar();
+		scrollBar_2.setBounds(490, 0, 20, 370);
+		panel_CollegeNotice.add(scrollBar_2);
+		
+		table_5 = new JTable();
+		table_5.setBounds(10, 20, 470, 350);
+		panel_CollegeNotice.add(table_5);
+		
+		JPanel panel_AdministrationNotice = new JPanel();
+		panel_AdministrationNotice.setLayout(null);
+		panel_AdministrationNotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_AdministrationNotice);
+		
+		JScrollBar scrollBar_3 = new JScrollBar();
+		scrollBar_3.setBounds(490, 0, 20, 370);
+		panel_AdministrationNotice.add(scrollBar_3);
+		
+		table_6 = new JTable();
+		table_6.setBounds(10, 20, 470, 350);
+		panel_AdministrationNotice.add(table_6);
+		
+		JPanel panel_Employmentnotice = new JPanel();
+		panel_Employmentnotice.setLayout(null);
+		panel_Employmentnotice.setBounds(40, 86, 510, 370);
+		panel_homePage.add(panel_Employmentnotice);
+		
+		JScrollBar scrollBar_4 = new JScrollBar();
+		scrollBar_4.setBounds(490, 0, 20, 370);
+		panel_Employmentnotice.add(scrollBar_4);
+		
+		table_7 = new JTable();
+		table_7.setBounds(10, 20, 470, 350);
+		panel_Employmentnotice.add(table_7);
 		
 		JPanel panel_querySocres = new JPanel();
 		panel.add(panel_querySocres);
@@ -316,7 +508,7 @@ public class MyDemo {
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu menu_homePage = new JMenu("我的首页");
+		JMenu menu_homePage = new JMenu("校园生活");
 		menu_homePage.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
