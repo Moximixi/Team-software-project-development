@@ -10,13 +10,19 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollBar;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+
 import javax.swing.JTextPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import java.util.Calendar;
 
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -28,8 +34,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
 import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.Panel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
@@ -50,11 +61,11 @@ public class MyDemo {
 	private JTable table_courseList;
 	private JTable table_courseSelected;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTable table_3;
-	private JTable table_4;
-	private JTable table_5;
-	private JTable table_6;
-	private JTable table_7;
+	private JTable table_allNotice;
+	private JTable table_schoolNotice;
+	private JTable table_collegeNotice;
+	private JTable table_administrationNotice;
+	private JTable table_emplomentNotice;
 	private JTable table_8;
 	private JTable table_9;
 	private JTextField textField;
@@ -191,10 +202,10 @@ public class MyDemo {
 		panel_SchoolNotice.setBounds(40, 86, 510, 370);
 		panel_homePage.add(panel_SchoolNotice);
 		
-		JLabel label = new JLabel("全部通知");
-		label.setFont(new Font("宋体", Font.PLAIN, 18));
-		label.setBounds(40, 40, 80, 30);
-		panel_homePage.add(label);
+		JLabel label_allNotice = new JLabel("全部通知");
+		label_allNotice.setFont(new Font("宋体", Font.PLAIN, 18));
+		label_allNotice.setBounds(40, 40, 80, 30);
+		panel_homePage.add(label_allNotice);
 		
 		JRadioButton SchoolNotice = new JRadioButton("校内通知");
 		SchoolNotice.addMouseListener(new MouseAdapter() {
@@ -254,12 +265,12 @@ public class MyDemo {
 		
 		
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(490, 0, 20, 370);
-		panel_AllNotice.add(scrollBar);
+		JScrollBar scrollBar_allNotice = new JScrollBar();
+		scrollBar_allNotice.setBounds(490, 0, 20, 370);
+		panel_AllNotice.add(scrollBar_allNotice);
 		
-		table_3 = new JTable();
-		table_3.setModel(new DefaultTableModel(
+		table_allNotice = new JTable();
+		table_allNotice.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
 				{"\u8FD9\u662F\u5168\u90E8\u901A\u77E5", "1", "1"},
@@ -268,9 +279,16 @@ public class MyDemo {
 			new String[] {
 				"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"
 			}
-		));
-		table_3.setBounds(10, 20, 470, 350);
-		panel_AllNotice.add(table_3);
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_allNotice.setBounds(10, 20, 470, 350);
+		panel_AllNotice.add(table_allNotice);
 		
 		JPanel panel_RelativeInformation = new JPanel();
 		panel_RelativeInformation.setBounds(580, 40, 290, 231);
@@ -346,12 +364,12 @@ public class MyDemo {
 		
 
 		
-		JScrollBar scrollBar_1 = new JScrollBar();
-		scrollBar_1.setBounds(490, 0, 20, 370);
-		panel_SchoolNotice.add(scrollBar_1);
+		JScrollBar scrollBar_schoolNotice = new JScrollBar();
+		scrollBar_schoolNotice.setBounds(490, 0, 20, 370);
+		panel_SchoolNotice.add(scrollBar_schoolNotice);
 		
-		table_4 = new JTable();
-		table_4.setModel(new DefaultTableModel(
+		table_schoolNotice = new JTable();
+		table_schoolNotice.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
 				{"2", "2", "2"},
@@ -361,20 +379,20 @@ public class MyDemo {
 				"New column", "New column", "New column"
 			}
 		));
-		table_4.setBounds(10, 20, 470, 350);
-		panel_SchoolNotice.add(table_4);
+		table_schoolNotice.setBounds(10, 20, 470, 350);
+		panel_SchoolNotice.add(table_schoolNotice);
 		
 		/*JPanel panel_CollegeNotice = new JPanel();
 		panel_CollegeNotice.setLayout(null);
 		panel_CollegeNotice.setBounds(40, 86, 510, 370);
 		panel_homePage.add(panel_CollegeNotice);*/
 		
-		JScrollBar scrollBar_2 = new JScrollBar();
-		scrollBar_2.setBounds(490, 0, 20, 370);
-		panel_CollegeNotice.add(scrollBar_2);
+		JScrollBar scrollBar_collegeNotice = new JScrollBar();
+		scrollBar_collegeNotice.setBounds(490, 0, 20, 370);
+		panel_CollegeNotice.add(scrollBar_collegeNotice);
 		
-		table_5 = new JTable();
-		table_5.setModel(new DefaultTableModel(
+		table_collegeNotice = new JTable();
+		table_collegeNotice.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
 				{"\u5B66\u9662\u901A\u77E5", "3333", "3"},
@@ -384,20 +402,20 @@ public class MyDemo {
 				"New column", "New column", "New column"
 			}
 		));
-		table_5.setBounds(10, 20, 470, 350);
-		panel_CollegeNotice.add(table_5);
+		table_collegeNotice.setBounds(10, 20, 470, 350);
+		panel_CollegeNotice.add(table_collegeNotice);
 		
 		/*JPanel panel_AdministrationNotice = new JPanel();
 		panel_AdministrationNotice.setLayout(null);
 		panel_AdministrationNotice.setBounds(40, 86, 510, 370);
 		panel_homePage.add(panel_AdministrationNotice);*/
 		
-		JScrollBar scrollBar_3 = new JScrollBar();
-		scrollBar_3.setBounds(490, 0, 20, 370);
-		panel_AdministrationNotice.add(scrollBar_3);
+		JScrollBar scrollBar_administrationNotice = new JScrollBar();
+		scrollBar_administrationNotice.setBounds(490, 0, 20, 370);
+		panel_AdministrationNotice.add(scrollBar_administrationNotice);
 		
-		table_6 = new JTable();
-		table_6.setModel(new DefaultTableModel(
+		table_administrationNotice = new JTable();
+		table_administrationNotice.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u65F6\u95F4", "\u53D1\u5E03\u65F6\u95F4"},
 				{"\u6559\u52A1\u5904\u901A\u77E5", "4", null},
@@ -407,20 +425,20 @@ public class MyDemo {
 				"New column", "New column", "New column"
 			}
 		));
-		table_6.setBounds(10, 20, 470, 350);
-		panel_AdministrationNotice.add(table_6);
+		table_administrationNotice.setBounds(10, 20, 470, 350);
+		panel_AdministrationNotice.add(table_administrationNotice);
 		
 		/*JPanel panel_Employmentnotice = new JPanel();
 		panel_Employmentnotice.setLayout(null);
 		panel_Employmentnotice.setBounds(40, 86, 510, 370);
 		panel_homePage.add(panel_Employmentnotice);*/
 		
-		JScrollBar scrollBar_4 = new JScrollBar();
-		scrollBar_4.setBounds(490, 0, 20, 370);
-		panel_EmploymentNotice.add(scrollBar_4);
+		JScrollBar scrollBar_employmentNotice = new JScrollBar();
+		scrollBar_employmentNotice.setBounds(490, 0, 20, 370);
+		panel_EmploymentNotice.add(scrollBar_employmentNotice);
 		
-		table_7 = new JTable();
-		table_7.setModel(new DefaultTableModel(
+		table_emplomentNotice = new JTable();
+		table_emplomentNotice.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
 				{"55", "555", null},
@@ -430,8 +448,8 @@ public class MyDemo {
 				"New column", "New column", "New column"
 			}
 		));
-		table_7.setBounds(10, 20, 470, 350);
-		panel_EmploymentNotice.add(table_7);
+		table_emplomentNotice.setBounds(10, 20, 470, 350);
+		panel_EmploymentNotice.add(table_emplomentNotice);
 		
 		JRadioButton AdministrationNotice = new JRadioButton("教务处通知");
 		AdministrationNotice.addMouseListener(new MouseAdapter() {
@@ -585,35 +603,6 @@ public class MyDemo {
 		button_3.setBounds(91, 306, 72, 27);
 		panel_courseSelect_courseList.add(button_3);
 		
-		table_courseList = new JTable();
-		table_courseList.setFont(new Font("宋体", Font.BOLD, 20));
-		table_courseList.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_courseList.setRowHeight(40);//指定每一行的行高40
-		
-		table_courseList.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"  \u72B6\u6001", "\u8BFE\u7A0B\u7F16\u53F7", "\u8BFE\u7A0B\u540D", "\u5B66\u5206", "\u65F6\u95F4", "\u5730\u70B9", "\u5907\u6CE8", "\u8003\u8BD5\u65F6\u95F4"},
-				{"", null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"\u72B6\u6001", "\u8BFE\u7A0B\u7F16\u53F7", "\u8BFE\u7A0B\u540D", "\u5B66\u5206", "\u65F6\u95F4", "\u5730\u70B9", "\u5907\u6CE8", "\u8003\u8BD5\u65F6\u95F4"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, true, true, true, true, true, true, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table_courseList.getColumnModel().getColumn(1).setResizable(false);
-		table_courseList.getColumnModel().getColumn(2).setResizable(false);
-		table_courseList.setBounds(80, 141, 722, 200);
-		panel_courseSelect_courseList.add(table_courseList);
-		
 		JLabel lblNewLabel_5 = new JLabel("开 课 列 表");
 		lblNewLabel_5.setFont(new Font("宋体", Font.BOLD, 25));
 		lblNewLabel_5.setBounds(349, 97, 226, 31);
@@ -741,7 +730,14 @@ public class MyDemo {
 			new String[] {
 				"\u901A\u8BC6\u9009\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206", "\u57FA\u7840\u6559\u80B2\u5FC5\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206", "\u57FA\u7840\u6559\u80B2\u9009\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true, true, true, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		trainpan_table.getColumnModel().getColumn(0).setPreferredWidth(215);
 		trainpan_table.getColumnModel().getColumn(0).setMinWidth(27);
 		trainpan_table.getColumnModel().getColumn(0).setMaxWidth(220);
@@ -753,12 +749,232 @@ public class MyDemo {
 		trainpan_table.setBackground(SystemColor.textHighlightText);
 		panel_trainPlan.add(trainpan_table);
 		
-		JPanel panel_document = new JPanel();
+		//文档应用界面
+		JPanel panel_document;
+		panel_document = new JPanel();
 		panel.add(panel_document);
+		JPanel panel_application;
+		panel_application = new JPanel();
+		panel.add(panel_application);
+		
+		JLabel label_61 = new JLabel("\u8BF7\u5047\u539F\u56E0");
+		label_61.setFont(new Font("华文行楷", Font.PLAIN, 18));
+		
+		JLabel label_51 = new JLabel("\u8BF7\u5047\u65F6\u95F4");
+		label_51.setFont(new Font("华文行楷", Font.PLAIN, 18));
+		
+		JLabel label_4 = new JLabel("\u5B66\u53F7");
+		label_4.setFont(new Font("华文行楷", Font.PLAIN, 18));
+		
+		JLabel label_31 = new JLabel("\u59D3\u540D");
+		label_31.setFont(new Font("华文行楷", Font.PLAIN, 18));
+		
+		JLabel label_21 = new JLabel("\u8BF7\u5047\u6761");
+		label_21.setFont(new Font("华文行楷", Font.PLAIN, 26));
+		
+		JTextField textField = new JTextField();
+		textField.setColumns(10);
+		
+		JTextField textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		spinner.setModel(new SpinnerDateModel(new Date(1555948800000L), null, null, Calendar.DAY_OF_MONTH));
+		
+		JLabel label_71 = new JLabel("\u2014\u2014");
+		
+		JSpinner spinner_1 = new JSpinner();
+		spinner_1.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		spinner_1.setModel(new SpinnerDateModel(new Date(1555948800000L), null, null, Calendar.DAY_OF_YEAR));
+		
+		JEditorPane editorPane = new JEditorPane();
+		GroupLayout gl_panel_application = new GroupLayout(panel_application);
+		gl_panel_application.setHorizontalGroup(
+			gl_panel_application.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_application.createSequentialGroup()
+					.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_application.createSequentialGroup()
+							.addGap(259)
+							.addComponent(label_21))
+						.addGroup(gl_panel_application.createSequentialGroup()
+							.addGap(42)
+							.addGroup(gl_panel_application.createParallelGroup(Alignment.TRAILING)
+								.addComponent(label_61)
+								.addComponent(label_51))
+							.addGap(18)
+							.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_application.createSequentialGroup()
+									.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_application.createSequentialGroup()
+											.addGap(13)
+											.addComponent(label_31)
+											.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+											.addComponent(textField, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+										.addComponent(spinner, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+									.addGap(23)
+									.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+										.addGroup(Alignment.TRAILING, gl_panel_application.createSequentialGroup()
+											.addComponent(label_4)
+											.addGap(18)
+											.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+											.addGap(112))
+										.addGroup(Alignment.TRAILING, gl_panel_application.createSequentialGroup()
+											.addComponent(label_71)
+											.addGap(38)
+											.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+											.addGap(68)))
+									.addGap(146))
+								.addComponent(editorPane, GroupLayout.PREFERRED_SIZE, 374, GroupLayout.PREFERRED_SIZE))))
+					.addGap(187))
+		);
+		gl_panel_application.setVerticalGroup(
+			gl_panel_application.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_application.createSequentialGroup()
+					.addContainerGap(13, Short.MAX_VALUE)
+					.addComponent(label_21)
+					.addGap(24)
+					.addGroup(gl_panel_application.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label_31)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_4)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(31)
+					.addGroup(gl_panel_application.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label_71)
+						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label_51)
+						.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panel_application.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_application.createSequentialGroup()
+							.addGap(45)
+							.addComponent(label_61))
+						.addGroup(gl_panel_application.createSequentialGroup()
+							.addGap(30)
+							.addComponent(editorPane, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(166, Short.MAX_VALUE))
+		);
+		panel_application.setLayout(gl_panel_application);
+		
+		JLabel label1 = new JLabel("\u6700\u8FD1\u4F7F\u7528");
+		label1.setFont(new Font("华文行楷", Font.PLAIN, 20));
+		label1.setHorizontalAlignment(SwingConstants.LEFT);
+		label1.setVerticalAlignment(SwingConstants.TOP);
+		
+		String[] recentDoc={"请假条.doc","课程替换申请.doc","补选课申请.doc"};
+		JComboBox comboBox_1 = new JComboBox(recentDoc);
+		comboBox_1.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		comboBox_1.setToolTipText("");
+		
+		JButton button1 = new JButton("\u6253\u5F00");
+		button1.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		button1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(panel_application);
+				panel.updateUI();
+			}
+		});
+		button1.setVerticalAlignment(SwingConstants.BOTTOM);
+		
+		JLabel label_11 = new JLabel("\u5168\u90E8\u6587\u6863");
+		label_11.setFont(new Font("华文行楷", Font.PLAIN, 20));
+		label_11.setHorizontalAlignment(SwingConstants.LEFT);
+		label_11.setVerticalAlignment(SwingConstants.BOTTOM);
+		
+		String[] allDoc={"请假条.doc","奖学金申请.doc","课程替换申请.doc","补选课申请.doc","创新学分申请.doc","转专业申请.doc"};
+		JComboBox comboBox1 = new JComboBox(allDoc);
+		comboBox1.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		comboBox1.setToolTipText("");
+		
+		JButton button_111 = new JButton("\u6253\u5F00");
+		button_111.setFont(new Font("华文行楷", Font.PLAIN, 16));
+		GroupLayout gl_panel_document = new GroupLayout(panel_document);
+		gl_panel_document.setHorizontalGroup(
+			gl_panel_document.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_document.createSequentialGroup()
+					.addGap(46)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.TRAILING)
+						.addComponent(label1)
+						.addComponent(label_11))
+					.addGap(18)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(comboBox1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(comboBox_1, 0, 178, Short.MAX_VALUE))
+					.addGap(18)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.LEADING)
+						.addComponent(button1)
+						.addComponent(button_111))
+					.addGap(507))
+		);
+		gl_panel_document.setVerticalGroup(
+			gl_panel_document.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_document.createSequentialGroup()
+					.addGap(63)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button1)
+						.addComponent(label1))
+					.addGap(67)
+					.addGroup(gl_panel_document.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_111)
+						.addComponent(label_11))
+					.addContainerGap(305, Short.MAX_VALUE))
+		);
+		panel_document.setLayout(gl_panel_document);
 		
 		JPanel panel_search;
 		panel_search = new JPanel();
 		panel.add(panel_search);
+		
+		JTextField textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		
+		JButton button_121 = new JButton("搜索");
+		button_121.setFont(new Font("华文行楷", Font.PLAIN, 14));
+		
+		JLabel lblCongratulationsyouGetNothing = new JLabel("Congratulations!");
+		lblCongratulationsyouGetNothing.setFont(new Font("华文行楷", Font.PLAIN, 26));
+		
+		JLabel lblWeGetNothing = new JLabel("We get nothing for you,so find out by yourself.");
+		lblWeGetNothing.setFont(new Font("华文行楷", Font.PLAIN, 26));
+		GroupLayout gl_panel_search = new GroupLayout(panel_search);
+		gl_panel_search.setHorizontalGroup(
+			gl_panel_search.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_search.createSequentialGroup()
+					.addGap(49)
+					.addGroup(gl_panel_search.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblCongratulationsyouGetNothing)
+						.addComponent(lblWeGetNothing))
+					.addGap(28)
+					.addGroup(gl_panel_search.createParallelGroup(Alignment.TRAILING)
+						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE)
+						.addComponent(button_121, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(134, Short.MAX_VALUE))
+		);
+		gl_panel_search.setVerticalGroup(
+			gl_panel_search.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_search.createSequentialGroup()
+					.addGroup(gl_panel_search.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_search.createSequentialGroup()
+							.addGap(64)
+							.addComponent(lblCongratulationsyouGetNothing))
+						.addGroup(gl_panel_search.createSequentialGroup()
+							.addGap(63)
+							.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
+					.addGroup(gl_panel_search.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_search.createSequentialGroup()
+							.addGap(34)
+							.addComponent(lblWeGetNothing))
+						.addGroup(gl_panel_search.createSequentialGroup()
+							.addGap(18)
+							.addComponent(button_121, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+					.addGap(325))
+		);
+		panel_search.setLayout(gl_panel_search);
+		
 		
 		//个人信息界面
 		JPanel panel_userInfo;
@@ -800,6 +1016,35 @@ public class MyDemo {
 		panel_userInfo.add(button12);
 		
 		panel_courseSelect_courseList.add(button);
+		
+		table_courseList = new JTable();
+		table_courseList.setFont(new Font("宋体", Font.BOLD, 20));
+		table_courseList.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table_courseList.setRowHeight(40);//指定每一行的行高40
+		
+		table_courseList.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"  \u72B6\u6001", "\u8BFE\u7A0B\u7F16\u53F7", "\u8BFE\u7A0B\u540D", "\u5B66\u5206", "\u65F6\u95F4", "\u5730\u70B9", "\u5907\u6CE8", "\u8003\u8BD5\u65F6\u95F4"},
+				{"", null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"\u72B6\u6001", "\u8BFE\u7A0B\u7F16\u53F7", "\u8BFE\u7A0B\u540D", "\u5B66\u5206", "\u65F6\u95F4", "\u5730\u70B9", "\u5907\u6CE8", "\u8003\u8BD5\u65F6\u95F4"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true, true, true, true, true, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_courseList.getColumnModel().getColumn(1).setResizable(false);
+		table_courseList.getColumnModel().getColumn(2).setResizable(false);
+		table_courseList.setBounds(80, 141, 722, 200);
+		panel_courseSelect_courseList.add(table_courseList);
 		panel_userInfo.add(table_9);
 		
 		JLabel lblNewLabel_55 = new JLabel("姓名：王小二");
@@ -810,9 +1055,9 @@ public class MyDemo {
 		lblNewLabel_6.setBounds(41, 128, 200, 16);
 		panel_userInfo.add(lblNewLabel_6);
 		
-		JLabel label_4 = new JLabel("性别：男");
-		label_4.setBounds(41, 165, 200, 16);
-		panel_userInfo.add(label_4);
+		JLabel label_41 = new JLabel("性别：男");
+		label_41.setBounds(41, 165, 200, 16);
+		panel_userInfo.add(label_41);
 		
 		JLabel label_55 = new JLabel("出生日期：19980426");
 		label_55.setBounds(41, 200, 200, 16);
@@ -927,17 +1172,6 @@ public class MyDemo {
 			}
 		});
 		menuBar.add(menu_userInfo);
-			
-		JMenu menu = new JMenu("用户个人信息");
-		menu.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				panel.removeAll();
-				panel.add(panel_userInfo);
-				panel.updateUI();
-			}
-		});
-		menuBar.add(menu);
 		
 		JMenu menu_logOut = new JMenu("注销");
 		menu_logOut.addMouseListener(new MouseAdapter() {
