@@ -1,22 +1,23 @@
 package team.six.menu;
 
+import java.awt.CardLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.CardLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTable;
+
+import team.six.panel.courseselect.PanelCourseSelect;
+import team.six.panel.homepage.PanelHomePage;
 
 public class Menu {
 
 	private JFrame frame;
-	private JTable table;
-
+	private JPanel panel= new JPanel();
+	//private PanelCourseSelect panelCourseSelect=new PanelCourseSelect();
 	/**
 	 * Launch the application.
 	 */
@@ -44,31 +45,59 @@ public class Menu {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 893, 541);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(panel);
+		panel.setLayout(new CardLayout(0, 0));
+		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("New menu");
-		mnNewMenu.addMouseListener(new MouseAdapter() {
+		JMenu menu_homePage = new JMenu("校园生活");
+		menu_homePage.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelHomePage());
+				panel.updateUI();
 			}
 		});
-		menuBar.add(mnNewMenu);
-		frame.getContentPane().setLayout(new CardLayout(0, 0));
+		menuBar.add(menu_homePage);
 		
-		JPanel panel = new JPanel();
-		//panel.setBounds(210, 40, 80, 35);
-		frame.getContentPane().add(panel, "name_675186450646635");
-		panel.setLayout(null);
+		JMenu menu_queryScores = new JMenu("查询成绩");
+		menuBar.add(menu_queryScores);
 		
-		table = new JTable();
-		table.setBounds(0, 0, 875, 468);
-		panel.add(table);
+		JMenu menu_courseSelect = new JMenu("选课系统");
+		menu_courseSelect.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelCourseSelect());
+				panel.updateUI();
+			}
+		});
+		menuBar.add(menu_courseSelect);
+		
+		JMenu menu_trainPlan = new JMenu("培养方案");
+		menuBar.add(menu_trainPlan);
+		
+		JMenu menu_document = new JMenu("文档应用");
+		menuBar.add(menu_document);
+		
+		JMenu menu_search = new JMenu("搜索");
+		menuBar.add(menu_search);
+		
+		JMenu menu_userInfo = new JMenu("用户信息管理");
+		menuBar.add(menu_userInfo);
+		
+		JMenu menu_logOut = new JMenu("注销");
+		menuBar.add(menu_logOut);
+		
+		
 		
 	}
 }
