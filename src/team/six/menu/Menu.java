@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import team.six.panel.courseselect.PanelCourseSelect;
 import team.six.panel.homepage.PanelHomePage;
+import team.six.panel.trainPlan.PanelTrainPlan;
 
 public class Menu {
 
@@ -83,6 +84,14 @@ public class Menu {
 		menuBar.add(menu_courseSelect);
 		
 		JMenu menu_trainPlan = new JMenu("培养方案");
+		menu_trainPlan.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelTrainPlan());
+				panel.updateUI();
+			}
+		});
 		menuBar.add(menu_trainPlan);
 		
 		JMenu menu_document = new JMenu("文档应用");
