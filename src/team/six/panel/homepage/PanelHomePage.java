@@ -323,7 +323,7 @@ public class PanelHomePage extends JPanel {
 		HomePagePanel.add(SchoolForumLabel);
 		
 		JButton EnterSchoolFroumButton = new JButton("进入论坛");
-		EnterSchoolFroumButton.setBounds(777, 405, 93, 23);
+		EnterSchoolFroumButton.setBounds(785, 405, 93, 23);
 		HomePagePanel.add(EnterSchoolFroumButton);
 		
 		JLabel SchoolCardBalanceLabel = new JLabel("余额：80元");
@@ -335,7 +335,7 @@ public class PanelHomePage extends JPanel {
 		HomePagePanel.add(SchoolCardStatusLabel);
 		
 		JLabel ElectricityFeesBalanceLabel = new JLabel("剩余电量：170度");
-		ElectricityFeesBalanceLabel.setBounds(679, 154, 93, 15);
+		ElectricityFeesBalanceLabel.setBounds(679, 154, 110, 15);
 		HomePagePanel.add(ElectricityFeesBalanceLabel);
 		
 		JLabel ElectricityStatusLabel = new JLabel("使用状态：正常");
@@ -347,19 +347,19 @@ public class PanelHomePage extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		SchoolCardRechargeButton.setBounds(777, 82, 93, 23);
+		SchoolCardRechargeButton.setBounds(785, 83, 93, 23);
 		HomePagePanel.add(SchoolCardRechargeButton);
 		
 		JButton SchoolCardLossButton = new JButton("挂失");
-		SchoolCardLossButton.setBounds(777, 110, 93, 23);
+		SchoolCardLossButton.setBounds(785, 113, 93, 23);
 		HomePagePanel.add(SchoolCardLossButton);
 		
 		JButton ElectricityRechargeButton = new JButton("充值");
-		ElectricityRechargeButton.setBounds(777, 150, 93, 23);
+		ElectricityRechargeButton.setBounds(785, 153, 93, 23);
 		HomePagePanel.add(ElectricityRechargeButton);
 		
 		JButton ElectricityChargeRecordButton = new JButton("查看记录");
-		ElectricityChargeRecordButton.setBounds(777, 179, 93, 23);
+		ElectricityChargeRecordButton.setBounds(785, 183, 93, 23);
 		HomePagePanel.add(ElectricityChargeRecordButton);
 
 	}
