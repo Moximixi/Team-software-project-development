@@ -3,13 +3,18 @@ package team.six.panel.homepage;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -33,20 +38,26 @@ public class PanelHomePage extends JPanel {
 		setLayout(null);
 		
 		JPanel HomePagePanel = new JPanel();
-		HomePagePanel.setBounds(0, 0, 797, 441);
+		HomePagePanel.setBounds(0, 0, 880, 460);
 		add(HomePagePanel);
 		HomePagePanel.setLayout(null);
 		
 		AllNoticePanel = new JPanel();
-		AllNoticePanel.setBounds(40, 70, 471, 358);
+		AllNoticePanel.setBounds(40, 70, 570, 358);
 		HomePagePanel.add(AllNoticePanel);
 		AllNoticePanel.setLayout(null);
 		
 		JScrollBar AllNoticeScrollBar = new JScrollBar();
-		AllNoticeScrollBar.setBounds(454, 0, 17, 358);
+		AllNoticeScrollBar.setBounds(550, 0, 17, 358);
 		AllNoticePanel.add(AllNoticeScrollBar);
 		
+		DefaultTableCellRenderer tabletcr = new DefaultTableCellRenderer();// 设置table内容居中
+		tabletcr.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		AllNoticeTable = new JTable();
+		AllNoticeTable.setDefaultRenderer(Object.class, tabletcr);
+		AllNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		AllNoticeTable.setRowHeight(30);//指定每一行的行高30
 		AllNoticeTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
@@ -64,19 +75,22 @@ public class PanelHomePage extends JPanel {
 				return columnEditables[column];
 			}
 		});
-		AllNoticeTable.setBounds(0, 0, 448, 358);
+		AllNoticeTable.setBounds(0, 0, 550, 358);
 		AllNoticePanel.add(AllNoticeTable);
 		
 		SchoolNoticePanel = new JPanel();
 		SchoolNoticePanel.setLayout(null);
-		SchoolNoticePanel.setBounds(40, 70, 471, 358);
+		SchoolNoticePanel.setBounds(40, 70, 570, 358);
 		HomePagePanel.add(SchoolNoticePanel);
 		
 		JScrollBar SchoolNoticeScrollBar = new JScrollBar();
-		SchoolNoticeScrollBar.setBounds(454, 0, 17, 358);
+		SchoolNoticeScrollBar.setBounds(550, 0, 17, 358);
 		SchoolNoticePanel.add(SchoolNoticeScrollBar);
 		
 		SchoolNoticeTable = new JTable();
+		SchoolNoticeTable.setDefaultRenderer(Object.class, tabletcr);
+		SchoolNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		SchoolNoticeTable.setRowHeight(30);//指定每一行的行高30
 		SchoolNoticeTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
@@ -94,19 +108,22 @@ public class PanelHomePage extends JPanel {
 				return columnEditables[column];
 			}
 		});
-		SchoolNoticeTable.setBounds(0, 0, 448, 358);
+		SchoolNoticeTable.setBounds(0, 0, 550, 358);
 		SchoolNoticePanel.add(SchoolNoticeTable);
 		
 		CollegeNoticePanel = new JPanel();
 		CollegeNoticePanel.setLayout(null);
-		CollegeNoticePanel.setBounds(40, 70, 471, 358);
+		CollegeNoticePanel.setBounds(40, 70, 570, 358);
 		HomePagePanel.add(CollegeNoticePanel);
 		
 		JScrollBar CollegeNoticeScrollBar = new JScrollBar();
-		CollegeNoticeScrollBar.setBounds(454, 0, 17, 358);
+		CollegeNoticeScrollBar.setBounds(550, 0, 17, 358);
 		CollegeNoticePanel.add(CollegeNoticeScrollBar);
 		
 		CollegeNoticeTable = new JTable();
+		CollegeNoticeTable.setDefaultRenderer(Object.class, tabletcr);
+		CollegeNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		CollegeNoticeTable.setRowHeight(30);//指定每一行的行高30
 		CollegeNoticeTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
@@ -124,19 +141,22 @@ public class PanelHomePage extends JPanel {
 				return columnEditables[column];
 			}
 		});
-		CollegeNoticeTable.setBounds(0, 0, 448, 358);
+		CollegeNoticeTable.setBounds(0, 0, 550, 358);
 		CollegeNoticePanel.add(CollegeNoticeTable);
 		
 		AdministrationNoticePanel = new JPanel();
-		AdministrationNoticePanel.setBounds(40, 70, 471, 358);
+		AdministrationNoticePanel.setBounds(40, 70, 570, 358);
 		HomePagePanel.add(AdministrationNoticePanel);
 		AdministrationNoticePanel.setLayout(null);
 		
 		JScrollBar AdministrationNoticeScrollBar = new JScrollBar();
-		AdministrationNoticeScrollBar.setBounds(454, 0, 17, 358);
+		AdministrationNoticeScrollBar.setBounds(550, 0, 17, 358);
 		AdministrationNoticePanel.add(AdministrationNoticeScrollBar);
 		
 		AdministrationNoticeTable = new JTable();
+		AdministrationNoticeTable.setDefaultRenderer(Object.class, tabletcr);
+		AdministrationNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		AdministrationNoticeTable.setRowHeight(30);//指定每一行的行高30
 		AdministrationNoticeTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
@@ -154,19 +174,23 @@ public class PanelHomePage extends JPanel {
 				return columnEditables[column];
 			}
 		});
-		AdministrationNoticeTable.setBounds(0, 0, 448, 358);
+		AdministrationNoticeTable.setBounds(0, 0, 550, 358);
 		AdministrationNoticePanel.add(AdministrationNoticeTable);
 		
 		EmploymentNoticePanel = new JPanel();
-		EmploymentNoticePanel.setBounds(40, 70, 471, 358);
+		EmploymentNoticePanel.setBounds(40, 70, 570, 358);
 		HomePagePanel.add(EmploymentNoticePanel);
 		EmploymentNoticePanel.setLayout(null);
 		
 		JScrollBar EmploymentNoticeScrollBar = new JScrollBar();
-		EmploymentNoticeScrollBar.setBounds(454, 0, 17, 358);
+		EmploymentNoticeScrollBar.setBounds(550, 0, 17, 358);
 		EmploymentNoticePanel.add(EmploymentNoticeScrollBar);
 		
 		EmploymentNoticeTable = new JTable();
+		EmploymentNoticeTable = new JTable();
+		EmploymentNoticeTable.setDefaultRenderer(Object.class, tabletcr);
+		EmploymentNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		EmploymentNoticeTable.setRowHeight(30);//指定每一行的行高30
 		EmploymentNoticeTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
@@ -184,114 +208,138 @@ public class PanelHomePage extends JPanel {
 				return columnEditables[column];
 			}
 		});
-		EmploymentNoticeTable.setBounds(0, 0, 448, 358);
+		EmploymentNoticeTable.setBounds(0, 0, 550, 358);
 		EmploymentNoticePanel.add(EmploymentNoticeTable);
 		
 		JLabel label = new JLabel("全部通知");
-		label.setBounds(40, 30, 80, 40);
-		label.setFont(new Font("宋体", Font.PLAIN, 18));
+		label.setBounds(33, 29, 93, 40);
+		label.setFont(new Font("宋体", Font.PLAIN, 22));
 		HomePagePanel.add(label);
 		
 		JRadioButton AllNoticeButton = new JRadioButton("全部通知");
+		AllNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		AllNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				HomePagePanel.add(AllNoticePanel);
+				AllNoticePanel.setVisible(true);
+				SchoolNoticePanel.setVisible(false);
+				CollegeNoticePanel.setVisible(false);
+				AdministrationNoticePanel.setVisible(false);
+				EmploymentNoticePanel.setVisible(false);
 				HomePagePanel.updateUI();
 				
 			}
 		});
-		AllNoticeButton.setBounds(126, 41, 73, 23);
+		AllNoticeButton.setBounds(132, 41, 83, 23);
 		buttonGroup.add(AllNoticeButton);
 		HomePagePanel.add(AllNoticeButton);
 		
 		JRadioButton SchoolNoticeButton = new JRadioButton("校内通知");
+		SchoolNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		SchoolNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//HomePagePanel.removeAll();
-				HomePagePanel.add(SchoolNoticePanel);
+				AllNoticePanel.setVisible(false);
+				SchoolNoticePanel.setVisible(true);
+				CollegeNoticePanel.setVisible(false);
+				AdministrationNoticePanel.setVisible(false);
+				EmploymentNoticePanel.setVisible(false);
 				HomePagePanel.updateUI();
 			}
 		});
-		SchoolNoticeButton.setBounds(201, 41, 73, 23);
+		SchoolNoticeButton.setBounds(217, 41, 93, 23);
 		buttonGroup.add(SchoolNoticeButton);
 		HomePagePanel.add(SchoolNoticeButton);
 		
 		JRadioButton CollegeNoticeButton = new JRadioButton("学院通知");
+		CollegeNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		CollegeNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				HomePagePanel.add(CollegeNoticePanel);
+				AllNoticePanel.setVisible(false);
+				SchoolNoticePanel.setVisible(false);
+				CollegeNoticePanel.setVisible(true);
+				AdministrationNoticePanel.setVisible(false);
+				EmploymentNoticePanel.setVisible(false);
 				HomePagePanel.updateUI();
 			}
 		});
-		CollegeNoticeButton.setBounds(276, 41, 73, 23);
+		CollegeNoticeButton.setBounds(312, 41, 93, 23);
 		buttonGroup.add(CollegeNoticeButton);
 		HomePagePanel.add(CollegeNoticeButton);
 		
 		JRadioButton AdministrationNoticeButton = new JRadioButton("教务处通知");
+		AdministrationNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		AdministrationNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				HomePagePanel.add(AdministrationNoticePanel);
+				AllNoticePanel.setVisible(false);
+				SchoolNoticePanel.setVisible(false);
+				CollegeNoticePanel.setVisible(false);
+				AdministrationNoticePanel.setVisible(true);
+				EmploymentNoticePanel.setVisible(false);
 				HomePagePanel.updateUI();
 			}
 		});
-		AdministrationNoticeButton.setBounds(351, 41, 95, 23);
+		AdministrationNoticeButton.setBounds(407, 41, 110, 23);
 		buttonGroup.add(AdministrationNoticeButton);
 		HomePagePanel.add(AdministrationNoticeButton);
 		
 		JRadioButton EmploymentNoticeButton = new JRadioButton("就业通知");
+		EmploymentNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		EmploymentNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				HomePagePanel.add(EmploymentNoticePanel);
+				AllNoticePanel.setVisible(false);
+				SchoolNoticePanel.setVisible(false);
+				CollegeNoticePanel.setVisible(false);
+				AdministrationNoticePanel.setVisible(false);
+				EmploymentNoticePanel.setVisible(true);
 				HomePagePanel.updateUI();
 			}
 		});
-		EmploymentNoticeButton.setBounds(448, 41, 73, 23);
+		EmploymentNoticeButton.setBounds(519, 41, 93, 23);
 		buttonGroup.add(EmploymentNoticeButton);
 		HomePagePanel.add(EmploymentNoticeButton);
 		
 		JLabel RelativeInformationLabel = new JLabel("个人相关信息");
 		RelativeInformationLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		RelativeInformationLabel.setBounds(535, 30, 115, 40);
+		RelativeInformationLabel.setBounds(618, 27, 115, 40);
 		HomePagePanel.add(RelativeInformationLabel);
 		
 		JLabel SchoolCardLabel = new JLabel("一卡通");
 		SchoolCardLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		SchoolCardLabel.setBounds(535, 92, 67, 40);
+		SchoolCardLabel.setBounds(618, 89, 67, 40);
 		HomePagePanel.add(SchoolCardLabel);
 		
 		JLabel ElectricityFeesLabel = new JLabel("电  费");
 		ElectricityFeesLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		ElectricityFeesLabel.setBounds(535, 159, 67, 40);
+		ElectricityFeesLabel.setBounds(618, 156, 67, 40);
 		HomePagePanel.add(ElectricityFeesLabel);
 		
 		JLabel SchoolForumLabel = new JLabel("学校论坛");
 		SchoolForumLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		SchoolForumLabel.setBounds(536, 269, 80, 40);
+		SchoolForumLabel.setBounds(619, 266, 80, 40);
 		HomePagePanel.add(SchoolForumLabel);
 		
 		JButton EnterSchoolFroumButton = new JButton("进入论坛");
-		EnterSchoolFroumButton.setBounds(694, 408, 93, 23);
+		EnterSchoolFroumButton.setBounds(777, 405, 93, 23);
 		HomePagePanel.add(EnterSchoolFroumButton);
 		
 		JLabel SchoolCardBalanceLabel = new JLabel("余额：80元");
-		SchoolCardBalanceLabel.setBounds(596, 89, 73, 15);
+		SchoolCardBalanceLabel.setBounds(679, 86, 73, 15);
 		HomePagePanel.add(SchoolCardBalanceLabel);
 		
 		JLabel SchoolCardStatusLabel = new JLabel("账号状态：正常");
-		SchoolCardStatusLabel.setBounds(596, 117, 93, 15);
+		SchoolCardStatusLabel.setBounds(679, 114, 93, 15);
 		HomePagePanel.add(SchoolCardStatusLabel);
 		
 		JLabel ElectricityFeesBalanceLabel = new JLabel("剩余电量：170度");
-		ElectricityFeesBalanceLabel.setBounds(596, 157, 93, 15);
+		ElectricityFeesBalanceLabel.setBounds(679, 154, 93, 15);
 		HomePagePanel.add(ElectricityFeesBalanceLabel);
 		
 		JLabel ElectricityStatusLabel = new JLabel("使用状态：正常");
-		ElectricityStatusLabel.setBounds(596, 184, 93, 15);
+		ElectricityStatusLabel.setBounds(679, 181, 93, 15);
 		HomePagePanel.add(ElectricityStatusLabel);
 		
 		JButton SchoolCardRechargeButton = new JButton("充值");
@@ -299,19 +347,19 @@ public class PanelHomePage extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		SchoolCardRechargeButton.setBounds(694, 85, 93, 23);
+		SchoolCardRechargeButton.setBounds(777, 82, 93, 23);
 		HomePagePanel.add(SchoolCardRechargeButton);
 		
 		JButton SchoolCardLossButton = new JButton("挂失");
-		SchoolCardLossButton.setBounds(694, 113, 93, 23);
+		SchoolCardLossButton.setBounds(777, 110, 93, 23);
 		HomePagePanel.add(SchoolCardLossButton);
 		
 		JButton ElectricityRechargeButton = new JButton("充值");
-		ElectricityRechargeButton.setBounds(694, 153, 93, 23);
+		ElectricityRechargeButton.setBounds(777, 150, 93, 23);
 		HomePagePanel.add(ElectricityRechargeButton);
 		
 		JButton ElectricityChargeRecordButton = new JButton("查看记录");
-		ElectricityChargeRecordButton.setBounds(694, 182, 93, 23);
+		ElectricityChargeRecordButton.setBounds(777, 179, 93, 23);
 		HomePagePanel.add(ElectricityChargeRecordButton);
 
 	}
