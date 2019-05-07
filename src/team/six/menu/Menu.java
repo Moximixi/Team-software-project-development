@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 
 import team.six.panel.courseselect.PanelCourseSelect;
 import team.six.panel.homepage.PanelHomePage;
+import team.six.panel.search.PanelSearch;
 import team.six.panel.trainPlan.PanelTrainPlan;
+import team.six.panel.document.PanelDocument;
 
 public class Menu {
 
@@ -95,9 +97,25 @@ public class Menu {
 		menuBar.add(menu_trainPlan);
 		
 		JMenu menu_document = new JMenu("文档应用");
+		menu_document.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelDocument());
+				panel.updateUI();
+			}
+		});
 		menuBar.add(menu_document);
 		
 		JMenu menu_search = new JMenu("搜索");
+		menu_search.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelSearch());
+				panel.updateUI();
+			}
+		});
 		menuBar.add(menu_search);
 		
 		JMenu menu_userInfo = new JMenu("用户信息管理");
