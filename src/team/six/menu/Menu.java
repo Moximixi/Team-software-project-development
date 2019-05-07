@@ -14,6 +14,7 @@ import team.six.panel.courseselect.PanelCourseSelect;
 import team.six.panel.homepage.PanelHomePage;
 import team.six.panel.search.PanelSearch;
 import team.six.panel.trainPlan.PanelTrainPlan;
+import team.six.panel.userinfo.PanelUserInfo;
 import team.six.panel.document.PanelDocument;
 
 public class Menu {
@@ -96,12 +97,14 @@ public class Menu {
 		});
 		menuBar.add(menu_trainPlan);
 		
+
+		
 		JMenu menu_document = new JMenu("文档应用");
 		menu_document.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
-				panel.add(new PanelDocument());
+				//panel.add(new PanelDocument());
 				panel.updateUI();
 			}
 		});
@@ -112,14 +115,23 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
-				panel.add(new PanelSearch());
+				//panel.add(new PanelSearch());
 				panel.updateUI();
 			}
 		});
 		menuBar.add(menu_search);
 		
 		JMenu menu_userInfo = new JMenu("用户信息管理");
+		menu_userInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelUserInfo());
+				panel.updateUI();
+			}
+		});
 		menuBar.add(menu_userInfo);
+		
 		
 		JMenu menu_logOut = new JMenu("注销");
 		menuBar.add(menu_logOut);
