@@ -16,6 +16,9 @@ import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -77,12 +80,16 @@ public class PanelHomePage extends JPanel {
 		});
 		AllNoticeTable.setBounds(0, 0, 550, 358);
 		AllNoticePanel.add(AllNoticeTable);
+		AllNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
+		AllNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+		AllNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
+		AllNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+		AllNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
 		
 		SchoolNoticePanel = new JPanel();
 		SchoolNoticePanel.setLayout(null);
 		SchoolNoticePanel.setBounds(40, 70, 570, 358);
 		HomePagePanel.add(SchoolNoticePanel);
-		
 		JScrollBar SchoolNoticeScrollBar = new JScrollBar();
 		SchoolNoticeScrollBar.setBounds(550, 0, 17, 358);
 		SchoolNoticePanel.add(SchoolNoticeScrollBar);
@@ -110,16 +117,19 @@ public class PanelHomePage extends JPanel {
 		});
 		SchoolNoticeTable.setBounds(0, 0, 550, 358);
 		SchoolNoticePanel.add(SchoolNoticeTable);
+		SchoolNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
+		SchoolNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+		SchoolNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
+		SchoolNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+		SchoolNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
 		
 		CollegeNoticePanel = new JPanel();
 		CollegeNoticePanel.setLayout(null);
 		CollegeNoticePanel.setBounds(40, 70, 570, 358);
 		HomePagePanel.add(CollegeNoticePanel);
-		
 		JScrollBar CollegeNoticeScrollBar = new JScrollBar();
 		CollegeNoticeScrollBar.setBounds(550, 0, 17, 358);
 		CollegeNoticePanel.add(CollegeNoticeScrollBar);
-		
 		CollegeNoticeTable = new JTable();
 		CollegeNoticeTable.setDefaultRenderer(Object.class, tabletcr);
 		CollegeNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -143,16 +153,19 @@ public class PanelHomePage extends JPanel {
 		});
 		CollegeNoticeTable.setBounds(0, 0, 550, 358);
 		CollegeNoticePanel.add(CollegeNoticeTable);
+		CollegeNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
+		CollegeNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+		CollegeNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
+		CollegeNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+		CollegeNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
 		
 		AdministrationNoticePanel = new JPanel();
 		AdministrationNoticePanel.setBounds(40, 70, 570, 358);
 		HomePagePanel.add(AdministrationNoticePanel);
 		AdministrationNoticePanel.setLayout(null);
-		
 		JScrollBar AdministrationNoticeScrollBar = new JScrollBar();
 		AdministrationNoticeScrollBar.setBounds(550, 0, 17, 358);
 		AdministrationNoticePanel.add(AdministrationNoticeScrollBar);
-		
 		AdministrationNoticeTable = new JTable();
 		AdministrationNoticeTable.setDefaultRenderer(Object.class, tabletcr);
 		AdministrationNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -176,6 +189,11 @@ public class PanelHomePage extends JPanel {
 		});
 		AdministrationNoticeTable.setBounds(0, 0, 550, 358);
 		AdministrationNoticePanel.add(AdministrationNoticeTable);
+		AdministrationNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
+		AdministrationNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+		AdministrationNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
+		AdministrationNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+		AdministrationNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
 		
 		EmploymentNoticePanel = new JPanel();
 		EmploymentNoticePanel.setBounds(40, 70, 570, 358);
@@ -185,8 +203,6 @@ public class PanelHomePage extends JPanel {
 		JScrollBar EmploymentNoticeScrollBar = new JScrollBar();
 		EmploymentNoticeScrollBar.setBounds(550, 0, 17, 358);
 		EmploymentNoticePanel.add(EmploymentNoticeScrollBar);
-		
-		EmploymentNoticeTable = new JTable();
 		EmploymentNoticeTable = new JTable();
 		EmploymentNoticeTable.setDefaultRenderer(Object.class, tabletcr);
 		EmploymentNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -210,6 +226,12 @@ public class PanelHomePage extends JPanel {
 		});
 		EmploymentNoticeTable.setBounds(0, 0, 550, 358);
 		EmploymentNoticePanel.add(EmploymentNoticeTable);
+		EmploymentNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
+		EmploymentNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+		EmploymentNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
+		EmploymentNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+		EmploymentNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+		
 		
 		JLabel label = new JLabel("全部通知");
 		label.setBounds(33, 29, 93, 40);
