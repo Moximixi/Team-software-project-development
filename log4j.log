@@ -35,3 +35,11 @@
 2019-05-08 14:20:55 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
 2019-05-08 14:21:03 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$13.mouseClicked(PanelHomePage.java:396) ] 饭卡丢了，赶紧挂失饭卡
 2019-05-08 14:21:14 [ WARN ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:382) ] 脑子有洞，饭卡都挂失了充什么饭卡？
+2019-05-08 14:29:51 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
+2019-05-08 14:30:00 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$13.mouseClicked(PanelHomePage.java:397) ] 饭卡丢了，赶紧挂失饭卡
+2019-05-08 14:30:03 [ WARN ] - [ team.six.panel.homepage.PanelHomePage$13.mouseClicked(PanelHomePage.java:401) ] 本来就是挂失的，还挂失什么
+2019-05-08 14:30:08 [ WARN ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:382) ] 脑子有洞，饭卡都挂失了充什么饭卡？
+2019-05-08 14:42:49 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
+2019-05-08 14:42:56 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$13.mouseClicked(PanelHomePage.java:397) ] 饭卡丢了，赶紧挂失饭卡
+2019-05-08 14:42:57 [ WARN ] - [ team.six.panel.homepage.PanelHomePage$13.mouseClicked(PanelHomePage.java:401) ] 本来就是挂失的，还挂失什么
+2019-05-08 14:43:04 [ ERROR ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:382) ] 脑子有洞，饭卡都挂失了充什么饭卡？
