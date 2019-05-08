@@ -393,8 +393,12 @@ public class PanelHomePage extends JPanel {
 		SchoolCardLossButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				log.info("饭卡丢了，赶紧挂失饭卡");
-				SchoolCardStatusLabel.setText("账号状态：挂失");
+				if(SchoolCardStatusLabel.getText().equals("账号状态：正常")) {
+					log.info("饭卡丢了，赶紧挂失饭卡");
+					SchoolCardStatusLabel.setText("账号状态：挂失");
+				}
+				else
+					log.warn("本来就是挂失的，还挂失什么");
 				HomePagePanel.updateUI();
 			}
 		});
