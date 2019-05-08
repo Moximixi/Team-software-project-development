@@ -409,7 +409,7 @@ public class PanelHomePage extends JPanel {
 		ElectricityRechargeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				log.info("土豪充值了电费");
+				log.info("土豪充值了电费"); 
 			}
 		});
 		ElectricityRechargeButton.setBounds(785, 153, 93, 23);
