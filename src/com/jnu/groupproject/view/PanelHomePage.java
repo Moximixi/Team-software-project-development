@@ -1,4 +1,4 @@
-package team.six.panel.homepage;
+package com.jnu.groupproject.view;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -21,8 +21,6 @@ import javax.swing.table.TableColumnModel;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
-import team.six.panel.userinfo.PanelUserInfo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

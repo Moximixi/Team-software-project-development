@@ -1,4 +1,4 @@
-package team.six.panel.trainPlan;
+package com.jnu.groupproject.view;
 
 import java.awt.Color;
 import java.awt.SystemColor;

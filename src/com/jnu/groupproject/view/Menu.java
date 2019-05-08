@@ -1,4 +1,4 @@
-package team.six.menu;
+package com.jnu.groupproject.view;
 
 import java.awt.CardLayout;
 import java.awt.EventQueue;
@@ -10,15 +10,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
-import team.six.panel.courseselect.PanelCourseSelect;
-import team.six.panel.homepage.PanelHomePage;
-import team.six.panel.queryscores.PanelQueryScores;
-import team.six.panel.trainPlan.PanelTrainPlan;
-import team.six.panel.userinfo.PanelUserInfo;
-import team.six.panel.login.PanelLogin;
+import org.apache.log4j.Logger;
 
 public class Menu {
 
+	private Logger log = Logger.getLogger(PanelUserInfo.class); 
 	private JFrame frame;
 	public static JPanel panel= new JPanel();
 	//private PanelCourseSelect panelCourseSelect=new PanelCourseSelect();
@@ -61,6 +57,7 @@ public class Menu {
 				panel.removeAll();
 				panel.add(new PanelHomePage());
 				panel.updateUI();
+				log.info("点击菜单[校园生活]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_homePage);
@@ -72,6 +69,7 @@ public class Menu {
 				panel.removeAll();
 				panel.add(new PanelQueryScores());
 				panel.updateUI();
+				log.info("点击菜单[查询成绩]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_queryScores);
@@ -83,6 +81,7 @@ public class Menu {
 				panel.removeAll();
 				panel.add(new PanelCourseSelect());
 				panel.updateUI();
+				log.info("点击菜单[选课系统]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_courseSelect);
@@ -94,6 +93,7 @@ public class Menu {
 				panel.removeAll();
 				panel.add(new PanelTrainPlan());
 				panel.updateUI();
+				log.info("点击菜单[培养方案]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_trainPlan);
@@ -105,8 +105,9 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
-				//panel.add(new PanelDocument());
+				panel.add(new PanelDocument());
 				panel.updateUI();
+				log.info("点击菜单[文档应用]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_document);
@@ -116,8 +117,9 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
-				//panel.add(new PanelSearch());
+				panel.add(new PanelSearch());
 				panel.updateUI();
+				log.info("点击菜单[搜索]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_search);
@@ -129,6 +131,7 @@ public class Menu {
 				panel.removeAll();
 				panel.add(new PanelUserInfo());
 				panel.updateUI();
+				log.info("点击菜单[用户信息管理]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_userInfo);
@@ -141,6 +144,7 @@ public class Menu {
 				panel.removeAll();
 				panel.add(new PanelLogin());
 				panel.updateUI();
+				log.info("点击菜单[注销]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_logOut);

@@ -1,10 +1,12 @@
-package team.six.panel.userinfo;
+package com.jnu.groupproject.view;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
-
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,8 +25,9 @@ public class PanelUserInfo extends JPanel {
 		setLayout(null);
 		
 		table = new JTable();
-		table.setFont(new Font("宋体", Font.BOLD, 14));
-		table.setRowHeight(20);//指定每一行的行高20
+		table.setFont(new Font("宋体", Font.BOLD, 20));
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setRowHeight(40);//指定每一行的行高40
 
 		table.setBounds(382, 128, 418, 160);
 		table.setModel(new DefaultTableModel(
@@ -44,58 +47,59 @@ public class PanelUserInfo extends JPanel {
 		));
 		add(table);
 		
-		JLabel lblNewLabel = new JLabel("姓名");
-		lblNewLabel.setFont(new Font("宋体", Font.BOLD, 16));
-		lblNewLabel.setBounds(32, 99, 54, 15);
+		JLabel lblNewLabel = new JLabel("姓名:");
+		lblNewLabel.setFont(new Font("宋体", Font.BOLD, 20));
+		lblNewLabel.setBounds(32, 99, 54, 37);
 		add(lblNewLabel);
 		
 		JLabel label = new JLabel("刘虎");
-		label.setFont(new Font("宋体", Font.PLAIN, 14));
-		label.setBounds(134, 99, 54, 15);
+		label.setFont(new Font("宋体", Font.PLAIN, 20));
+		label.setBounds(134, 99, 73, 37);
 		add(label);
 		
-		JLabel label_1 = new JLabel("学号");
-		label_1.setFont(new Font("宋体", Font.BOLD, 16));
-		label_1.setBounds(32, 199, 54, 15);
+		JLabel label_1 = new JLabel("学号:");
+		label_1.setFont(new Font("宋体", Font.BOLD, 20));
+		label_1.setBounds(32, 199, 54, 37);
 		add(label_1);
 		
-		JLabel label_2 = new JLabel("寝室号");
-		label_2.setFont(new Font("宋体", Font.BOLD, 16));
-		label_2.setBounds(32, 249, 54, 15);
+		JLabel label_2 = new JLabel("寝室号:");
+		label_2.setFont(new Font("宋体", Font.BOLD, 20));
+		label_2.setBounds(32, 249, 88, 39);
 		add(label_2);
 		
 		JLabel label_3 = new JLabel("出生日期");
-		label_3.setFont(new Font("宋体", Font.BOLD, 16));
-		label_3.setBounds(32, 299, 73, 15);
+		label_3.setFont(new Font("宋体", Font.BOLD, 20));
+		label_3.setBounds(32, 299, 88, 37);
 		add(label_3);
 		
 		JLabel label_4 = new JLabel("2016023545");
-		label_4.setFont(new Font("宋体", Font.PLAIN, 14));
-		label_4.setBounds(134, 199, 73, 15);
+		label_4.setFont(new Font("宋体", Font.PLAIN, 20));
+		label_4.setBounds(134, 199, 136, 37);
 		add(label_4);
 		
 		JLabel label_5 = new JLabel("3865");
-		label_5.setFont(new Font("宋体", Font.PLAIN, 14));
-		label_5.setBounds(134, 249, 54, 15);
+		label_5.setFont(new Font("宋体", Font.PLAIN, 20));
+		label_5.setBounds(134, 249, 88, 37);
 		add(label_5);
 		
 		JLabel label_6 = new JLabel("19981024");
-		label_6.setFont(new Font("宋体", Font.PLAIN, 14));
-		label_6.setBounds(134, 299, 73, 15);
+		label_6.setFont(new Font("宋体", Font.PLAIN, 20));
+		label_6.setBounds(134, 299, 105, 37);
 		add(label_6);
 		
-		JLabel label_7 = new JLabel("性别");
-		label_7.setFont(new Font("宋体", Font.BOLD, 16));
-		label_7.setBounds(32, 149, 54, 15);
+		JLabel label_7 = new JLabel("性别:");
+		label_7.setFont(new Font("宋体", Font.BOLD, 20));
+		label_7.setBounds(32, 149, 54, 37);
 		add(label_7);
 		
 		JLabel label_8 = new JLabel("男");
-		label_8.setFont(new Font("宋体", Font.PLAIN, 14));
-		label_8.setBounds(134, 149, 54, 15);
+		label_8.setFont(new Font("宋体", Font.PLAIN, 20));
+		label_8.setBounds(134, 149, 54, 37);
 		add(label_8);
 		
 		JButton btnNewButton = new JButton("保存");
-		btnNewButton.setBounds(357, 402, 93, 23);
+		btnNewButton.setFont(new Font("宋体", Font.BOLD, 20));
+		btnNewButton.setBounds(522, 327, 181, 48);
 		add(btnNewButton);
 		//button按钮的点击事件
 		btnNewButton.addActionListener(new ActionListener() {

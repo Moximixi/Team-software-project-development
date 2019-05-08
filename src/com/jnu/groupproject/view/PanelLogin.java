@@ -1,4 +1,4 @@
-package team.six.panel.login;
+package com.jnu.groupproject.view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,10 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
-
-import team.six.menu.Menu;
-import team.six.panel.homepage.*;
-import team.six.panel.userinfo.PanelUserInfo;
 
 public class PanelLogin extends JPanel {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 

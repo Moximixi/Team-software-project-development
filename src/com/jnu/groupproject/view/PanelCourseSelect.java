@@ -1,4 +1,4 @@
-package team.six.panel.courseselect;
+package com.jnu.groupproject.view;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -18,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
 
 import org.apache.log4j.Logger;
 
-import team.six.panel.userinfo.PanelUserInfo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
