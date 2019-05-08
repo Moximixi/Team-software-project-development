@@ -12,10 +12,9 @@ import javax.swing.JPanel;
 
 import team.six.panel.courseselect.PanelCourseSelect;
 import team.six.panel.homepage.PanelHomePage;
-import team.six.panel.search.PanelSearch;
 import team.six.panel.trainPlan.PanelTrainPlan;
 import team.six.panel.userinfo.PanelUserInfo;
-import team.six.panel.document.PanelDocument;
+
 
 public class Menu {
 

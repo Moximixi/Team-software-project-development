@@ -1,0 +1,15 @@
+2019-05-08 08:47:43 [ DEBUG ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:110) ] Here is some DEBUG
+2019-05-08 08:47:43 [ INFO ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:111) ] Here is some INFO
+2019-05-08 08:47:43 [ WARN ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:112) ] Here is some WARN
+2019-05-08 08:47:43 [ ERROR ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:113) ] Here is some ERROR
+2019-05-08 08:47:43 [ FATAL ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:114) ] Here is some FATAL
+2019-05-08 08:47:46 [ DEBUG ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:110) ] Here is some DEBUG
+2019-05-08 08:47:46 [ INFO ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:111) ] Here is some INFO
+2019-05-08 08:47:46 [ WARN ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:112) ] Here is some WARN
+2019-05-08 08:47:46 [ ERROR ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:113) ] Here is some ERROR
+2019-05-08 08:47:46 [ FATAL ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:114) ] Here is some FATAL
+2019-05-08 08:49:04 [ DEBUG ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:111) ] 这是来自用户信息界面的DEBUG
+2019-05-08 08:49:04 [ INFO ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:112) ] 这是来自用户信息界面的INFO
+2019-05-08 08:49:04 [ WARN ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:113) ] 这是来自用户信息界面的 WARN
+2019-05-08 08:49:04 [ ERROR ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:114) ] 这是来自用户信息界面的ERROR
+2019-05-08 08:49:04 [ FATAL ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:115) ] 这是来自用户信息界面的FATAL

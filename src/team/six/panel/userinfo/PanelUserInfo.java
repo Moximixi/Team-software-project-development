@@ -2,12 +2,16 @@ package team.six.panel.userinfo;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import org.apache.log4j.Logger;  
+import org.apache.log4j.PropertyConfigurator;  
 
 public class PanelUserInfo extends JPanel {
 	private JTable table;
@@ -89,6 +93,29 @@ public class PanelUserInfo extends JPanel {
 		label_8.setFont(new Font("宋体", Font.PLAIN, 14));
 		label_8.setBounds(134, 149, 54, 15);
 		add(label_8);
+		
+		JButton btnNewButton = new JButton("保存");
+		btnNewButton.setBounds(357, 402, 93, 23);
+		add(btnNewButton);
+		//button按钮的点击事件
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 进行逻辑处理即可
+//				System.out.println("触发了事件");
+			   // 1. create log  
+		        Logger log = Logger.getLogger(PanelUserInfo.class);  
+		        // 2. get log config file  
+		        PropertyConfigurator.configure("log4j.properties");  
+		        // 3. start log  
+		        log.debug("这是来自用户信息界面的DEBUG");  
+		        log.info("这是来自用户信息界面的INFO");  
+		        log.warn("这是来自用户信息界面的 WARN");  
+		        log.error("这是来自用户信息界面的ERROR");  
+		        log.fatal("这是来自用户信息界面的FATAL"); 
+			}
+		});
+
 
 	}
 }
