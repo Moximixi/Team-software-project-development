@@ -16,7 +16,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.log4j.Logger;
+
+import team.six.panel.userinfo.PanelUserInfo;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class PanelCourseSelect extends JPanel {
+	private Logger log = Logger.getLogger(PanelUserInfo.class); 
 	
 	//创建选项卡面板对象
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -92,6 +99,13 @@ public class PanelCourseSelect extends JPanel {
 		panel_queryCourse.add(button_cancel);
 		
 		JButton button_query = new JButton("查询");
+		button_query.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tabbedPane.setSelectedIndex(1);
+				log.info("点击了查询成绩按钮");
+			}
+		});
 		button_query.setFont(new Font("宋体", Font.BOLD, 20));
 		button_query.setBounds(460, 278, 181, 48);
 		panel_queryCourse.add(button_query);
@@ -106,6 +120,13 @@ public class PanelCourseSelect extends JPanel {
 		panel_listCourse.add(label_listCourse);
 		
 		JButton button = new JButton("选课");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tabbedPane.setSelectedIndex(2);
+				log.info("点击了选课按钮");
+			}
+		});
 		button.setBounds(91, 186, 72, 27);
 		panel_listCourse.add(button);
 		
@@ -165,6 +186,13 @@ public class PanelCourseSelect extends JPanel {
 		panel_selectedCourse.add(label_selectedCourse);
 		
 		JButton button = new JButton("退课");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tabbedPane.setSelectedIndex(1);
+				log.info("点击了退课按钮");
+			}
+		});
 		button.setBounds(91, 186, 72, 27);
 		panel_selectedCourse.add(button);
 		

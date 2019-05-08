@@ -15,16 +15,14 @@ import team.six.panel.homepage.PanelHomePage;
 import team.six.panel.queryscores.PanelQueryScores;
 import team.six.panel.trainPlan.PanelTrainPlan;
 import team.six.panel.userinfo.PanelUserInfo;
-
+import team.six.panel.login.PanelLogin;
 
 public class Menu {
 
 	private JFrame frame;
-	private JPanel panel= new JPanel();
+	public static JPanel panel= new JPanel();
 	//private PanelCourseSelect panelCourseSelect=new PanelCourseSelect();
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,18 +36,13 @@ public class Menu {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Menu() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		
+		panel.add(new PanelLogin());
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 893, 541);
@@ -142,6 +135,14 @@ public class Menu {
 		
 		
 		JMenu menu_logOut = new JMenu("注销");
+		menu_logOut.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelLogin());
+				panel.updateUI();
+			}
+		});
 		menuBar.add(menu_logOut);
 		
 		
