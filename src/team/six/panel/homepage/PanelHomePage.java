@@ -19,6 +19,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
+import team.six.panel.userinfo.PanelUserInfo;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -36,8 +41,11 @@ public class PanelHomePage extends JPanel {
 	private JPanel CollegeNoticePanel; 
 	private JPanel AdministrationNoticePanel; 
 	private JPanel EmploymentNoticePanel; 
+    private Logger log = Logger.getLogger(PanelUserInfo.class);  
+    
 
 	public PanelHomePage() {
+		PropertyConfigurator.configure("log4j.properties");
 		setLayout(null);
 		
 		JPanel HomePagePanel = new JPanel();
@@ -365,6 +373,15 @@ public class PanelHomePage extends JPanel {
 		HomePagePanel.add(ElectricityStatusLabel);
 		
 		JButton SchoolCardRechargeButton = new JButton("充值");
+		SchoolCardRechargeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(SchoolCardStatusLabel.getText().equals("账号状态：正常"))
+					log.info("土豪充值了饭卡");
+				else
+					log.warn("脑子有洞，饭卡都挂失了充什么饭卡？");
+			}
+		});
 		SchoolCardRechargeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -373,14 +390,34 @@ public class PanelHomePage extends JPanel {
 		HomePagePanel.add(SchoolCardRechargeButton);
 		
 		JButton SchoolCardLossButton = new JButton("挂失");
+		SchoolCardLossButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				log.info("饭卡丢了，赶紧挂失饭卡");
+				SchoolCardStatusLabel.setText("账号状态：挂失");
+				HomePagePanel.updateUI();
+			}
+		});
 		SchoolCardLossButton.setBounds(785, 113, 93, 23);
 		HomePagePanel.add(SchoolCardLossButton);
 		
 		JButton ElectricityRechargeButton = new JButton("充值");
+		ElectricityRechargeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				log.info("土豪充值了电费");
+			}
+		});
 		ElectricityRechargeButton.setBounds(785, 153, 93, 23);
 		HomePagePanel.add(ElectricityRechargeButton);
 		
 		JButton ElectricityChargeRecordButton = new JButton("查看记录");
+		ElectricityChargeRecordButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				log.info("有人偷偷查了电费记录");
+			}
+		});
 		ElectricityChargeRecordButton.setBounds(785, 183, 93, 23);
 		HomePagePanel.add(ElectricityChargeRecordButton);
 

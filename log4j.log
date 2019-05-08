@@ -13,3 +13,25 @@
 2019-05-08 08:49:04 [ WARN ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:113) ] 这是来自用户信息界面的 WARN
 2019-05-08 08:49:04 [ ERROR ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:114) ] 这是来自用户信息界面的ERROR
 2019-05-08 08:49:04 [ FATAL ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:115) ] 这是来自用户信息界面的FATAL
+2019-05-08 13:54:24 [ DEBUG ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:111) ] 这是来自用户信息界面的DEBUG
+2019-05-08 13:54:24 [ INFO ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:112) ] 这是来自用户信息界面的INFO
+2019-05-08 13:54:24 [ WARN ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:113) ] 这是来自用户信息界面的 WARN
+2019-05-08 13:54:24 [ ERROR ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:114) ] 这是来自用户信息界面的ERROR
+2019-05-08 13:54:24 [ FATAL ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:115) ] 这是来自用户信息界面的FATAL
+2019-05-08 13:56:09 [ DEBUG ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:111) ] 这是来自用户信息界面的DEBUG
+2019-05-08 13:56:09 [ INFO ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:112) ] 这是来自用户信息界面的INFO
+2019-05-08 13:56:09 [ WARN ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:113) ] 这是来自用户信息界面的 WARN
+2019-05-08 13:56:09 [ ERROR ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:114) ] 这是来自用户信息界面的ERROR
+2019-05-08 13:56:09 [ FATAL ] - [ team.six.panel.userinfo.PanelUserInfo$1.actionPerformed(PanelUserInfo.java:115) ] 这是来自用户信息界面的FATAL
+2019-05-08 14:05:14 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:379) ] 土豪充值了饭卡
+2019-05-08 14:15:00 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
+2019-05-08 14:15:10 [ WARN ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:382) ] 脑子有洞，饭卡都挂失了充什么饭卡？
+2019-05-08 14:16:18 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
+2019-05-08 14:18:32 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
+2019-05-08 14:18:37 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$13.mouseClicked(PanelHomePage.java:396) ] 饭卡丢了，赶紧挂失饭卡
+2019-05-08 14:18:43 [ WARN ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:382) ] 脑子有洞，饭卡都挂失了充什么饭卡？
+2019-05-08 14:19:52 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
+2019-05-08 14:20:17 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
+2019-05-08 14:20:55 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:380) ] 土豪充值了饭卡
+2019-05-08 14:21:03 [ INFO ] - [ team.six.panel.homepage.PanelHomePage$13.mouseClicked(PanelHomePage.java:396) ] 饭卡丢了，赶紧挂失饭卡
+2019-05-08 14:21:14 [ WARN ] - [ team.six.panel.homepage.PanelHomePage$11.mouseClicked(PanelHomePage.java:382) ] 脑子有洞，饭卡都挂失了充什么饭卡？
