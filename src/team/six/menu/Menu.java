@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import team.six.panel.courseselect.PanelCourseSelect;
 import team.six.panel.homepage.PanelHomePage;
+import team.six.panel.queryscores.PanelQueryScores;
 import team.six.panel.trainPlan.PanelTrainPlan;
 import team.six.panel.userinfo.PanelUserInfo;
 
@@ -72,6 +73,14 @@ public class Menu {
 		menuBar.add(menu_homePage);
 		
 		JMenu menu_queryScores = new JMenu("查询成绩");
+		menu_queryScores.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelQueryScores());
+				panel.updateUI();
+			}
+		});
 		menuBar.add(menu_queryScores);
 		
 		JMenu menu_courseSelect = new JMenu("选课系统");
