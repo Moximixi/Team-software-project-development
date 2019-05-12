@@ -1,8 +1,12 @@
 package com.jnu.groupproject.view;
 
 import java.awt.Font;
+import java.awt.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -47,25 +51,71 @@ public class PanelSearch extends JPanel {
 		add(textField_keyWord);
 		textField_keyWord.setColumns(10);
 		
+		
 		JButton button_search = new JButton("搜索");
 		button_search.setFont(new Font("宋体", Font.BOLD, 18));
 		button_search.setBounds(608, 229, 74, 31);
 		button_search.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// 进行逻辑处理即可
-				//System.out.println("触发了事件");
-			   // 1. create log  
-		        Logger log = Logger.getLogger(PanelSearch.class);  
-		        // 2. get log config file  
-		        PropertyConfigurator.configure("log4j.properties");  
-		        // 3. start log   
-		        log.error("搜索功能不可用");  
-		    
+				String keyword = textField_keyWord.getText();
+				ArrayList<File> files = searchFiles(new File("C:\\Users\\chris ben\\git\\Team-software-project-development\\src\\com\\jnu\\groupproject\\data"), keyword);
+		        
+		        if(files.size()==0) {
+					// 进行逻辑处理即可
+					//System.out.println("触发了事件");
+					// 1. create log  
+					Logger log = Logger.getLogger(PanelSearch.class);  
+					// 2. get log config file  
+					PropertyConfigurator.configure("log4j.properties");  
+					// 3. start log   
+					log.info("未找到相关文件");  
+				}else {
+					System.out.println("共找到:" + files.size() + "个文件");
+					for (File file : files) {
+						System.out.println(file.getAbsolutePath());
+					}
+				}
+				
 			}
 		});
 		add(button_search);
 
 	}
 
+	 public static ArrayList<File> searchFiles(File folder, final String keyword) {
+	        ArrayList<File> result = new ArrayList<File>();
+	        if (folder.isFile())
+	            result.add(folder);
+	 
+	        File[] subFolders = folder.listFiles(new FileFilter() {
+	            @Override
+	            public boolean accept(File file) {
+	                if (file.isDirectory()) {
+	                    return true;
+	                }
+	                if (file.getName().toLowerCase().contains(keyword)) {
+	                    return true;
+	                }
+	                return false;
+	            }
+	        });
+	 
+	        if (subFolders != null) {
+	            for (File file : subFolders) {
+	                if (file.isFile()) {
+	                    // 如果是文件则将文件添加到结果列表中
+	                    result.add(file);
+	                } else {
+	                    // 如果是文件夹，则递归调用本方法，然后把所有的文件加到结果列表中
+	                    result.addAll(searchFiles(file, keyword));
+	                }
+	            }
+	        }
+	 
+	        return result;
+	    }
+	 
+	   
+	
 }
