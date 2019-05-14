@@ -5,11 +5,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JScrollBar;
@@ -21,6 +23,11 @@ import javax.swing.table.TableColumnModel;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+
+
+
+import chrriis.common.UIUtils;
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -40,6 +47,8 @@ public class PanelHomePage extends JPanel {
 	private JPanel AdministrationNoticePanel; 
 	private JPanel EmploymentNoticePanel; 
     private Logger log = Logger.getLogger(PanelUserInfo.class);  
+    
+    public JButton EnterSchoolFroumButton;
     
 
 	public PanelHomePage() {
@@ -350,7 +359,7 @@ public class PanelHomePage extends JPanel {
 		SchoolForumLabel.setBounds(619, 266, 80, 40);
 		HomePagePanel.add(SchoolForumLabel);
 		
-		JButton EnterSchoolFroumButton = new JButton("进入论坛");
+		EnterSchoolFroumButton = new JButton("进入论坛");
 		EnterSchoolFroumButton.setBounds(785, 405, 93, 23);
 		HomePagePanel.add(EnterSchoolFroumButton);
 		
