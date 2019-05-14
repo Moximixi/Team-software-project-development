@@ -11,14 +11,9 @@ import org.apache.log4j.PropertyConfigurator;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-
-import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class PanelDocument extends JPanel {
 
@@ -45,28 +40,14 @@ public class PanelDocument extends JPanel {
 		button_openRecentDoc.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String recentDoc = (String) comboBox_recentDoc.getSelectedItem();
-				ArrayList<File> files = PanelSearch.searchFiles(new File("C:\\Users\\chris ben\\git\\Team-software-project-development\\src\\com\\jnu\\groupproject\\data"), recentDoc);
-				if(files.size()==0) {
-					// 进行逻辑处理即可
-					//System.out.println("触发了事件");
-					// 1. create log  
-					Logger log = Logger.getLogger(PanelDocument.class);  
-					// 2. get log config file  
-					PropertyConfigurator.configure("log4j.properties");  
-					// 3. start log   
-					log.error("相关文件丢失");  
-				}
-				//打开文件
-				try {
-					for (File file : files) {
-			            Desktop.getDesktop().open(new File(file.getAbsolutePath()));
-			        }
-					
-				} catch (IOException e1) {
-					// TODO 自动生成的 catch 块
-					e1.printStackTrace();
-				}
+				// 进行逻辑处理即可
+				//System.out.println("触发了事件");
+			   // 1. create log  
+		        Logger log = Logger.getLogger(PanelDocument.class);  
+		        // 2. get log config file  
+		        PropertyConfigurator.configure("log4j.properties");  
+		        // 3. start log   
+		        log.error("文件未找到");  
 			}
 		});
 		add(button_openRecentDoc);
@@ -88,28 +69,14 @@ public class PanelDocument extends JPanel {
 		button_openAllDoc.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String allDoc = (String) comboBox_allDoc.getSelectedItem();
-				ArrayList<File> files = PanelSearch.searchFiles(new File("C:\\Users\\chris ben\\git\\Team-software-project-development\\src\\com\\jnu\\groupproject\\data"), allDoc);
-				if(files.size()==0) {
-					// 进行逻辑处理即可
-					//System.out.println("触发了事件");
-					// 1. create log  
-					Logger log = Logger.getLogger(PanelDocument.class);  
-					// 2. get log config file  
-					PropertyConfigurator.configure("log4j.properties");  
-					// 3. start log   
-					log.error("相关文件丢失");  
-				}
-				//打开文件
-				try {
-					for (File file : files) {
-			            Desktop.getDesktop().open(new File(file.getAbsolutePath()));
-			        }
-					
-				} catch (IOException e1) {
-					// TODO 自动生成的 catch 块
-					e1.printStackTrace();
-				} 
+				// 进行逻辑处理即可
+				//System.out.println("触发了事件");
+			   // 1. create log  
+		        Logger log = Logger.getLogger(PanelDocument.class);  
+		        // 2. get log config file  
+		        PropertyConfigurator.configure("log4j.properties");  
+		        // 3. start log   
+		        log.error("文件未找到");  
 			}
 		});
 		add(button_openAllDoc);

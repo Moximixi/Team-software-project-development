@@ -1,6 +1,5 @@
 package com.jnu.groupproject.view;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
@@ -13,11 +12,6 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-
-
-import chrriis.common.UIUtils;
-import chrriis.dj.nativeswing.swtimpl.NativeInterface;
-
 public class Menu {
 
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
@@ -26,8 +20,6 @@ public class Menu {
 	//private PanelCourseSelect panelCourseSelect=new PanelCourseSelect();
 	
 	public static void main(String[] args) {
-		UIUtils.setPreferredLookAndFeel();
-		NativeInterface.open();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,37 +50,17 @@ public class Menu {
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		//校园生活
 		JMenu menu_homePage = new JMenu("校园生活");
-		PanelHomePage homePagePanel=new PanelHomePage();
 		menu_homePage.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
-				panel.add(homePagePanel);
+				panel.add(new PanelHomePage());
 				panel.updateUI();
 				log.info("点击菜单[校园生活]");	//1111111111111111111111111
 			}
 		});
 		menuBar.add(menu_homePage);
-		homePagePanel.EnterSchoolFroumButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-					try {    
-						panel.removeAll();
-						panel.add(new Web("http://bbs.jnlts.com/"));
-						panel.updateUI();
-					} catch (Exception e) {
-						e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
-		
-		
 		
 		JMenu menu_queryScores = new JMenu("查询成绩");
 		menu_queryScores.addMouseListener(new MouseAdapter() {
@@ -177,6 +149,7 @@ public class Menu {
 		});
 		menuBar.add(menu_logOut);
 		
-		//NativeInterface.runEventPump();
+		
+		
 	}
 }
