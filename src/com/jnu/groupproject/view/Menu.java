@@ -25,6 +25,7 @@ public class Menu {
 				try {
 					Menu window = new Menu();
 					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -91,7 +92,12 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
-				panel.add(new PanelTrainPlan());
+				try {
+					panel.add(new PanelTrainPlan());
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
 				panel.updateUI();
 				log.info("点击菜单[培养方案]");	//1111111111111111111111111
 			}

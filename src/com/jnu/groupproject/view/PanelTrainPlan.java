@@ -1,14 +1,38 @@
 package com.jnu.groupproject.view;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Map.Entry;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel; 
+import javax.swing.table.DefaultTableModel;
+
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.Connection.Method;
+import org.jsoup.Connection.Response;
+
+import com.jnu.craw.CrawGrade;
+import com.jnu.craw.DownloadLoginfo;
+import com.jnu.craw.GradeOutput;
+import com.jnu.craw.LoginClass; 
 public class PanelTrainPlan extends JPanel {
 
 	/**
@@ -16,12 +40,15 @@ public class PanelTrainPlan extends JPanel {
 	 */
 	private JTable trainplan_table;
 	private JPanel PanelTrainPlan;
-	public PanelTrainPlan() {
-		
+    
+	public PanelTrainPlan() throws Exception {
 		JPanel PanelTrainPlan=new JPanel();
 		PanelTrainPlan.setForeground(Color.LIGHT_GRAY);
 		PanelTrainPlan.setBounds(0, 0, 880, 470);
 		add(PanelTrainPlan);
+		JButton button = new JButton("查看");
+		PanelTrainPlan.add(button);
+		button.addMouseListener(new buttonActionListener());
 		trainplan_table = new JTable();
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();// 设置table内容居中
 		tcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -60,7 +87,7 @@ public class PanelTrainPlan extends JPanel {
 		trainplan_table.getColumnModel().getColumn(5).setPreferredWidth(50);
 		trainplan_table.setBackground(SystemColor.textHighlightText);
 		PanelTrainPlan.add(trainplan_table);
-		
-	}
+	
+	}		
 
 }
