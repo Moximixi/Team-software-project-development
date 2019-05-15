@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /*
- * 存取数据到文件类
+ * 存取数据到文件的方法类
  * */
 public class FileHelper {
 	private String fileName;

@@ -20,18 +20,11 @@ import com.jnu.groupproject.data.*;
 
 public class PanelUserInfo extends JPanel {
 	private JTable table;
-
-	/**
-	 * Create the panel.
-	 */
 	public PanelUserInfo() {
-		//首先规定用户信息的路径
-		FileHelper fh=new FileHelper("./userinfo.txt");//存到当前文件夹下
-	         
-
+		//首先规定用户信息的路径（需要用到用户信息的界面都要引入该语句）
+		FileHelper fh=new FileHelper("./userinfo.txt");
 		//读取个人信息代码
 		Person person=fh.getObjFromFile();                 //取出person对象
-
 		//样式部分
 		setLayout(null);
 
@@ -131,7 +124,7 @@ public class PanelUserInfo extends JPanel {
 				//		        PropertyConfigurator.configure("log4j.properties");  
 				// 3. start log  
 				//		        log.debug("这是来自用户信息界面的DEBUG");  
-				//		        log.info("这是来自用户信息界面的INFO");  
+						        log.info("这是来自用户查看信息界面的INFO");  
 				//		        log.warn("这是来自用户信息界面的 WARN");  
 				//		        log.error("这是来自用户信息界面的ERROR");  
 				//		        log.fatal("这是来自用户信息界面的FATAL"); 
@@ -139,8 +132,8 @@ public class PanelUserInfo extends JPanel {
 				/*
 				 * 逻辑部分
 				 * */		
-					                
-//				System.out.println(person.getBirth());
+
+				//				System.out.println(person.getBirth());
 			}
 		});
 
