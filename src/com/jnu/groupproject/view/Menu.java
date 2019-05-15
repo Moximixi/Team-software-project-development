@@ -59,6 +59,34 @@ public class Menu {
 		frame.setJMenuBar(menuBar);
 		
 		//校园生活
+		/*JMenu menu_homePage = new JMenu("校园生活");
+		PanelHomePage homePagePanel=new PanelHomePage();
+		menu_homePage.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(homePagePanel);
+				panel.updateUI();
+				log.info("点击菜单[校园生活]");	//1111111111111111111111111
+			}
+		});
+		menuBar.add(menu_homePage);
+		homePagePanel.EnterSchoolFroumButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+					try {    
+						panel.removeAll();
+						panel.add(new Web("http://bbs.jnlts.com/"));
+						panel.updateUI();
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
+			}
+		});*/
 		JMenu menu_homePage = new JMenu("校园生活");
 		PanelHomePage homePagePanel=new PanelHomePage();
 		menu_homePage.addMouseListener(new MouseAdapter() {
@@ -87,8 +115,38 @@ public class Menu {
 				});
 			}
 		});
+		homePagePanel.ElectricityChargeRecordButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+					try {    
+						panel.removeAll();
+						panel.add(new Web("http://202.116.25.12/Login.aspx"));
+						panel.updateUI();
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		homePagePanel.ElectricityQueryButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				log.info("查询了电费"); 
+				try {
+					ElectricityCharges electricitycharge=new ElectricityCharges();
+					homePagePanel.ElectricityFeesBalanceLabel.setText("剩余电量："+electricitycharge.restcharge);
+					panel.updateUI();
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+
 		
-		
+			}
+		});
 		
 		JMenu menu_queryScores = new JMenu("查询成绩");
 		menu_queryScores.addMouseListener(new MouseAdapter() {

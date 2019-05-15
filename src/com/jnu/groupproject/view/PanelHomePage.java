@@ -24,7 +24,7 @@ import javax.swing.table.TableColumnModel;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 
 import chrriis.common.UIUtils;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
@@ -33,6 +33,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class PanelHomePage extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -49,6 +50,9 @@ public class PanelHomePage extends JPanel {
     private Logger log = Logger.getLogger(PanelUserInfo.class);  
     
     public JButton EnterSchoolFroumButton;
+    public JButton ElectricityChargeRecordButton;
+    public JLabel ElectricityFeesBalanceLabel;
+    public JButton ElectricityQueryButton ;
     
 
 	public PanelHomePage() {
@@ -360,10 +364,18 @@ public class PanelHomePage extends JPanel {
 		HomePagePanel.add(SchoolForumLabel);
 		
 		EnterSchoolFroumButton = new JButton("进入论坛");
+		/*EnterSchoolFroumButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				HomePagePanel.removeAll();
+				HomePagePanel.add(new PanelSchoolForum());
+				HomePagePanel.updateUI();
+			}
+		});*/
 		EnterSchoolFroumButton.setBounds(785, 405, 93, 23);
 		HomePagePanel.add(EnterSchoolFroumButton);
 		
-		JLabel SchoolCardBalanceLabel = new JLabel("余额：80元");
+		JLabel SchoolCardBalanceLabel = new JLabel("余额：未查询");
 		SchoolCardBalanceLabel.setBounds(679, 86, 73, 15);
 		HomePagePanel.add(SchoolCardBalanceLabel);
 		
@@ -371,7 +383,7 @@ public class PanelHomePage extends JPanel {
 		SchoolCardStatusLabel.setBounds(679, 114, 93, 15);
 		HomePagePanel.add(SchoolCardStatusLabel);
 		
-		JLabel ElectricityFeesBalanceLabel = new JLabel("剩余电量：170度");
+		ElectricityFeesBalanceLabel = new JLabel("剩余电量：未查询");
 		ElectricityFeesBalanceLabel.setBounds(679, 154, 110, 15);
 		HomePagePanel.add(ElectricityFeesBalanceLabel);
 		
@@ -379,22 +391,20 @@ public class PanelHomePage extends JPanel {
 		ElectricityStatusLabel.setBounds(679, 181, 93, 15);
 		HomePagePanel.add(ElectricityStatusLabel);
 		
-		JButton SchoolCardRechargeButton = new JButton("充值");
-		SchoolCardRechargeButton.addMouseListener(new MouseAdapter() {
+		JButton SchoolCardQueryButton = new JButton("查询");
+		SchoolCardQueryButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(SchoolCardStatusLabel.getText().equals("账号状态：正常"))
-					log.info("土豪充值了饭卡");
-				else
-					log.error("脑子有洞，饭卡都挂失了充什么饭卡？");
+					log.info("查询了饭卡");
 			}
 		});
-		SchoolCardRechargeButton.addActionListener(new ActionListener() {
+		SchoolCardQueryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		SchoolCardRechargeButton.setBounds(785, 83, 93, 23);
-		HomePagePanel.add(SchoolCardRechargeButton);
+		SchoolCardQueryButton.setBounds(785, 83, 93, 23);
+		HomePagePanel.add(SchoolCardQueryButton);
 		
 		JButton SchoolCardLossButton = new JButton("挂失");
 		SchoolCardLossButton.addMouseListener(new MouseAdapter() {
@@ -412,17 +422,12 @@ public class PanelHomePage extends JPanel {
 		SchoolCardLossButton.setBounds(785, 113, 93, 23);
 		HomePagePanel.add(SchoolCardLossButton);
 		
-		JButton ElectricityRechargeButton = new JButton("充值");
-		ElectricityRechargeButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				log.info("土豪充值了电费"); 
-			}
-		});
-		ElectricityRechargeButton.setBounds(785, 153, 93, 23);
-		HomePagePanel.add(ElectricityRechargeButton);
+		ElectricityQueryButton = new JButton("查询");
+		/*ElectricityQueryButton. */
+		ElectricityQueryButton.setBounds(785, 153, 93, 23);
+		HomePagePanel.add(ElectricityQueryButton);
 		
-		JButton ElectricityChargeRecordButton = new JButton("查看记录");
+		ElectricityChargeRecordButton = new JButton("查看记录");
 		ElectricityChargeRecordButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
