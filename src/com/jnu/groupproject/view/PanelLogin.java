@@ -65,7 +65,7 @@ public class PanelLogin extends JPanel {
 		btn_login.setBackground(Color.LIGHT_GRAY);
 		btn_login.setFont(new Font("宋体", Font.BOLD, 20));
 		btn_login.setForeground(Color.WHITE);
-		btn_login.setBounds(122, 221, 276, 30);
+		btn_login.setBounds(118, 241, 141, 30);
 		panel_1.add(btn_login);
 		
 		JLabel label_name = new JLabel("账号：");
@@ -79,7 +79,22 @@ public class PanelLogin extends JPanel {
 		label_password.setFont(new Font("宋体", Font.BOLD, 20));
 		label_password.setBounds(128, 152, 63, 18);
 		panel_1.add(label_password);
+		
+		JButton btn_register = new JButton("注册");
+		btn_register.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Menu.panel.removeAll();
+				Menu.panel.add(new PanelRegister());
+				Menu.panel.updateUI();
+				log.info("用户注册");	//日志
+			}
+		});
+		btn_register.setForeground(Color.WHITE);
+		btn_register.setFont(new Font("宋体", Font.BOLD, 20));
+		btn_register.setBackground(Color.LIGHT_GRAY);
+		btn_register.setBounds(303, 241, 141, 30);
+		panel_1.add(btn_register);
 
 	}
-
 }

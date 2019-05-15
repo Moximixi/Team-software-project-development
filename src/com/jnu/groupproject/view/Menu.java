@@ -222,6 +222,17 @@ public class Menu {
 		});
 		menuBar.add(menu_userInfo);
 		
+		JMenu menu_userInfoRegister = new JMenu("用户信息编辑");
+		menu_userInfoRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.removeAll();
+				panel.add(new PanelRegister());
+				panel.updateUI();
+				log.info("点击菜单[用户信息编辑]");	//1111111111111111111111111
+			}
+		});
+		menuBar.add(menu_userInfoRegister);
 		
 		JMenu menu_logOut = new JMenu("注销");
 		menu_logOut.addMouseListener(new MouseAdapter() {
