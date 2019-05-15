@@ -11,7 +11,7 @@ public class TestSaving {
 		p.setSex("男");
 		p.setNum(16);
 		p.setRoom(3232);
-		p.setBirth(new Date(95,5,16));
+		//p.setBirth(new Date(95,10,16));
 		fh.saveObjToFile(p);                               //存入person对象
 		
 		Person person=fh.getObjFromFile();                 //取出person对象
