@@ -22,9 +22,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
 
-import com.jnu.craw.CrawGrade;
+import com.jnu.craw.CrawTrainplanData;
 import com.jnu.craw.DownloadLoginfo;
-import com.jnu.craw.GradeOutput;
+import com.jnu.craw.TrainplanOutput;
 import com.jnu.craw.LoginClass;
 
 public class buttonActionListener implements MouseListener {
@@ -44,22 +44,22 @@ public class buttonActionListener implements MouseListener {
             	LoginClass loginClass = new LoginClass();
           	    downloadLoginfo.getLogInfo();
           	    new MyDailog(title, content).setVisible(true);
-          	  System.out.println("-----------请输入验证码---------");
-              Scanner sc = new Scanner(System.in);
-              YZM = sc.next();
-              sc.close();
-              sc.close();
+//          	  System.out.println("-----------请输入验证码---------");
+//              Scanner sc = new Scanner(System.in);
+//              YZM = sc.next();
+//              sc.close();
+//              sc.close();
                 loginClass.login(downloadLoginfo, xuehao, password);
                 for (Entry<String, String> entry : loginClass.getCookies().entrySet()) {
                     System.out.println("key:" + entry.getKey() + ";value" + entry.getValue());
                 }
-               CrawGrade crawGrade = new CrawGrade();
-               crawGrade.crawGradeLastPage(downloadLoginfo.getCookies(), downloadLoginfo.getViewState());
-//               GradeOutput gradeOutput=new GradeOutput();
+               CrawTrainplanData crawGrade = new CrawTrainplanData();
+               String html_content=crawGrade.crawGradeLastPage(downloadLoginfo.getCookies(), downloadLoginfo.getViewState());
+               TrainplanOutput gradeOutput=new TrainplanOutput();
 
-                    String html_content = crawGrade.crawGrade( downloadLoginfo.getCookies());
-//                    gradeOutput.collectGrade(html_content);
-//                	gradeOutput.outputDatas2Html();
+//                   String html_content = crawGrade.crawGrade( downloadLoginfo.getCookies());
+                   gradeOutput.collectGrade(html_content);
+                   gradeOutput.outputDatas2Html();
             } catch (IOException e1) {
                 System.out.println("无法连接学校服务器");
             } catch (Exception e1) {
@@ -146,6 +146,7 @@ public class buttonActionListener implements MouseListener {
 	class MyDailog extends JDialog implements ActionListener {
 	    String title;
 	    String content;
+	    JTextField text=new JTextField("请输入验证码");
 	    public MyDailog(String title, String content) throws Exception {
 	        this.title = title;
 	        this.content = content;
@@ -154,8 +155,6 @@ public class buttonActionListener implements MouseListener {
 	        ImageIcon icon = new ImageIcon("E:\\download\\Team-software-project-development-feature (1)\\Team-software-project-development-feature\\src\\com\\jnu\\craw\\verificationcode\\yzm.png");// 创建1个图标实例
 	        JLabel jlImg = new JLabel(icon);// 1个图片标签,显示图片
 	        JButton jb = new JButton("确定");// 创建1个按钮
-	        JTextField text=new JTextField("");
-	        YZM=text.getText();
 	        jb.addActionListener(this);
 	        add(text);
 	        add(jlImg);// 向对话框加入图片标签
@@ -173,8 +172,10 @@ public class buttonActionListener implements MouseListener {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	        if (e.getActionCommand().equals("确定")) {// 判断是不是确定按钮被点击
+	        	 YZM=text.getText();
 	        	  this.setVisible(false);// 对话框不可见
 	              this.dispose();// 对话框销毁
+	              
 	        	}
        	// 对话框销毁
 	        }

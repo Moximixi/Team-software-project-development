@@ -8,6 +8,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,13 +23,34 @@ import org.jsoup.select.Elements;
  *
  */
 @SuppressWarnings("all")
-public class GradeOutput {
+public class TrainplanOutput {
     /**
      * 保存成绩的集合
      */
+	public  JTable table = new JTable();
+	public DefaultTableModel model=new DefaultTableModel(	
+			new Object[][] {
+		{"学习模块", "要求", "已修", "还差"},
+		{"总学分", null, null, null},
+		{"必修", null, null, null},
+		{"艺术素养", null, null, null},
+		{"文史哲类", null, null, null},
+		{"经管法类", null, null, null},
+		{"数理工类", null, null, null},
+		{"生命类", null, null, null},
+		{"其他类", null, null, null},
+		{"通识小计", null, null, null},
+		{"基础教育", null, null, null},
+		{"专业教育", null, null, null},
+		{"跨专业课程", null, null, null},
+		{"选修合计", null, null, null},
+	},
+	new String[] {
+		"New column", "New column", "New column", "New column"
+	});
     private List<Map<String, Object>> datas;
 
-    public GradeOutput() {
+    public TrainplanOutput() {
         this.datas = new ArrayList<Map<String, Object>>();
     }
 
@@ -37,43 +61,34 @@ public class GradeOutput {
      * @return
      */
     public String collectGrade(String html) {
+    	
         // 解析html
         Document document = Jsoup.parse(html);
         // 获取成绩表格
-        Element table = document.select("#Datagrid1").first();
+        Element table = document.select("table[class=form_table]").first();
         // 选择除表格表头之外的元素
         Elements trs = table.select("tr:gt(0)");
         for (Element ele : trs) {
             Map result = new LinkedHashMap();
-            Elements ele0 = ele.select("td:eq(0)");// 找到学年
-            result.put("xuenian", ele0.text());
-            Elements ele1 = ele.select("td:eq(1)");// 找到学期
-            result.put("xueqi", ele1.text());
-            Elements ele3 = ele.select("td:eq(3)");// 找到课程名称
-            result.put("kecheng", ele3.text());
-            Elements ele8 = ele.select("td:eq(8)");// 找到成绩
-            result.put("chengji", ele8.text());
+            Elements ele0 = ele.select("td[class=needs]");// 找到学年
+            result.put("要求学分", ele0.text());
+            Elements ele1 = ele.select("td[class=study]");// 找到学期
+            result.put("已修学分", ele1.text());
+            Elements ele2 = ele.select("td[class=lefts]");// 找到课程名称
+            result.put("还差", ele2.text());
             this.datas.add(result);
+        }
+        
+        for(Map<String, Object> data:datas) {
+        	String request = (String) data.get("要求学分");
+        	
+            String study = (String) data.get("已修学分");
+            String need = (String) data.get("还差");
         }
         return null;
     }
-
-    /**
-     * 输出成绩到控制台
-     */
-    public void outPutGrade() {
-        if (this.datas == null || this.datas.size() == 0) {
-            return;
-        }
-        System.out.println("-------下面是提取到的成绩--------");
-        for (Map result : datas) {
-
-            System.out.println(result.get("xuenian") + "\t" + result.get("xueqi") + "\t" + result.get("kecheng") + "\t"
-                    + result.get("chengji") + "\t");
-        }
-
-    }
-
+    
+    
     /**
      * 最后处理所有的数据，写出到html或者保存数据库
      * 
@@ -82,7 +97,7 @@ public class GradeOutput {
     public void outputDatas2Html() throws IOException {
         if (datas != null && datas.size() > 0) {
             // 读取文件存储位置
-            String directory = ResourcesUtil.getValue("path", "file");
+            String directory ="C:\\Users\\starry_mei\\Desktop\\Team-software-project-development\\src\\com\\jnu\\craw\\html";
             
             File file = new File(directory+"\\gradeOut.html");
             // 如果文件不存在就创建文件
@@ -102,20 +117,17 @@ public class GradeOutput {
             fileWriter.write("<body>");
             fileWriter.write("<table cellpadding='0' cellspacing='0' style='text-align:center;'>");
             fileWriter.write(
-                    "<tr style='background-color:#95caca;font-size:20px'><td>学年</td><td>学期</td><td>课程名字</td><td>成绩</td></tr>");
+                    "<tr style='background-color:#95caca;font-size:20px'><td>要求学分</td><td>已修学分</td><td>还差</td>");
 
             for (Map<String, Object> data : datas) {
-                String xuenian = (String) data.get("xuenian");
-                String xueqi = (String) data.get("xueqi");
-                String kecheng = (String) data.get("kecheng");
-                String chengji = (String) data.get("chengji");
+                String request = (String) data.get("要求学分");
+                String study = (String) data.get("已修学分");
+                String need = (String) data.get("还差");
                 fileWriter.write("<tr>");
-                fileWriter.write("<td>" + xuenian + "</td>");
-                fileWriter.write("<td>" + xueqi + "</td>");
-                fileWriter.write("<td>" + kecheng + "</td>");
-                fileWriter.write("<td>" + chengji + "</td>");
+                fileWriter.write("<td>" + request + "</td>");
+                fileWriter.write("<td>" + study + "</td>");
+                fileWriter.write("<td>" + need + "</td>");
                 fileWriter.write("</tr>");
-
             }
             fileWriter.write("</table>");
             fileWriter.write("</body>");

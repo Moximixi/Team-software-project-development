@@ -22,7 +22,7 @@ public class LoginJWC {
         try {
             DownloadLoginfo downloadLoginfo = new DownloadLoginfo();
             LoginClass loginClass = new LoginClass();
-            GradeOutput gradeOutput = new GradeOutput();
+            TrainplanOutput gradeOutput = new TrainplanOutput();
             // 1.访问主页，获取验证码与viewstate
             downloadLoginfo.getLogInfo();
             // 2.登录
@@ -30,7 +30,7 @@ public class LoginJWC {
             for (Entry<String, String> entry : loginClass.getCookies().entrySet()) {
                 System.out.println("key:" + entry.getKey() + ";value" + entry.getValue());
             }
-            CrawGrade crawGrade = new CrawGrade();
+            CrawTrainplanData crawGrade = new CrawTrainplanData();
             //3. 爬取成绩的上一个页面
          //   crawGrade.crawGradeLastPage(downloadLoginfo.getCookies(), downloadLoginfo.getViewState(), xuehao);
             List<String> condition = geneQueryCondition();

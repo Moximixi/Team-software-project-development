@@ -13,7 +13,7 @@ import org.jsoup.nodes.Element;
  * @author liqiang
  *
  */
-public class CrawGrade {
+public class CrawTrainplanData {
     
     private String viewState;
     private String validate;

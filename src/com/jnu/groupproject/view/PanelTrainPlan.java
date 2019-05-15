@@ -29,9 +29,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
 
-import com.jnu.craw.CrawGrade;
+import com.jnu.craw.CrawTrainplanData;
 import com.jnu.craw.DownloadLoginfo;
-import com.jnu.craw.GradeOutput;
+import com.jnu.craw.TrainplanOutput;
 import com.jnu.craw.LoginClass; 
 public class PanelTrainPlan extends JPanel {
 
