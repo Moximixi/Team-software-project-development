@@ -32,16 +32,16 @@ public class LoginJWC {
             }
             CrawGrade crawGrade = new CrawGrade();
             //3. 爬取成绩的上一个页面
-            crawGrade.crawGradeLastPage(downloadLoginfo.getCookies(), downloadLoginfo.getViewState(), xuehao);
+         //   crawGrade.crawGradeLastPage(downloadLoginfo.getCookies(), downloadLoginfo.getViewState(), xuehao);
             List<String> condition = geneQueryCondition();
             //4.循环分学年爬取成绩
-            for (String xuenian : condition) {
-                String html_content = crawGrade.crawGrade(xuenian, "2", downloadLoginfo.getCookies(),
-                        // 4.1爬取成绩页面
-                        downloadLoginfo.getViewState(), xuehao);
-                gradeOutput.collectGrade(html_content);
-
-            }
+//            for (String xuenian : condition) {
+//                String html_content = crawGrade.crawGrade(xuenian, "2", downloadLoginfo.getCookies(),
+//                        // 4.1爬取成绩页面
+//                        downloadLoginfo.getViewState(), xuehao);
+//                gradeOutput.collectGrade(html_content);
+//
+//            }
             //5.输出爬到的数据到html文件中
             gradeOutput.outputDatas2Html();
         } catch (IOException e) {

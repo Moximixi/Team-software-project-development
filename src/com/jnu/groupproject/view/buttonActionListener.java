@@ -22,7 +22,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
 
+import com.jnu.craw.CrawGrade;
 import com.jnu.craw.DownloadLoginfo;
+import com.jnu.craw.GradeOutput;
 import com.jnu.craw.LoginClass;
 
 public class buttonActionListener implements MouseListener {
@@ -51,20 +53,13 @@ public class buttonActionListener implements MouseListener {
                 for (Entry<String, String> entry : loginClass.getCookies().entrySet()) {
                     System.out.println("key:" + entry.getKey() + ";value" + entry.getValue());
                 }
-//                CrawGrade crawGrade = new CrawGrade();
-                //3. 爬取成绩的上一个页面
-//                crawGrade.crawGradeLastPage(downloadLoginfo.getCookies(), downloadLoginfo.getViewState(), xuehao);
-//                List<String> condition = geneQueryCondition();
-                //4.循环分学年爬取成绩
-//                for (String xuenian : condition) {
-//                    String html_content = crawGrade.crawGrade(xuenian, "2", downloadLoginfo.getCookies(),
-//                            // 4.1爬取成绩页面
-//                            downloadLoginfo.getViewState(), xuehao);
+               CrawGrade crawGrade = new CrawGrade();
+               crawGrade.crawGradeLastPage(downloadLoginfo.getCookies(), downloadLoginfo.getViewState());
+//               GradeOutput gradeOutput=new GradeOutput();
+
+                    String html_content = crawGrade.crawGrade( downloadLoginfo.getCookies());
 //                    gradeOutput.collectGrade(html_content);
-//
-//                }
-                //5.输出爬到的数据到html文件中
-//                gradeOutput.outputDatas2Html();
+//                	gradeOutput.outputDatas2Html();
             } catch (IOException e1) {
                 System.out.println("无法连接学校服务器");
             } catch (Exception e1) {

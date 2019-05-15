@@ -16,6 +16,8 @@ import org.jsoup.nodes.Element;
 public class CrawGrade {
     
     private String viewState;
+    private String validate;
+    
     /**
      * 全局获取viewstate的函数
      * @param html
@@ -38,21 +40,19 @@ public class CrawGrade {
      * @return
      * @throws IOException
      */
-    public String crawGradeLastPage(Map<String,String> cookies,String viewStata,String xuehao) throws IOException{
-        String urlLogin = "http://newjwc.tyust.edu.cn/xscjcx.aspx?xh="+xuehao+"&xm=%C7%C7%C0%FB%C7%BF&gnmkdm=N121613";
+    public String crawGradeLastPage(Map<String,String> cookies,String viewStata	) throws IOException{
+        String urlLogin = "http://jwxt.jnu.edu.cn/default.aspx";
         Connection connect = Jsoup.connect(urlLogin);
         connect.timeout(5 * 100000);
         // 伪造请求头
-        connect.header("Content-Length", "74642").header("Content-Type", "application/x-www-form-urlencoded");
-        connect.header("Host", "newjwc.tyust.edu.cn").header("Referer", "http://newjwc.tyust.edu.cn/xscjcx.aspx?xh=201420020123&xm=%C7%C7%C0%FB%C7%BF&gnmkdm=N121613");
-        connect.header("User-Agent",
-                "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
+        connect.header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3")
+        .header("accept-encoding", "gzip,deflate,br");
+        connect.header("upgrade-insecure-requests", "1").header("Referer",
+                "https://jwxt.jnu.edu.cn/areaMain.aspx").header("Accept-Language", "zh-CN,zh;q=0.9");
+        connect.header("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36");
 
         // 携带登陆信息
-        connect.data("xh","201420020123")
-            .data("xm", viewStata)
-            .data("hidLanguage", "")
-            .data("gnmkdm", "N121613");
+      
         //设置cookie
         connect.cookies(cookies);
         
@@ -70,29 +70,25 @@ public class CrawGrade {
     /**
      * 爬取成绩页面
      */
-    public String crawGrade(String xuenian,String xueqi,Map<String,String> cookies,String viewStata,String xuehao) throws IOException{
-        String urlLogin = "http://newjwc.tyust.edu.cn/xscjcx.aspx?xh="+xuehao+"&xm=%C7%C7%C0%FB%C7%BF&gnmkdm=N121613";
+    public String crawGrade(Map<String,String> cookies) throws IOException{
+        String urlLogin = "http://jwxt.jnu.edu.cn/Secure/PaiKeXuanKe/wfrm_Xk_PyfaCx.aspx";
         Connection connect = Jsoup.connect(urlLogin);
         connect.timeout(5 * 100000);
         // 伪造请求头
-        connect.header("Accept",
-                "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
-        .header("Accept-Encoding", "gzip, deflate");
-        connect.header("Accept-Language", "zh-CN,zh;q=0.9").header("Connection", "keep-alive");
-        connect.header("Content-Length", "74642").header("Content-Type", "application/x-www-form-urlencoded");
-        connect.header("Host", "newjwc.tyust.edu.cn").header("Referer", "http://newjwc.tyust.edu.cn/xscjcx.aspx?xh=201420020123&xm=%C7%C7%C0%FB%C7%BF&gnmkdm=N121613");
+        connect.header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3")
+        .header("Accept-Encoding", "gzip, deflate,br");
+        connect.header("Accept-Language", "zh-CN,zh;q=0.9").header("cache-control", "max-age=0");
+        connect.header("Content-Type", "application/x-www-form-urlencoded").header("content-length","7678");
+        connect.header("origin", "jwxt.jnu.edu.cn").header("Referer", "http://jwxt.jnu.edu.cn/Secure/PaiKeXuanKe/wfrm_Xk_PyfaCv.aspx")
+        .header("upgrade-insecure-requests", "1");
         connect.header("User-Agent",
-                "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36");
         
         // 携带登陆信息
-        connect.data("__EVENTTARGET","")
+        connect
+        .data("__EVENTTARGET","")
         .data("__EVENTARGUMENT", "")
-        .data("__VIEWSTATE", this.viewState)
-        .data("hidLanguage","")
-        .data("ddlXN", xuenian)
-        .data("ddlXQ", xueqi)
-        .data("btn_xn", "")
-        .data("ddl_kcxz", "");
+        .data("__VIEWSTATE", this.viewState);
         
         connect.cookies(cookies);
         
