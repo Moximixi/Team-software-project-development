@@ -27,7 +27,6 @@ public class TrainplanOutput {
     /**
      * 保存成绩的集合
      */
-	public  JTable table = new JTable();
 	public DefaultTableModel model=new DefaultTableModel(	
 			new Object[][] {
 		{"学习模块", "要求", "已修", "还差"},
@@ -60,7 +59,7 @@ public class TrainplanOutput {
      * @param html
      * @return
      */
-    public String collectGrade(String html) {
+    public JTable collectGrade(String html) {
     	
         // 解析html
         Document document = Jsoup.parse(html);
@@ -80,14 +79,22 @@ public class TrainplanOutput {
         }
         
         for(Map<String, Object> data:datas) {
+        	int i=1;
         	String request = (String) data.get("要求学分");
-        	
+        	model.setValueAt(request, i,1);
             String study = (String) data.get("已修学分");
+            model.setValueAt(study, i,2);
             String need = (String) data.get("还差");
+            model.setValueAt(study, i,3);
+            i++;
         }
-        return null;
+        
+        JTable table_result = new JTable();
+        table_result.setModel(model);
+        
+        return table_result;
     }
-    
+   
     
     /**
      * 最后处理所有的数据，写出到html或者保存数据库

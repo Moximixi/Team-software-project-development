@@ -2,6 +2,8 @@ package com.jnu.craw;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.swing.table.DefaultTableModel;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -66,6 +68,8 @@ public class CrawTrainplanData {
 
         
     }
+    
+	
     
     /**
      * 爬取成绩页面

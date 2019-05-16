@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import org.jsoup.Connection;
@@ -27,9 +28,10 @@ import com.jnu.craw.DownloadLoginfo;
 import com.jnu.craw.TrainplanOutput;
 import com.jnu.craw.LoginClass;
 
-public class buttonActionListener implements MouseListener {
+public class GetTrainplanData implements MouseListener {
 	static final String title = "验证码信息";
     static final String content = "请输入验证码"; 
+    public JTable table_trainplan=new JTable();
     String YZM;
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -58,14 +60,19 @@ public class buttonActionListener implements MouseListener {
                TrainplanOutput gradeOutput=new TrainplanOutput();
 
 //                   String html_content = crawGrade.crawGrade( downloadLoginfo.getCookies());
-                   gradeOutput.collectGrade(html_content);
-                   gradeOutput.outputDatas2Html();
+                table_trainplan=gradeOutput.collectGrade(html_content);
+                gradeOutput.outputDatas2Html();
             } catch (IOException e1) {
                 System.out.println("无法连接学校服务器");
             } catch (Exception e1) {
                 e1.printStackTrace();
             	}
    }
+	public JTable gettable(){
+		
+		return table_trainplan;
+		
+	}
 		
 	public class LoginClass {
 	    /**
