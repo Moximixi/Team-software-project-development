@@ -9,8 +9,9 @@ public class Person implements Serializable {
 	private String name;
 	private String sex;
 	private int num;//学号
-	private Date birth;
 	private int room;//宿舍号
+	private int birth;
+
 	public String getName() {
 		return name;
 	}
@@ -29,10 +30,11 @@ public class Person implements Serializable {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public Date getBirth() {
+
+	public int getBirth() {
 		return birth;
 	}
-	public void setBirth(Date birth) {
+	public void setBirth(int birth) {
 		this.birth = birth;
 	}
 	public int getRoom() {
@@ -43,7 +45,7 @@ public class Person implements Serializable {
 	}
 	
 	public String toString(){
-		return this.name+" "+this.sex+" "+this.num+" "+this.birth.toString()+" "+this.room;
+		return this.name+" "+this.sex+" "+this.num+" "+this.birth+" "+this.room;
 	}
 
 }
