@@ -26,8 +26,8 @@ public class Menu {
 	//private PanelCourseSelect panelCourseSelect=new PanelCourseSelect();
 	
 	public static void main(String[] args) {
-		UIUtils.setPreferredLookAndFeel();
-		NativeInterface.open();
+//		UIUtils.setPreferredLookAndFeel();
+//		NativeInterface.open();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

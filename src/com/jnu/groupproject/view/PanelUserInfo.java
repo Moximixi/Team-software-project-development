@@ -5,6 +5,7 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -25,6 +26,7 @@ public class PanelUserInfo extends JPanel {
 		FileHelper fh=new FileHelper("./userinfo.txt");
 		//读取个人信息代码
 		Person person=fh.getObjFromFile();                 //取出person对象
+	
 		//样式部分
 		setLayout(null);
 
@@ -59,7 +61,7 @@ public class PanelUserInfo extends JPanel {
 		JLabel label = new JLabel();
 		label.setText(person.getName());
 		label.setFont(new Font("宋体", Font.PLAIN, 20));
-		label.setBounds(134, 99, 105, 37);
+		label.setBounds(134, 99, 160, 37);
 		add(label);
 
 		JLabel label_1 = new JLabel("学号:");
@@ -80,19 +82,19 @@ public class PanelUserInfo extends JPanel {
 		JLabel label_4 = new JLabel();
 		label_4.setText(String.valueOf(person.getNum()));
 		label_4.setFont(new Font("宋体", Font.PLAIN, 20));
-		label_4.setBounds(134, 199, 136, 37);
+		label_4.setBounds(134, 199, 160, 37);
 		add(label_4);
 
 		JLabel label_5 = new JLabel();
 		label_5.setText(String.valueOf(person.getRoom()));
 		label_5.setFont(new Font("宋体", Font.PLAIN, 20));
-		label_5.setBounds(134, 249, 88, 37);
+		label_5.setBounds(134, 249, 160, 37);
 		add(label_5);
 
 		JLabel label_6 = new JLabel();
 		label_6.setText(String.valueOf(person.getBirth()));
 		label_6.setFont(new Font("宋体", Font.PLAIN, 20));
-		label_6.setBounds(134, 299, 105, 37);
+		label_6.setBounds(134, 299, 160, 37);
 		add(label_6);
 
 		JLabel label_7 = new JLabel("性别:");
@@ -103,7 +105,7 @@ public class PanelUserInfo extends JPanel {
 		JLabel label_8 = new JLabel();
 		label_8.setText(person.getSex());
 		label_8.setFont(new Font("宋体", Font.PLAIN, 20));
-		label_8.setBounds(134, 149, 88, 37);
+		label_8.setBounds(134, 149, 160, 37);
 		add(label_8);
 
 		JButton btnNewButton = new JButton("保存");
@@ -115,6 +117,37 @@ public class PanelUserInfo extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//警告对话框
+				//JOptionPane.showMessageDialog(null, "alert", "alert", JOptionPane.ERROR_MESSAGE); 
+				//存储网站数据	
+				Person p=new Person();
+				for(int i=1;i<4;i++) {//行
+					for(int j=0;j<3;j++) {//列
+						if(table.getValueAt(i,j)!=null) {
+							String getname= table.getValueAt(i,j).toString();//读取你获取行号的某一列的值（也就是字段）
+							p.webInfo.add(getname);
+						}
+					}
+				}
+				System.out.println("---------------这是分割线--------------");
+				System.out.println(p.webInfo.size());
+				for(int i=0;i<p.webInfo.size();i++) {		
+				System.out.println(p.webInfo.get(i));
+			}
+				//导入网站数据
+//				for(int i=0;i<p.webInfo.size();i++) {	
+//					table.setValueAt(p.webInfo.get(i),2,1);
+//					//System.out.println(p.webInfo.get(i));
+//				}
+//				for(int i=1;i<4;i++) {
+//					for(int j=0;j<3;j++) {
+//						
+//					}
+//				}
+			
+				//提示信息弹出框
+				JOptionPane.showMessageDialog(null, "保存成功");
+				//JOptionPane.showMessageDialog(null, "保存成功！", "系统消息",JOptionPane.PLAIN_MESSAGE);   
 				/*
 				 * 日志部分
 				 * */
@@ -124,7 +157,7 @@ public class PanelUserInfo extends JPanel {
 				//		        PropertyConfigurator.configure("log4j.properties");  
 				// 3. start log  
 				//		        log.debug("这是来自用户信息界面的DEBUG");  
-						        log.info("这是来自用户查看信息界面的INFO");  
+				//		        log.info("这是来自用户查看信息界面的INFO");  
 				//		        log.warn("这是来自用户信息界面的 WARN");  
 				//		        log.error("这是来自用户信息界面的ERROR");  
 				//		        log.fatal("这是来自用户信息界面的FATAL"); 

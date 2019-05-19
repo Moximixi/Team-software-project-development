@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import com.jnu.groupproject.data.*;
@@ -43,6 +45,8 @@ public class PanelRegister extends JPanel {
 				p.setBirth(Integer.parseInt(textField_4.getText()));
 				//存入person对象
 				fh.saveObjToFile(p);    
+				//提示信息弹出框
+				JOptionPane.showMessageDialog(null, "保存成功");
 
 			}
 

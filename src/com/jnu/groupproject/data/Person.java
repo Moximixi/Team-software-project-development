@@ -1,7 +1,9 @@
 package com.jnu.groupproject.data;
 
+import java.awt.List;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 /*
  * 个人用户信息类
  * */
@@ -11,7 +13,9 @@ public class Person implements Serializable {
 	private int num;//学号
 	private int room;//宿舍号
 	private int birth;
-
+	public ArrayList webInfo=new ArrayList();
+	//序列化id
+	private static final long serialVersionUID = -7019320423563420643l;
 	public String getName() {
 		return name;
 	}
