@@ -8,12 +8,12 @@ import java.util.ArrayList;
  * 个人用户信息类
  * */
 public class Person implements Serializable {
-	private String name;
-	private String sex;
+	private String name;//姓名
+	private String sex;//性别
 	private int num;//学号
 	private int room;//宿舍号
-	private int birth;
-	public ArrayList webInfo=new ArrayList();
+	private int birth;//生日
+	public ArrayList webInfo=new ArrayList();//用来存储网站的账号和密码
 	//序列化id
 	private static final long serialVersionUID = -7019320423563420643l;
 	public String getName() {
