@@ -26,7 +26,12 @@ public class PanelUserInfo extends JPanel {
 		FileHelper fh=new FileHelper("./userinfo.txt");
 		//读取个人信息代码
 		Person person=fh.getObjFromFile();                 //取出person对象
-	
+
+//		for(int i=1;i<4;i++) {
+//			for(int j=0;j<3;j++) {
+//
+//			}
+//		}
 		//样式部分
 		setLayout(null);
 
@@ -37,22 +42,32 @@ public class PanelUserInfo extends JPanel {
 
 		table.setBounds(382, 128, 418, 160);
 		table.setModel(new DefaultTableModel(
-				new Object[][] {
-					{"\u7F51\u7AD9", "\u8D26\u53F7", "\u5BC6\u7801"},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-				},
-				new String[] {
-						"New column", "New column", "New column"
-				}
-				));
+			new Object[][] {
+				{"\u7F51\u7AD9", "\u8D26\u53F7", "\u5BC6\u7801"},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(150);
 		add(table);
-
+		/*
+		 * 导入网站数据	
+		 * */
+		for(int i=0;i<person.webInfo.size();i++) {	
+			int row=(i/3)+1;
+			int column=i%3;
+			table.setValueAt(person.webInfo.get(i),row,column);
+			//System.out.println(p.webInfo.get(i));
+		}
+		
 		JLabel lblNewLabel = new JLabel("姓名:");
 		lblNewLabel.setFont(new Font("宋体", Font.BOLD, 20));
 		lblNewLabel.setBounds(32, 99, 54, 37);
@@ -108,67 +123,35 @@ public class PanelUserInfo extends JPanel {
 		label_8.setBounds(134, 149, 160, 37);
 		add(label_8);
 
-		JButton btnNewButton = new JButton("保存");
-		btnNewButton.setFont(new Font("宋体", Font.BOLD, 20));
-		btnNewButton.setBounds(522, 327, 181, 48);
-		add(btnNewButton);
-
-		//button按钮的点击事件
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//警告对话框
-				//JOptionPane.showMessageDialog(null, "alert", "alert", JOptionPane.ERROR_MESSAGE); 
-				//存储网站数据	
-				Person p=new Person();
-				for(int i=1;i<4;i++) {//行
-					for(int j=0;j<3;j++) {//列
-						if(table.getValueAt(i,j)!=null) {
-							String getname= table.getValueAt(i,j).toString();//读取你获取行号的某一列的值（也就是字段）
-							p.webInfo.add(getname);
-						}
-					}
-				}
-				System.out.println("---------------这是分割线--------------");
-				System.out.println(p.webInfo.size());
-				for(int i=0;i<p.webInfo.size();i++) {		
-				System.out.println(p.webInfo.get(i));
-			}
-				//导入网站数据
-//				for(int i=0;i<p.webInfo.size();i++) {	
-//					table.setValueAt(p.webInfo.get(i),2,1);
-//					//System.out.println(p.webInfo.get(i));
-//				}
-//				for(int i=1;i<4;i++) {
-//					for(int j=0;j<3;j++) {
-//						
-//					}
-//				}
-			
-				//提示信息弹出框
-				JOptionPane.showMessageDialog(null, "保存成功");
-				//JOptionPane.showMessageDialog(null, "保存成功！", "系统消息",JOptionPane.PLAIN_MESSAGE);   
-				/*
-				 * 日志部分
-				 * */
-				// 1. create log  
-				//		        Logger log = Logger.getLogger(PanelUserInfo.class);  
-				// 2. get log config file  
-				//		        PropertyConfigurator.configure("log4j.properties");  
-				// 3. start log  
-				//		        log.debug("这是来自用户信息界面的DEBUG");  
-				//		        log.info("这是来自用户查看信息界面的INFO");  
-				//		        log.warn("这是来自用户信息界面的 WARN");  
-				//		        log.error("这是来自用户信息界面的ERROR");  
-				//		        log.fatal("这是来自用户信息界面的FATAL"); 
-
-				/*
-				 * 逻辑部分
-				 * */		
-
-				//				System.out.println(person.getBirth());
-			}
-		});
+//		JButton btnNewButton = new JButton("保存");
+//		btnNewButton.setFont(new Font("宋体", Font.BOLD, 20));
+//		btnNewButton.setBounds(522, 327, 181, 48);
+//		add(btnNewButton);
+//
+//		//button按钮的点击事件
+//		btnNewButton.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				//警告对话框
+//				//JOptionPane.showMessageDialog(null, "alert", "alert", JOptionPane.ERROR_MESSAGE); 
+//				//提示信息弹出框
+//				JOptionPane.showMessageDialog(null, "保存成功");
+//				//JOptionPane.showMessageDialog(null, "保存成功！", "系统消息",JOptionPane.PLAIN_MESSAGE);   
+//				/*
+//				 * 日志部分
+//				 * */
+//				// 1. create log  
+//				//		        Logger log = Logger.getLogger(PanelUserInfo.class);  
+//				// 2. get log config file  
+//				//		        PropertyConfigurator.configure("log4j.properties");  
+//				// 3. start log  
+//				//		        log.debug("这是来自用户信息界面的DEBUG");  
+//				//		        log.info("这是来自用户查看信息界面的INFO");  
+//				//		        log.warn("这是来自用户信息界面的 WARN");  
+//				//		        log.error("这是来自用户信息界面的ERROR");  
+//				//		        log.fatal("这是来自用户信息界面的FATAL"); 
+//			}
+//		});
 
 
 	}

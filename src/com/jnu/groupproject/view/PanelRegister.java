@@ -7,9 +7,14 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
 import com.jnu.groupproject.data.*;
+import javax.swing.JTable;
 
 public class PanelRegister extends JPanel {
 	private JTextField textField;
@@ -22,6 +27,7 @@ public class PanelRegister extends JPanel {
 
 	//读取个人信息代码
 	Person person=fh.getObjFromFile();                 //取出person对象
+	private JTable table;
 
 	/**
 	 * Create the panel.
@@ -43,20 +49,39 @@ public class PanelRegister extends JPanel {
 				p.setNum(Integer.parseInt(textField_2.getText()));
 				p.setRoom(Integer.parseInt(textField_3.getText()));
 				p.setBirth(Integer.parseInt(textField_4.getText()));
+				/*
+				 * 存储账号和密码
+				 * */
+				int m=0;
+				//p.webInfo.clear();
+				for(int i=1;i<4;i++) {//行
+					for(int j=0;j<3;j++) {//列
+						if(table.getValueAt(i,j)!=null) {
+							String getname= table.getValueAt(i,j).toString();//读取你获取行号的某一列的值（也就是字段）
+							p.webInfo.add(m,getname);
+							//System.out.println("m为:"+m);
+							m++;
+						}
+					}
+				}
+				System.out.println("---------------这是分割线--------------");
+				System.out.println("本次点击p的个数:"+p.webInfo.size());
+				for(int i=0;i<p.webInfo.size();i++) {		
+					System.out.println(p.webInfo.get(i));
+				}
 				//存入person对象
 				fh.saveObjToFile(p);    
 				//提示信息弹出框
 				JOptionPane.showMessageDialog(null, "保存成功");
-
 			}
-
-		});
+		}
+				);
 		btnNewButton.setFont(new Font("宋体", Font.BOLD, 16));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(409, 396, 106, 44);
+		btnNewButton.setBounds(335, 399, 106, 44);
 		add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("姓名：");
@@ -113,6 +138,40 @@ public class PanelRegister extends JPanel {
 		textField_4.setColumns(10);
 		textField_4.setBounds(124, 280, 146, 21);
 		add(textField_4);
+
+		table = new JTable();
+		table.setFont(new Font("宋体", Font.BOLD, 20));
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setRowHeight(40);//指定每一行的行高40
+
+		table.setBounds(382, 128, 418, 160);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"\u7F51\u7AD9", "\u8D26\u53F7", "\u5BC6\u7801"},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(150);
+		table.getColumnModel().getColumn(0).setMinWidth(50);
+		add(table);
+		/*
+		 * 导入网站数据	
+		 * */
+		for(int i=0;i<person.webInfo.size();i++) {	
+			int row=(i/3)+1;
+			int column=i%3;
+			table.setValueAt(person.webInfo.get(i),row,column);
+			//System.out.println(p.webInfo.get(i));
+		}
 
 	}
 }
