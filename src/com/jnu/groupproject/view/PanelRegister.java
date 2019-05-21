@@ -101,7 +101,7 @@ public class PanelRegister extends JPanel {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setRowHeight(40);//指定每一行的行高40
 
-		table.setBounds(384, 94, 418, 240);
+		table.setBounds(383, 109, 418, 240);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u7F51\u7AD9", "\u8D26\u53F7", "\u5BC6\u7801"},
