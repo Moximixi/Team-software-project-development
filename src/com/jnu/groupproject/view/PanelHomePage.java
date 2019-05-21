@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -25,6 +26,18 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.jnu.groupproject.noticeclass.CollegeNotice;
+import com.jnu.groupproject.noticeclass.CollegeNoticeOperater;
+import com.jnu.groupproject.noticeclass.DianFei;
+import com.jnu.groupproject.noticeclass.JwcNotice;
+import com.jnu.groupproject.noticeclass.JwcNoticeOperater;
+import com.jnu.groupproject.noticeclass.JyNotice;
+import com.jnu.groupproject.noticeclass.JyNoticeOperater;
+import com.jnu.groupproject.noticeclass.NoticeSerializeOperater;
+import com.jnu.groupproject.noticeclass.SchoolCardQuery;
+import com.jnu.groupproject.noticeclass.SchoolNotice;
+import com.jnu.groupproject.noticeclass.SchoolNoticeOperater;
+import com.jnu.groupproject.noticeclass.Web;
 
 import chrriis.common.UIUtils;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
@@ -33,409 +46,860 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PanelHomePage extends JPanel {
+	
+	//空间组
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTable AllNoticeTable;
-	private JTable AdministrationNoticeTable;
-	private JTable SchoolNoticeTable;
-	private JTable CollegeNoticeTable;
-	private JTable EmploymentNoticeTable;
-	private JPanel AllNoticePanel; 
-	private JPanel SchoolNoticePanel; 
-	private JPanel CollegeNoticePanel; 
-	private JPanel AdministrationNoticePanel; 
-	private JPanel EmploymentNoticePanel; 
+	public JPanel HomePagePanel = new JPanel();
     private Logger log = Logger.getLogger(PanelUserInfo.class);  
     
-    public JButton EnterSchoolFroumButton;
-    public JButton ElectricityChargeRecordButton;
-    public JLabel ElectricityFeesBalanceLabel;
-    public JButton ElectricityQueryButton ;
+   //全局变量
+  	int pageCount=1;
+  	static int NoticeFlag=1;
+  	
+  	//设置路径
+  	static String schoolnoticepath="./src/com/jnu/groupproject/data/schoolnotice.dat";
+  	static String collegenoticepath="./src/com/jnu/groupproject/data/collegenotice.dat";
+  	static String Jwcnoticepath="./src/com/jnu/groupproject/data/Jwcnotice.dat";
+  	static String Jynoticepath="./src/com/jnu/groupproject/data/Jynotice.dat";
+  	
+  	//通知序列化
+  	ArrayList<SchoolNotice> schoolnoticeList=new ArrayList<SchoolNotice>();//序列化
+  	ArrayList<SchoolNotice> SchoolNoticeDesnotices=new ArrayList<SchoolNotice>();//反序列化
+  	ArrayList<CollegeNotice> collegenoticeList=new ArrayList<CollegeNotice>();//序列化
+  	ArrayList<CollegeNotice> CollegeNoticeDesnotices=new ArrayList<CollegeNotice>();//反序列化
+  	ArrayList<JwcNotice> JwcnoticeList=new ArrayList<JwcNotice>();//序列化
+  	ArrayList<JwcNotice> JwcNoticeDesnotices=new ArrayList<JwcNotice>();//反序列化
+  	ArrayList<JyNotice> noticeList=new ArrayList<JyNotice>();//序列化
+  	ArrayList<JyNotice> JyNoticeDesnotices=new ArrayList<JyNotice>();//反序列化
+  	//工具类
+  	static NoticeSerializeOperater<SchoolNotice> schoolnoticeoperater=new NoticeSerializeOperater<SchoolNotice>();
+  	static NoticeSerializeOperater<CollegeNotice> collegenoticeoperater=new NoticeSerializeOperater<CollegeNotice>();
+  	static NoticeSerializeOperater<JwcNotice> Jwcnoticeoperater=new NoticeSerializeOperater<JwcNotice>();
+  	static NoticeSerializeOperater<JyNotice> Jynoticeoperater=new NoticeSerializeOperater<JyNotice>();
+  	static ArrayList<SchoolNotice> schoolDesnotices;
+  	static ArrayList<CollegeNotice> collegeDesnotices;
+  	static ArrayList<JwcNotice> JwcDesnotices;
+  	static ArrayList<JyNotice> JyDesnotices;
+    
+    //控件
+    public JButton EnterSchoolFroumButton=new JButton();
+    public JButton ElectricityChargeRecordButton=new JButton();
+    public JLabel ElectricityFeesBalanceLabel=new JLabel();
+    public JButton ElectricityQueryButton=new JButton() ;
+    public JTextField PageChangTextField=new JTextField();
+    public JLabel label = new JLabel("全部通知");
+    public JRadioButton SchoolNoticeButton = new JRadioButton("校内通知");
+    public JRadioButton CollegeNoticeButton = new JRadioButton("学院通知");
+    public JRadioButton AdministrationNoticeButton = new JRadioButton("教务处通知");
+    public JRadioButton EmploymentNoticeButton = new JRadioButton("就业通知");
+    public JLabel RelativeInformationLabel = new JLabel("个人相关信息");
+    public JLabel SchoolForumLabel=new JLabel("学校论坛");
+    public JLabel SchoolCardLabel = new JLabel("一卡通");
+    public JLabel ElectricityFeesLabel = new JLabel("电  费");
+    public JLabel SchhoForumLabel=new JLabel("学校论坛");
+    public JLabel SchoolCardBalanceLabel = new JLabel("余额：未查询");
+    public JLabel SchoolCardStatusLabel = new JLabel("账号状态：正常");
+    public JLabel ElectricityStatusLabel = new JLabel("使用状态：正常");
+    public JButton SchoolCardQueryButton = new JButton("查询");
+    public JButton SchoolCardRecordButton = new JButton("查看记录");
+    public JButton UpdataAllNoticeButton = new JButton("一键更新");
+    public JButton UpdateSchoolNoticeButton = new JButton("更新校内通知");
+    public JButton UpdateCollegeNoticeButton = new JButton("更新学院通知");
+    public JButton UpdateJwcNoticeButton = new JButton("更新教务处通知");
+    public JButton UpdateJyNoticeButton = new JButton("更新就业通知");
+    public JLabel NoticeOneTitleLabel = new JLabel("New label");
+    public JLabel NoticeTwoTitleLabel = new JLabel("New label");
+    public JLabel NoticeThreeTitleLabel = new JLabel("New label");
+    public JLabel NoticeFourTitleLabel = new JLabel("New label");
+    public JLabel NoticeFiveTitleLabel = new JLabel("New label");
+    public JLabel NoticeOneSourceLabel = new JLabel("New label");
+    public JLabel NoticeOneTimeLabel = new JLabel("New label");
+    public JLabel NoticeTwoSourceLabel = new JLabel("New label");
+    public JLabel NoticeThreeSourceLabel = new JLabel("New label");
+    public JLabel NoticeFourSourceLabel = new JLabel("New label");
+    public JLabel NoticeFiveSourceLabel = new JLabel("New label");
+    public JLabel NoticeTwoTimeLabel = new JLabel("New label");
+    public JLabel NoticeThreeTimeLabel = new JLabel("New label");
+    public JLabel NoticeFourTimeLabel = new JLabel("New label");
+    public JLabel NoticeFiveTimeLabel = new JLabel("New label");
+    public JButton UpPageButton = new JButton("上一页");
+    public JLabel lblNewLabel = new JLabel("当前页码 ");
+    public JLabel PageCountLabel = new JLabel("New label");
+    public JLabel TotalPageCountOneLabel = new JLabel(" /共");
+    public JLabel TotalPageCountLabel = new JLabel("New label");
+    public JLabel TotalPageTwoLabel = new JLabel("页");
+    public JButton DownPageButton = new JButton("下一页");
+    public JButton PageChangeButton = new JButton("跳转");
+    public JLabel lblNewLabel_1 = new JLabel("跳转页码");
     
 
-	public PanelHomePage() {
+	public PanelHomePage()throws Exception,FileNotFoundException,IOException {
 		PropertyConfigurator.configure("log4j.properties");
 		setLayout(null);
 		
-		JPanel HomePagePanel = new JPanel();
-		HomePagePanel.setBounds(0, 0, 880, 460);
+		
+		
+		HomePagePanel.setBounds(0, 10, 880, 460);
 		add(HomePagePanel);
 		HomePagePanel.setLayout(null);
 		
-		AllNoticePanel = new JPanel();
-		AllNoticePanel.setBounds(40, 70, 570, 358);
-		HomePagePanel.add(AllNoticePanel);
-		AllNoticePanel.setLayout(null);
-		
-		JScrollBar AllNoticeScrollBar = new JScrollBar();
-		AllNoticeScrollBar.setBounds(550, 0, 17, 358);
-		AllNoticePanel.add(AllNoticeScrollBar);
-		
-		DefaultTableCellRenderer tabletcr = new DefaultTableCellRenderer();// 设置table内容居中
-		tabletcr.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		AllNoticeTable = new JTable();
-		AllNoticeTable.setDefaultRenderer(Object.class, tabletcr);
-		AllNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		AllNoticeTable.setRowHeight(30);//指定每一行的行高30
-		AllNoticeTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
-				{"1", "1", "1"},
-				{"1", "1", "1"},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, true, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		AllNoticeTable.setBounds(0, 0, 550, 358);
-		AllNoticePanel.add(AllNoticeTable);
-		AllNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
-		AllNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-		AllNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
-		AllNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-		AllNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-		
-		SchoolNoticePanel = new JPanel();
-		SchoolNoticePanel.setLayout(null);
-		SchoolNoticePanel.setBounds(40, 70, 570, 358);
-		HomePagePanel.add(SchoolNoticePanel);
-		JScrollBar SchoolNoticeScrollBar = new JScrollBar();
-		SchoolNoticeScrollBar.setBounds(550, 0, 17, 358);
-		SchoolNoticePanel.add(SchoolNoticeScrollBar);
-		
-		SchoolNoticeTable = new JTable();
-		SchoolNoticeTable.setDefaultRenderer(Object.class, tabletcr);
-		SchoolNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		SchoolNoticeTable.setRowHeight(30);//指定每一行的行高30
-		SchoolNoticeTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
-				{"2", "2", "2"},
-				{"2", "2", "2"},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				true, true, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		SchoolNoticeTable.setBounds(0, 0, 550, 358);
-		SchoolNoticePanel.add(SchoolNoticeTable);
-		SchoolNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
-		SchoolNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-		SchoolNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
-		SchoolNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-		SchoolNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-		
-		CollegeNoticePanel = new JPanel();
-		CollegeNoticePanel.setLayout(null);
-		CollegeNoticePanel.setBounds(40, 70, 570, 358);
-		HomePagePanel.add(CollegeNoticePanel);
-		JScrollBar CollegeNoticeScrollBar = new JScrollBar();
-		CollegeNoticeScrollBar.setBounds(550, 0, 17, 358);
-		CollegeNoticePanel.add(CollegeNoticeScrollBar);
-		CollegeNoticeTable = new JTable();
-		CollegeNoticeTable.setDefaultRenderer(Object.class, tabletcr);
-		CollegeNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		CollegeNoticeTable.setRowHeight(30);//指定每一行的行高30
-		CollegeNoticeTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
-				{"3", "3", "3"},
-				{"3", "3", "3"},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				true, true, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		CollegeNoticeTable.setBounds(0, 0, 550, 358);
-		CollegeNoticePanel.add(CollegeNoticeTable);
-		CollegeNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
-		CollegeNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-		CollegeNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
-		CollegeNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-		CollegeNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-		
-		AdministrationNoticePanel = new JPanel();
-		AdministrationNoticePanel.setBounds(40, 70, 570, 358);
-		HomePagePanel.add(AdministrationNoticePanel);
-		AdministrationNoticePanel.setLayout(null);
-		JScrollBar AdministrationNoticeScrollBar = new JScrollBar();
-		AdministrationNoticeScrollBar.setBounds(550, 0, 17, 358);
-		AdministrationNoticePanel.add(AdministrationNoticeScrollBar);
-		AdministrationNoticeTable = new JTable();
-		AdministrationNoticeTable.setDefaultRenderer(Object.class, tabletcr);
-		AdministrationNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		AdministrationNoticeTable.setRowHeight(30);//指定每一行的行高30
-		AdministrationNoticeTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
-				{"4", "4", "4"},
-				{"4", "4", "4"},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, true, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		AdministrationNoticeTable.setBounds(0, 0, 550, 358);
-		AdministrationNoticePanel.add(AdministrationNoticeTable);
-		AdministrationNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
-		AdministrationNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-		AdministrationNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
-		AdministrationNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-		AdministrationNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-		
-		EmploymentNoticePanel = new JPanel();
-		EmploymentNoticePanel.setBounds(40, 70, 570, 358);
-		HomePagePanel.add(EmploymentNoticePanel);
-		EmploymentNoticePanel.setLayout(null);
-		
-		JScrollBar EmploymentNoticeScrollBar = new JScrollBar();
-		EmploymentNoticeScrollBar.setBounds(550, 0, 17, 358);
-		EmploymentNoticePanel.add(EmploymentNoticeScrollBar);
-		EmploymentNoticeTable = new JTable();
-		EmploymentNoticeTable.setDefaultRenderer(Object.class, tabletcr);
-		EmploymentNoticeTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		EmploymentNoticeTable.setRowHeight(30);//指定每一行的行高30
-		EmploymentNoticeTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"\u901A\u77E5", "\u53D1\u5E03\u6765\u6E90", "\u53D1\u5E03\u65F6\u95F4"},
-				{"5", "5", "5"},
-				{"5", "5", "5"},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				true, false, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		EmploymentNoticeTable.setBounds(0, 0, 550, 358);
-		EmploymentNoticePanel.add(EmploymentNoticeTable);
-		EmploymentNoticeTable.setFont(new Font("宋体", Font.PLAIN, 14));// 设置表格字体
-		EmploymentNoticeTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-		EmploymentNoticeTable.getColumnModel().getColumn(0).setPreferredWidth(350);
-		EmploymentNoticeTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-		EmploymentNoticeTable.getColumnModel().getColumn(2).setPreferredWidth(100);
 		
 		
-		JLabel label = new JLabel("全部通知");
-		label.setBounds(33, 29, 93, 40);
+		schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
+		collegeDesnotices=collegenoticeoperater.load(collegenoticepath);
+		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
+		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
+		
+		
+		
+		label.setBounds(36, 111, 93, 40);
 		label.setFont(new Font("宋体", Font.PLAIN, 22));
 		HomePagePanel.add(label);
 		
-		JRadioButton AllNoticeButton = new JRadioButton("全部通知");
-		AllNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
-		AllNoticeButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				AllNoticePanel.setVisible(true);
-				SchoolNoticePanel.setVisible(false);
-				CollegeNoticePanel.setVisible(false);
-				AdministrationNoticePanel.setVisible(false);
-				EmploymentNoticePanel.setVisible(false);
-				HomePagePanel.updateUI();
-				
-			}
-		});
-		AllNoticeButton.setBounds(132, 41, 83, 23);
-		buttonGroup.add(AllNoticeButton);
-		HomePagePanel.add(AllNoticeButton);
 		
-		JRadioButton SchoolNoticeButton = new JRadioButton("校内通知");
 		SchoolNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		SchoolNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AllNoticePanel.setVisible(false);
-				SchoolNoticePanel.setVisible(true);
-				CollegeNoticePanel.setVisible(false);
-				AdministrationNoticePanel.setVisible(false);
-				EmploymentNoticePanel.setVisible(false);
+				pageCount=1;
+				NoticeFlag=1;
+				PageCountLabel.setText(""+pageCount);
+				setSchoolNotice((pageCount-1)*5);
+				TotalPageCountLabel.setText(""+schoolDesnotices.size()/5);
 				HomePagePanel.updateUI();
 			}
 		});
-		SchoolNoticeButton.setBounds(217, 41, 93, 23);
+		SchoolNoticeButton.setBounds(46, 157, 93, 23);
 		buttonGroup.add(SchoolNoticeButton);
 		HomePagePanel.add(SchoolNoticeButton);
 		
-		JRadioButton CollegeNoticeButton = new JRadioButton("学院通知");
+		
 		CollegeNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		CollegeNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AllNoticePanel.setVisible(false);
-				SchoolNoticePanel.setVisible(false);
-				CollegeNoticePanel.setVisible(true);
-				AdministrationNoticePanel.setVisible(false);
-				EmploymentNoticePanel.setVisible(false);
+				pageCount=1;
+				NoticeFlag=2;
+				PageCountLabel.setText(""+pageCount);
+				setCollegeNotice((pageCount-1)*5);
+				TotalPageCountLabel.setText(""+collegeDesnotices.size()/5);
 				HomePagePanel.updateUI();
 			}
 		});
-		CollegeNoticeButton.setBounds(312, 41, 93, 23);
+		CollegeNoticeButton.setBounds(149, 157, 93, 23);
 		buttonGroup.add(CollegeNoticeButton);
 		HomePagePanel.add(CollegeNoticeButton);
 		
-		JRadioButton AdministrationNoticeButton = new JRadioButton("教务处通知");
+
 		AdministrationNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		AdministrationNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AllNoticePanel.setVisible(false);
-				SchoolNoticePanel.setVisible(false);
-				CollegeNoticePanel.setVisible(false);
-				AdministrationNoticePanel.setVisible(true);
-				EmploymentNoticePanel.setVisible(false);
+				pageCount=1;
+				NoticeFlag=3;
+				PageCountLabel.setText(""+pageCount);
+				setJwcNotice((pageCount-1)*5);
+				TotalPageCountLabel.setText(""+JwcDesnotices.size()/5);
 				HomePagePanel.updateUI();
 			}
 		});
-		AdministrationNoticeButton.setBounds(407, 41, 110, 23);
+		AdministrationNoticeButton.setBounds(254, 157, 106, 23);
 		buttonGroup.add(AdministrationNoticeButton);
 		HomePagePanel.add(AdministrationNoticeButton);
 		
-		JRadioButton EmploymentNoticeButton = new JRadioButton("就业通知");
+
 		EmploymentNoticeButton.setFont(new Font("宋体", Font.PLAIN, 14));
 		EmploymentNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AllNoticePanel.setVisible(false);
-				SchoolNoticePanel.setVisible(false);
-				CollegeNoticePanel.setVisible(false);
-				AdministrationNoticePanel.setVisible(false);
-				EmploymentNoticePanel.setVisible(true);
+				pageCount=1;
+				NoticeFlag=4;
+				PageCountLabel.setText(""+pageCount);
+				setJyNotice((pageCount-1)*5);
+				TotalPageCountLabel.setText(""+JyDesnotices.size()/5);
 				HomePagePanel.updateUI();
 			}
 		});
-		EmploymentNoticeButton.setBounds(519, 41, 93, 23);
+		EmploymentNoticeButton.setBounds(362, 157, 93, 23);
 		buttonGroup.add(EmploymentNoticeButton);
 		HomePagePanel.add(EmploymentNoticeButton);
 		
-		JLabel RelativeInformationLabel = new JLabel("个人相关信息");
+
 		RelativeInformationLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		RelativeInformationLabel.setBounds(618, 27, 115, 40);
+		RelativeInformationLabel.setBounds(36, 0, 115, 40);
 		HomePagePanel.add(RelativeInformationLabel);
 		
-		JLabel SchoolCardLabel = new JLabel("一卡通");
+
 		SchoolCardLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		SchoolCardLabel.setBounds(618, 89, 67, 40);
+		SchoolCardLabel.setBounds(36, 41, 67, 40);
 		HomePagePanel.add(SchoolCardLabel);
 		
-		JLabel ElectricityFeesLabel = new JLabel("电  费");
+
 		ElectricityFeesLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		ElectricityFeesLabel.setBounds(618, 156, 67, 40);
+		ElectricityFeesLabel.setBounds(320, 41, 67, 40);
 		HomePagePanel.add(ElectricityFeesLabel);
 		
-		JLabel SchoolForumLabel = new JLabel("学校论坛");
+
 		SchoolForumLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		SchoolForumLabel.setBounds(619, 266, 80, 40);
+		SchoolForumLabel.setBounds(655, 0, 80, 40);
 		HomePagePanel.add(SchoolForumLabel);
-		
-		EnterSchoolFroumButton = new JButton("进入论坛");
-		/*EnterSchoolFroumButton.addMouseListener(new MouseAdapter() {
+		EnterSchoolFroumButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				HomePagePanel.removeAll();
-				HomePagePanel.add(new PanelSchoolForum());
-				HomePagePanel.updateUI();
+			public void mouseClicked(MouseEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run(){
+					try {    
+						JFrame frame = new JFrame("学校论坛");
+		                //设置窗体关闭的时候不关闭应用程序
+		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                frame.getContentPane().add(new Web("http://bbs.jnlts.com/"), BorderLayout.CENTER);
+		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		                frame.setLocationByPlatform(true);
+		                //让窗体可见
+		                frame.setVisible(true);
+		                //重置窗体大小
+		                frame.setResizable(true);
+		                // 设置窗体的宽度、高度
+		                frame.setSize(700,500);
+		                // 设置窗体居中显示
+		                frame.setLocationRelativeTo(frame.getOwner());
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
 			}
-		});*/
-		EnterSchoolFroumButton.setBounds(785, 405, 93, 23);
+		});
+		EnterSchoolFroumButton.setText("进入论坛");
+		
+
+		EnterSchoolFroumButton.setBounds(765, 62, 93, 23);
 		HomePagePanel.add(EnterSchoolFroumButton);
 		
-		JLabel SchoolCardBalanceLabel = new JLabel("余额：未查询");
-		SchoolCardBalanceLabel.setBounds(679, 86, 73, 15);
+
+		SchoolCardBalanceLabel.setBounds(100, 41, 106, 15);
 		HomePagePanel.add(SchoolCardBalanceLabel);
 		
-		JLabel SchoolCardStatusLabel = new JLabel("账号状态：正常");
-		SchoolCardStatusLabel.setBounds(679, 114, 93, 15);
+
+		SchoolCardStatusLabel.setBounds(100, 66, 110, 15);
 		HomePagePanel.add(SchoolCardStatusLabel);
+		ElectricityFeesBalanceLabel.setText("剩余电量：未查询");
 		
-		ElectricityFeesBalanceLabel = new JLabel("剩余电量：未查询");
-		ElectricityFeesBalanceLabel.setBounds(679, 154, 110, 15);
+
+		ElectricityFeesBalanceLabel.setBounds(380, 41, 127, 15);
 		HomePagePanel.add(ElectricityFeesBalanceLabel);
 		
-		JLabel ElectricityStatusLabel = new JLabel("使用状态：正常");
-		ElectricityStatusLabel.setBounds(679, 181, 93, 15);
+
+		ElectricityStatusLabel.setBounds(380, 66, 130, 15);
 		HomePagePanel.add(ElectricityStatusLabel);
 		
-		JButton SchoolCardQueryButton = new JButton("查询");
+
 		SchoolCardQueryButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(SchoolCardStatusLabel.getText().equals("账号状态：正常"))
-					log.info("查询了饭卡");
-			}
-		});
-		SchoolCardQueryButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		SchoolCardQueryButton.setBounds(785, 83, 93, 23);
-		HomePagePanel.add(SchoolCardQueryButton);
-		
-		JButton SchoolCardLossButton = new JButton("挂失");
-		SchoolCardLossButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(SchoolCardStatusLabel.getText().equals("账号状态：正常")) {
-					log.info("饭卡丢了，赶紧挂失饭卡");
-					SchoolCardStatusLabel.setText("账号状态：挂失");
-				}
-				else
-					log.warn("本来就是挂失的，还挂失什么");
+				//这里要关联用户信息
+				SchoolCardQuery schoolcard=new SchoolCardQuery("2016052390","960406");
+				ElectricityFeesBalanceLabel.setText("余额："+schoolcard.getQureyResult());
 				HomePagePanel.updateUI();
 			}
 		});
-		SchoolCardLossButton.setBounds(785, 113, 93, 23);
-		HomePagePanel.add(SchoolCardLossButton);
+		SchoolCardQueryButton.setBounds(200, 37, 93, 23);
+		HomePagePanel.add(SchoolCardQueryButton);
 		
-		ElectricityQueryButton = new JButton("查询");
-		/*ElectricityQueryButton. */
-		ElectricityQueryButton.setBounds(785, 153, 93, 23);
+
+		SchoolCardRecordButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+					try {    
+						JFrame frame = new JFrame("饭卡记录");
+		                //设置窗体关闭的时候不关闭应用程序
+		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                frame.getContentPane().add(new Web("https://card.jnu.edu.cn/pages/common/homeLogin.action"), BorderLayout.CENTER);
+		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		                frame.setLocationByPlatform(true);
+		                //让窗体可见
+		                frame.setVisible(true);
+		                //重置窗体大小
+		                frame.setResizable(true);
+		                // 设置窗体的宽度、高度
+		                frame.setSize(700,500);
+		                // 设置窗体居中显示
+		                frame.setLocationRelativeTo(frame.getOwner());
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		SchoolCardRecordButton.setBounds(200, 62, 93, 23);
+		HomePagePanel.add(SchoolCardRecordButton);
+		ElectricityQueryButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					//这里需要关联用户信息
+					DianFei dianFei=new DianFei("3320");
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
+			}
+		});
+		ElectricityQueryButton.setText("查询");
+		
+
+		ElectricityQueryButton.setBounds(490, 37, 93, 23);
 		HomePagePanel.add(ElectricityQueryButton);
+		ElectricityChargeRecordButton.setText("查看记录");
 		
-		ElectricityChargeRecordButton = new JButton("查看记录");
+
 		ElectricityChargeRecordButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				log.info("有人偷偷查了电费记录");
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+					try {    
+						JFrame frame = new JFrame("电费记录");
+		                //设置窗体关闭的时候不关闭应用程序
+		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                frame.getContentPane().add(new Web("http://202.116.25.12/Login.aspx"), BorderLayout.CENTER);
+		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		                frame.setLocationByPlatform(true);
+		                //让窗体可见
+		                frame.setVisible(true);
+		                //重置窗体大小
+		                frame.setResizable(true);
+		                // 设置窗体的宽度、高度
+		                frame.setSize(700,500);
+		                // 设置窗体居中显示
+		                frame.setLocationRelativeTo(frame.getOwner());
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
-		ElectricityChargeRecordButton.setBounds(785, 183, 93, 23);
+		ElectricityChargeRecordButton.setBounds(490, 62, 93, 23);
 		HomePagePanel.add(ElectricityChargeRecordButton);
+		UpdataAllNoticeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					SchoolNoticeOperater schoolnoticeoperater=new SchoolNoticeOperater();
+					CollegeNoticeOperater collegenoticeoperater=new CollegeNoticeOperater();
+					JwcNoticeOperater Jwcnoticeoperater=new JwcNoticeOperater();
+					JyNoticeOperater Jynoticeoperater=new JyNoticeOperater();
+				} catch (FileNotFoundException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+			}
+		});
+		
 
+		UpdataAllNoticeButton.setBounds(139, 123, 93, 23);
+		HomePagePanel.add(UpdataAllNoticeButton);
+		UpdateSchoolNoticeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					SchoolNoticeOperater schoolnoticeoperater=new SchoolNoticeOperater();
+					HomePagePanel.updateUI();
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+			}
+		});
+		
+
+		UpdateSchoolNoticeButton.setBounds(340, 123, 120, 23);
+		HomePagePanel.add(UpdateSchoolNoticeButton);
+		UpdateCollegeNoticeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					CollegeNoticeOperater collegenoticeoperater=new CollegeNoticeOperater();
+					HomePagePanel.updateUI();
+				} catch (FileNotFoundException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+			}
+		});
+		
+
+		UpdateCollegeNoticeButton.setBounds(470, 123, 120, 23);
+		HomePagePanel.add(UpdateCollegeNoticeButton);
+		UpdateJwcNoticeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					JwcNoticeOperater Jwcnoticeoperater=new JwcNoticeOperater();
+					HomePagePanel.updateUI();
+				} catch (FileNotFoundException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+			}
+		});
+		
+
+		UpdateJwcNoticeButton.setBounds(600, 123, 135, 23);
+		HomePagePanel.add(UpdateJwcNoticeButton);
+		UpdateJyNoticeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					JyNoticeOperater Jynoticeoperater=new JyNoticeOperater();
+					HomePagePanel.updateUI();
+				} catch (FileNotFoundException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+			}
+		});
+		
+
+		UpdateJyNoticeButton.setBounds(738, 123, 132, 23);
+		HomePagePanel.add(UpdateJyNoticeButton);
+		NoticeOneTitleLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run(){
+					try {    
+						JFrame frame = new JFrame("通知");
+		                //设置窗体关闭的时候不关闭应用程序
+						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						 if(NoticeFlag==1) 
+								frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+							else if(NoticeFlag==2) 
+								frame.getContentPane().add(new Web(collegeDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+							else if(NoticeFlag==3) 
+								frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+							else 
+								frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+						frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						frame.setLocationByPlatform(true);
+		                //让窗体可见
+						frame.setVisible(true);
+		                //重置窗体大小
+						frame.setResizable(true);
+		                // 设置窗体的宽度、高度
+						frame.setSize(700,500);
+		                // 设置窗体居中显示
+						frame.setLocationRelativeTo(frame.getOwner());
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
+
+		NoticeOneTitleLabel.setFont(new Font("宋体", Font.PLAIN, 16));
+		NoticeOneTitleLabel.setBounds(56, 190, 550, 15);
+		HomePagePanel.add(NoticeOneTitleLabel);
+		NoticeTwoTitleLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run(){
+					try {    
+						JFrame frame = new JFrame("通知");
+		                //设置窗体关闭的时候不关闭应用程序
+		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                if(NoticeFlag==1) 
+							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2) 
+							frame.getContentPane().add(new Web(collegeDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==3) 
+							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
+						else 
+							frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
+		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		                frame.setLocationByPlatform(true);
+		                //让窗体可见
+		                frame.setVisible(true);
+		                //重置窗体大小
+		                frame.setResizable(true);
+		                // 设置窗体的宽度、高度
+		                frame.setSize(700,500);
+		                // 设置窗体居中显示
+		                frame.setLocationRelativeTo(frame.getOwner());
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
+
+		NoticeTwoTitleLabel.setFont(new Font("宋体", Font.PLAIN, 16));
+		NoticeTwoTitleLabel.setBounds(56, 229, 550, 15);
+		HomePagePanel.add(NoticeTwoTitleLabel);
+		NoticeThreeTitleLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run(){
+					try {    
+						JFrame frame = new JFrame("通知");
+		                //设置窗体关闭的时候不关闭应用程序
+		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                if(NoticeFlag==1) 
+							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2) 
+							frame.getContentPane().add(new Web(collegeDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==3) 
+							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
+						else 
+							frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
+		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		                frame.setLocationByPlatform(true);
+		                //让窗体可见
+		                frame.setVisible(true);
+		                //重置窗体大小
+		                frame.setResizable(true);
+		                // 设置窗体的宽度、高度
+		                frame.setSize(700,500);
+		                // 设置窗体居中显示
+		                frame.setLocationRelativeTo(frame.getOwner());
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
+
+		NoticeThreeTitleLabel.setFont(new Font("宋体", Font.PLAIN, 16));
+		NoticeThreeTitleLabel.setBounds(56, 272, 550, 15);
+		HomePagePanel.add(NoticeThreeTitleLabel);
+		NoticeFourTitleLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run(){
+					try {    
+						JFrame frame = new JFrame("通知");
+		                //设置窗体关闭的时候不关闭应用程序
+		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                if(NoticeFlag==1) 
+							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2) 
+							frame.getContentPane().add(new Web(collegeDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==3) 
+							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
+						else 
+							frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
+		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		                frame.setLocationByPlatform(true);
+		                //让窗体可见
+		                frame.setVisible(true);
+		                //重置窗体大小
+		                frame.setResizable(true);
+		                // 设置窗体的宽度、高度
+		                frame.setSize(700,500);
+		                // 设置窗体居中显示
+		                frame.setLocationRelativeTo(frame.getOwner());
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
+
+		NoticeFourTitleLabel.setFont(new Font("宋体", Font.PLAIN, 16));
+		NoticeFourTitleLabel.setBounds(56, 320, 550, 15);
+		HomePagePanel.add(NoticeFourTitleLabel);
+		NoticeFiveTitleLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run(){
+					try {    
+						JFrame frame = new JFrame("通知");
+		                //设置窗体关闭的时候不关闭应用程序
+		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                if(NoticeFlag==1) 
+							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2) 
+							frame.getContentPane().add(new Web(collegeDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==3) 
+							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
+						else 
+							frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
+		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		                frame.setLocationByPlatform(true);
+		                //让窗体可见
+		                frame.setVisible(true);
+		                //重置窗体大小
+		                frame.setResizable(true);
+		                // 设置窗体的宽度、高度
+		                frame.setSize(700,500);
+		                // 设置窗体居中显示
+		                frame.setLocationRelativeTo(frame.getOwner());
+					} catch (Exception e) {
+						e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		
+
+		NoticeFiveTitleLabel.setFont(new Font("宋体", Font.PLAIN, 16));
+		NoticeFiveTitleLabel.setBounds(56, 366, 550, 15);
+		HomePagePanel.add(NoticeFiveTitleLabel);
+		
+
+		NoticeOneSourceLabel.setBounds(650, 191, 140, 15);
+		HomePagePanel.add(NoticeOneSourceLabel);
+		
+
+		NoticeOneTimeLabel.setBounds(790, 191, 80, 15);
+		HomePagePanel.add(NoticeOneTimeLabel);
+		
+
+		NoticeTwoSourceLabel.setBounds(650, 230, 140, 15);
+		HomePagePanel.add(NoticeTwoSourceLabel);
+		
+
+		NoticeThreeSourceLabel.setBounds(650, 273, 140, 15);
+		HomePagePanel.add(NoticeThreeSourceLabel);
+		
+
+		NoticeFourSourceLabel.setBounds(650, 321, 140, 15);
+		HomePagePanel.add(NoticeFourSourceLabel);
+		
+
+		NoticeFiveSourceLabel.setBounds(650, 367, 140, 15);
+		HomePagePanel.add(NoticeFiveSourceLabel);
+		
+
+		NoticeTwoTimeLabel.setBounds(790, 230, 80, 15);
+		HomePagePanel.add(NoticeTwoTimeLabel);
+		
+
+		NoticeThreeTimeLabel.setBounds(790, 273, 80, 15);
+		HomePagePanel.add(NoticeThreeTimeLabel);
+		
+
+		NoticeFourTimeLabel.setBounds(790, 321, 80, 15);
+		HomePagePanel.add(NoticeFourTimeLabel);
+		
+
+		NoticeFiveTimeLabel.setBounds(790, 367, 80, 15);
+		HomePagePanel.add(NoticeFiveTimeLabel);
+		UpPageButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				pageCount--;
+				showNotice((pageCount-1)*5);
+				PageCountLabel.setText(""+pageCount);
+			}
+		});
+		
+
+		UpPageButton.setBounds(72, 414, 93, 23);
+		HomePagePanel.add(UpPageButton);
+		
+
+		lblNewLabel.setBounds(175, 418, 67, 15);
+		HomePagePanel.add(lblNewLabel);
+		
+
+		PageCountLabel.setBounds(250, 418, 40, 15);
+		HomePagePanel.add(PageCountLabel);
+		
+
+		TotalPageCountOneLabel.setBounds(280, 418, 40, 15);
+		HomePagePanel.add(TotalPageCountOneLabel);
+		
+
+		TotalPageCountLabel.setBounds(320, 418, 54, 15);
+		HomePagePanel.add(TotalPageCountLabel);
+		
+
+		TotalPageTwoLabel.setBounds(380, 418, 25, 15);
+		HomePagePanel.add(TotalPageTwoLabel);
+		DownPageButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				pageCount++;
+				showNotice((pageCount-1)*5);
+				PageCountLabel.setText(""+pageCount);
+			}
+		});
+		
+
+		DownPageButton.setBounds(400, 414, 93, 23);
+		HomePagePanel.add(DownPageButton);
+		
+
+		PageChangTextField.setBounds(597, 415, 66, 21);
+		HomePagePanel.add(PageChangTextField);
+		PageChangTextField.setColumns(10);
+		PageChangeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				String pagechangestring=PageChangTextField.getText();
+				pageCount=Integer.valueOf(pagechangestring).intValue();
+				showNotice((pageCount-1)*5);
+				PageCountLabel.setText(""+pageCount);
+				PageChangTextField.setText("");
+			}
+		});
+		
+
+		PageChangeButton.setBounds(673, 414, 93, 23);
+		HomePagePanel.add(PageChangeButton);
+		
+
+		lblNewLabel_1.setBounds(529, 418, 67, 15);
+		HomePagePanel.add(lblNewLabel_1);
+		
+		//初始化
+		showNotice(0);
+		
+
+	}
+	
+	public void showNotice(int begin) {
+		//1为校内通知
+		if(NoticeFlag==1) {
+			setSchoolNotice(begin);
+			PageCountLabel.setText(""+pageCount);
+			TotalPageCountLabel.setText(""+schoolDesnotices.size()/5);
+		}else if(NoticeFlag==2) {
+			setCollegeNotice(begin);
+			PageCountLabel.setText(""+pageCount);
+			TotalPageCountLabel.setText(""+collegeDesnotices.size()/5);
+		}else if(NoticeFlag==3) {
+			setJwcNotice(begin);
+			PageCountLabel.setText(""+pageCount);
+			TotalPageCountLabel.setText(""+JwcDesnotices.size()/5);
+		}else if(NoticeFlag==4) {
+			setJyNotice(begin);
+			PageCountLabel.setText(""+pageCount);
+			TotalPageCountLabel.setText(""+JyDesnotices.size()/5);
+		}
+	}
+	
+	public  void setSchoolNotice(int begin) {
+		NoticeOneTitleLabel.setText(schoolDesnotices.get(begin).getTitle());
+		NoticeOneTimeLabel.setText(schoolDesnotices.get(begin).getTime());
+		NoticeOneSourceLabel.setText(schoolDesnotices.get(begin).getSource());
+		NoticeTwoTitleLabel.setText(schoolDesnotices.get(begin+1).getTitle());
+		NoticeTwoTimeLabel.setText(schoolDesnotices.get(begin+1).getTime());
+		NoticeTwoSourceLabel.setText(schoolDesnotices.get(begin+1).getSource());
+		NoticeThreeTitleLabel.setText(schoolDesnotices.get(begin+2).getTitle());
+		NoticeThreeTimeLabel.setText(schoolDesnotices.get(begin+2).getTime());
+		NoticeThreeSourceLabel.setText(schoolDesnotices.get(begin+2).getSource());
+		NoticeFourTitleLabel.setText(schoolDesnotices.get(begin+3).getTitle());
+		NoticeFourTimeLabel.setText(schoolDesnotices.get(begin+3).getTime());
+		NoticeFourSourceLabel.setText(schoolDesnotices.get(begin+3).getSource());
+		NoticeFiveTitleLabel.setText(schoolDesnotices.get(begin+4).getTitle());
+		NoticeFiveTimeLabel.setText(schoolDesnotices.get(begin+4).getTime());
+		NoticeFiveSourceLabel.setText(schoolDesnotices.get(begin+4).getSource());
+		HomePagePanel.updateUI();
+	}
+	
+	public  void setCollegeNotice(int begin) {
+		NoticeOneTitleLabel.setText(collegeDesnotices.get(begin).getTitle());
+		NoticeOneTimeLabel.setText(collegeDesnotices.get(begin).getTime());
+		NoticeOneSourceLabel.setText(collegeDesnotices.get(begin).getSource());
+		NoticeTwoTitleLabel.setText(collegeDesnotices.get(begin+1).getTitle());
+		NoticeTwoTimeLabel.setText(collegeDesnotices.get(begin+1).getTime());
+		NoticeTwoSourceLabel.setText(collegeDesnotices.get(begin+1).getSource());
+		NoticeThreeTitleLabel.setText(collegeDesnotices.get(begin+2).getTitle());
+		NoticeThreeTimeLabel.setText(collegeDesnotices.get(begin+2).getTime());
+		NoticeThreeSourceLabel.setText(collegeDesnotices.get(begin+2).getSource());
+		NoticeFourTitleLabel.setText(collegeDesnotices.get(begin+3).getTitle());
+		NoticeFourTimeLabel.setText(collegeDesnotices.get(begin+3).getTime());
+		NoticeFourSourceLabel.setText(collegeDesnotices.get(begin+3).getSource());
+		NoticeFiveTitleLabel.setText(collegeDesnotices.get(begin+4).getTitle());
+		NoticeFiveTimeLabel.setText(collegeDesnotices.get(begin+4).getTime());
+		NoticeFiveSourceLabel.setText(collegeDesnotices.get(begin+4).getSource());
+		HomePagePanel.updateUI();
+	}
+	
+	
+	public  void setJwcNotice(int begin) {
+		NoticeOneTitleLabel.setText(JwcDesnotices.get(begin).getTitle());
+		NoticeOneTimeLabel.setText(JwcDesnotices.get(begin).getTime());
+		NoticeOneSourceLabel.setText(JwcDesnotices.get(begin).getSource());
+		NoticeTwoTitleLabel.setText(JwcDesnotices.get(begin+1).getTitle());
+		NoticeTwoTimeLabel.setText(JwcDesnotices.get(begin+1).getTime());
+		NoticeTwoSourceLabel.setText(JwcDesnotices.get(begin+1).getSource());
+		NoticeThreeTitleLabel.setText(JwcDesnotices.get(begin+2).getTitle());
+		NoticeThreeTimeLabel.setText(JwcDesnotices.get(begin+2).getTime());
+		NoticeThreeSourceLabel.setText(JwcDesnotices.get(begin+2).getSource());
+		NoticeFourTitleLabel.setText(JwcDesnotices.get(begin+3).getTitle());
+		NoticeFourTimeLabel.setText(JwcDesnotices.get(begin+3).getTime());
+		NoticeFourSourceLabel.setText(JwcDesnotices.get(begin+3).getSource());
+		NoticeFiveTitleLabel.setText(JwcDesnotices.get(begin+4).getTitle());
+		NoticeFiveTimeLabel.setText(JwcDesnotices.get(begin+4).getTime());
+		NoticeFiveSourceLabel.setText(JwcDesnotices.get(begin+4).getSource());
+		HomePagePanel.updateUI();
+	}
+	
+	public  void setJyNotice(int begin) {
+		NoticeOneTitleLabel.setText(JyDesnotices.get(begin).getTitle());
+		NoticeOneTimeLabel.setText(JyDesnotices.get(begin).getTime());
+		NoticeOneSourceLabel.setText(JyDesnotices.get(begin).getSource());
+		NoticeTwoTitleLabel.setText(JyDesnotices.get(begin+1).getTitle());
+		NoticeTwoTimeLabel.setText(JyDesnotices.get(begin+1).getTime());
+		NoticeTwoSourceLabel.setText(JyDesnotices.get(begin+1).getSource());
+		NoticeThreeTitleLabel.setText(JyDesnotices.get(begin+2).getTitle());
+		NoticeThreeTimeLabel.setText(JyDesnotices.get(begin+2).getTime());
+		NoticeThreeSourceLabel.setText(JyDesnotices.get(begin+2).getSource());
+		NoticeFourTitleLabel.setText(JyDesnotices.get(begin+3).getTitle());
+		NoticeFourTimeLabel.setText(JyDesnotices.get(begin+3).getTime());
+		NoticeFourSourceLabel.setText(JyDesnotices.get(begin+3).getSource());
+		NoticeFiveTitleLabel.setText(JyDesnotices.get(begin+4).getTitle());
+		NoticeFiveTimeLabel.setText(JyDesnotices.get(begin+4).getTime());
+		NoticeFiveSourceLabel.setText(JyDesnotices.get(begin+4).getSource());
+		HomePagePanel.updateUI();
 	}
 }

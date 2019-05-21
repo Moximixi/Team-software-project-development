@@ -1,4 +1,4 @@
-package com.jnu.groupproject.view;
+package com.jnu.groupproject.noticeclass;
 
 import java.net.URI;
 import java.net.URL;
@@ -34,7 +34,8 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
-public class HttpSSLClient  extends DefaultHttpClient  {
+
+public class HttpSSLClient extends DefaultHttpClient {
 	public HttpSSLClient() throws Exception {
 
 		SSLContext ctx = SSLContext.getInstance("TLS");

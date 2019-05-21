@@ -5,6 +5,8 @@ import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -13,7 +15,7 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-
+import com.jnu.groupproject.noticeclass.Web;
 
 import chrriis.common.UIUtils;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
@@ -26,8 +28,8 @@ public class Menu {
 	//private PanelCourseSelect panelCourseSelect=new PanelCourseSelect();
 	
 	public static void main(String[] args) {
-//		UIUtils.setPreferredLookAndFeel();
-//		NativeInterface.open();
+		UIUtils.setPreferredLookAndFeel();
+		NativeInterface.open();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -40,11 +42,11 @@ public class Menu {
 		});
 	}
 
-	public Menu() {
+	public Menu() throws Exception,FileNotFoundException,IOException{
 		initialize();
 	}
 
-	private void initialize() {
+	private void initialize()throws Exception,FileNotFoundException,IOException {
 		//设置初始界面
 		panel.add(new PanelRegister());
 		
@@ -88,7 +90,7 @@ public class Menu {
 			}
 		});*/
 		JMenu menu_homePage = new JMenu("校园生活");
-		PanelHomePage homePagePanel=new PanelHomePage();
+		PanelHomePage homePagePanel= new PanelHomePage();
 		menu_homePage.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -99,54 +101,8 @@ public class Menu {
 			}
 		});
 		menuBar.add(menu_homePage);
-		homePagePanel.EnterSchoolFroumButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-					try {    
-						panel.removeAll();
-						panel.add(new Web("http://bbs.jnlts.com/"));
-						panel.updateUI();
-					} catch (Exception e) {
-						e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
-		homePagePanel.ElectricityChargeRecordButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-					try {    
-						panel.removeAll();
-						panel.add(new Web("http://202.116.25.12/Login.aspx"));
-						panel.updateUI();
-					} catch (Exception e) {
-						e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
-		homePagePanel.ElectricityQueryButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				log.info("查询了电费"); 
-				try {
-					ElectricityCharges electricitycharge=new ElectricityCharges();
-					homePagePanel.ElectricityFeesBalanceLabel.setText("剩余电量："+electricitycharge.restcharge);
-					panel.updateUI();
-				} catch (Exception e1) {
-					// TODO 自动生成的 catch 块
-					e1.printStackTrace();
-				}
-
 		
-			}
-		});
+		
 		
 		JMenu menu_queryScores = new JMenu("查询成绩");
 		menu_queryScores.addMouseListener(new MouseAdapter() {
@@ -177,7 +133,12 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
-				panel.add(new PanelTrainPlan());
+				try {
+					panel.add(new PanelTrainPlan());
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
 				panel.updateUI();
 				log.info("点击菜单[培养方案]");	//1111111111111111111111111
 			}
