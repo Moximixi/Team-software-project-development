@@ -101,12 +101,10 @@ public class PanelRegister extends JPanel {
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setRowHeight(40);//指定每一行的行高40
 
-		table.setBounds(382, 128, 418, 160);
+		table.setBounds(384, 94, 418, 240);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u7F51\u7AD9", "\u8D26\u53F7", "\u5BC6\u7801"},
-				{null, null, null},
-				{null, null, null},
 				{null, null, null},
 				{null, null, null},
 				{null, null, null},
@@ -147,7 +145,7 @@ public class PanelRegister extends JPanel {
 						 * */
 						int m=0;
 						//p.webInfo.clear();
-						for(int i=1;i<4;i++) {//行
+						for(int i=1;i<table.getRowCount();i++) {//行
 							for(int j=0;j<3;j++) {//列
 								if(table.getValueAt(i,j)!=null) {
 									String getname= table.getValueAt(i,j).toString();//读取你获取行号的某一列的值（也就是字段）

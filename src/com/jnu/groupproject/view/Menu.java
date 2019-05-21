@@ -45,8 +45,8 @@ public class Menu {
 	}
 
 	private void initialize() {
-		
-		panel.add(new PanelLogin());
+		//设置初始界面
+		panel.add(new PanelRegister());
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 893, 541);
@@ -210,7 +210,7 @@ public class Menu {
 		});
 		menuBar.add(menu_search);
 		
-		JMenu menu_userInfo = new JMenu("用户信息管理");
+		JMenu menu_userInfo = new JMenu("用户信息查看");
 		menu_userInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -222,7 +222,7 @@ public class Menu {
 		});
 		menuBar.add(menu_userInfo);
 		
-		JMenu menu_userInfoRegister = new JMenu("用户信息编辑");
+		JMenu menu_userInfoRegister = new JMenu("用户信息管理");
 		menu_userInfoRegister.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -234,17 +234,20 @@ public class Menu {
 		});
 		menuBar.add(menu_userInfoRegister);
 		
-		JMenu menu_logOut = new JMenu("注销");
-		menu_logOut.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel.removeAll();
-				panel.add(new PanelLogin());
-				panel.updateUI();
-				log.info("点击菜单[注销]");	//1111111111111111111111111
-			}
-		});
-		menuBar.add(menu_logOut);
+		/*
+		 * 取消登录界面
+		 * */
+//		JMenu menu_logOut = new JMenu("注销");
+//		menu_logOut.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				panel.removeAll();
+//				panel.add(new PanelLogin());
+//				panel.updateUI();
+//				log.info("点击菜单[注销]");	//1111111111111111111111111
+//			}
+//		});
+//		menuBar.add(menu_logOut);
 		
 		//NativeInterface.runEventPump();
 	}
