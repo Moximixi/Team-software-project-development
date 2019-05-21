@@ -89,9 +89,9 @@ public class PanelUserInfo extends JPanel {
 		label_2.setBounds(32, 249, 88, 39);
 		add(label_2);
 
-		JLabel label_3 = new JLabel("出生日期");
+		JLabel label_3 = new JLabel("出生日期:");
 		label_3.setFont(new Font("宋体", Font.BOLD, 20));
-		label_3.setBounds(32, 299, 88, 37);
+		label_3.setBounds(32, 349, 106, 37);
 		add(label_3);
 
 		JLabel label_4 = new JLabel();
@@ -122,6 +122,17 @@ public class PanelUserInfo extends JPanel {
 		label_8.setFont(new Font("宋体", Font.PLAIN, 20));
 		label_8.setBounds(134, 149, 160, 37);
 		add(label_8);
+		
+		JLabel label_9 = new JLabel("卡密码：");
+		label_9.setFont(new Font("宋体", Font.BOLD, 20));
+		label_9.setBounds(32, 299, 88, 37);
+		add(label_9);
+		
+		JLabel label_10 = new JLabel();
+		label_10.setText(String.valueOf(person.getCard()));
+		label_10.setFont(new Font("宋体", Font.PLAIN, 20));
+		label_10.setBounds(134, 349, 160, 37);
+		add(label_10);
 
 //		JButton btnNewButton = new JButton("保存");
 //		btnNewButton.setFont(new Font("宋体", Font.BOLD, 20));

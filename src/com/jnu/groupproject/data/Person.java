@@ -13,6 +13,7 @@ public class Person implements Serializable {
 	private int num;//学号
 	private int room;//宿舍号
 	private int birth;//生日
+	private int card;//校园卡密码
 	public ArrayList webInfo=new ArrayList();//用来存储网站的账号和密码
 	//序列化id
 	private static final long serialVersionUID = -7019320423563420643l;
@@ -48,6 +49,12 @@ public class Person implements Serializable {
 		this.room = room;
 	}
 	
+	public int getCard() {
+		return card;
+	}
+	public void setCard(int card) {
+		this.card = card;
+	}
 	public String toString(){
 		return this.name+" "+this.sex+" "+this.num+" "+this.birth+" "+this.room;
 	}
