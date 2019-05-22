@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -50,6 +51,8 @@ import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 
 public class PanelHomePage extends JPanel {
 	
@@ -86,9 +89,6 @@ public class PanelHomePage extends JPanel {
   	static ArrayList<CollegeNotice> collegeDesnotices;
   	static ArrayList<JwcNotice> JwcDesnotices;
   	static ArrayList<JyNotice> JyDesnotices;
-    
-    //控件
-    public JButton EnterSchoolFroumButton=new JButton();
     public JButton ElectricityChargeRecordButton=new JButton();
     public JLabel ElectricityFeesBalanceLabel=new JLabel();
     public JButton ElectricityQueryButton=new JButton() ;
@@ -99,7 +99,8 @@ public class PanelHomePage extends JPanel {
     public JRadioButton AdministrationNoticeButton = new JRadioButton("教务处通知");
     public JRadioButton EmploymentNoticeButton = new JRadioButton("就业通知");
     public JLabel RelativeInformationLabel = new JLabel("个人相关信息");
-    public JLabel SchoolForumLabel=new JLabel("学校论坛");
+    //public JLabel SchoolForumLabel=new JLabel("学校论坛");
+    public JLabel SchoolForumLabel=new JLabel();
     public JLabel SchoolCardLabel = new JLabel("一卡通");
     public JLabel ElectricityFeesLabel = new JLabel("电  费");
     public JLabel SchhoForumLabel=new JLabel("学校论坛");
@@ -137,6 +138,10 @@ public class PanelHomePage extends JPanel {
     public JButton DownPageButton = new JButton("下一页");
     public JButton PageChangeButton = new JButton("跳转");
     public JLabel lblNewLabel_1 = new JLabel("跳转页码");
+    private final JSeparator separator_1 = new JSeparator();
+    private final JSeparator separator_3 = new JSeparator();
+    private final JSeparator separator_4 = new JSeparator();
+    private final JSeparator separator_5 = new JSeparator();
     
 
 	public PanelHomePage()throws Exception,FileNotFoundException,IOException {
@@ -147,24 +152,17 @@ public class PanelHomePage extends JPanel {
 		//首先规定用户信息的路径（需要用到用户信息的界面都要引入该语句）
 		FileHelper fh=new FileHelper("./userinfo.txt");
 		//读取个人信息代码
-		Person person=fh.getObjFromFile(); 
+		Person person=fh.getObjFromFile();
 		
 		
-		HomePagePanel.setBounds(0, 10, 880, 460);
+		HomePagePanel.setBounds(0, 13, 880, 460);
 		add(HomePagePanel);
 		HomePagePanel.setLayout(null);
 		
 		
 		
-		schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
-		collegeDesnotices=collegenoticeoperater.load(collegenoticepath);
-		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
-		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
-		
-		
-		
 		label.setBounds(36, 111, 93, 40);
-		label.setFont(new Font("宋体", Font.PLAIN, 22));
+		label.setFont(new Font("宋体", Font.BOLD, 22));
 		HomePagePanel.add(label);
 		
 		
@@ -236,8 +234,8 @@ public class PanelHomePage extends JPanel {
 		HomePagePanel.add(EmploymentNoticeButton);
 		
 
-		RelativeInformationLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		RelativeInformationLabel.setBounds(36, 0, 115, 40);
+		RelativeInformationLabel.setFont(new Font("宋体", Font.BOLD, 22));
+		RelativeInformationLabel.setBounds(36, 0, 155, 40);
 		HomePagePanel.add(RelativeInformationLabel);
 		
 
@@ -249,14 +247,9 @@ public class PanelHomePage extends JPanel {
 		ElectricityFeesLabel.setFont(new Font("宋体", Font.PLAIN, 18));
 		ElectricityFeesLabel.setBounds(360, 41, 67, 40);
 		HomePagePanel.add(ElectricityFeesLabel);
-		
-
-		SchoolForumLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		SchoolForumLabel.setBounds(655, 0, 80, 40);
-		HomePagePanel.add(SchoolForumLabel);
-		EnterSchoolFroumButton.addMouseListener(new MouseAdapter() {
+		SchoolForumLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent arg0) {
 				EventQueue.invokeLater(new Runnable() {
 					public void run(){
 					try {    
@@ -279,13 +272,15 @@ public class PanelHomePage extends JPanel {
 						}
 					}
 				});
+				
 			}
 		});
-		EnterSchoolFroumButton.setText("进入论坛");
 		
 
-		EnterSchoolFroumButton.setBounds(765, 62, 93, 23);
-		HomePagePanel.add(EnterSchoolFroumButton);
+		SchoolForumLabel.setFont(new Font("宋体", Font.BOLD, 22));
+		SchoolForumLabel.setIcon(new ImageIcon("./src/com/jnu/groupproject/data/schoolBBS.png"));
+		SchoolForumLabel.setBounds(656, 0, 214, 99);
+		HomePagePanel.add(SchoolForumLabel);
 		
 
 		SchoolCardBalanceLabel.setBounds(100, 41, 132, 15);
@@ -448,7 +443,7 @@ public class PanelHomePage extends JPanel {
 		});
 		
 
-		UpdateSchoolNoticeButton.setBounds(340, 123, 120, 23);
+		UpdateSchoolNoticeButton.setBounds(280, 123, 133, 23);
 		HomePagePanel.add(UpdateSchoolNoticeButton);
 		UpdateCollegeNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -470,8 +465,12 @@ public class PanelHomePage extends JPanel {
 		});
 		
 
-		UpdateCollegeNoticeButton.setBounds(470, 123, 120, 23);
+		UpdateCollegeNoticeButton.setBounds(427, 123, 134, 23);
 		HomePagePanel.add(UpdateCollegeNoticeButton);
+		UpdateJwcNoticeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		UpdateJwcNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -492,7 +491,7 @@ public class PanelHomePage extends JPanel {
 		});
 		
 
-		UpdateJwcNoticeButton.setBounds(600, 123, 135, 23);
+		UpdateJwcNoticeButton.setBounds(575, 123, 149, 23);
 		HomePagePanel.add(UpdateJwcNoticeButton);
 		UpdateJyNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -555,6 +554,7 @@ public class PanelHomePage extends JPanel {
 		NoticeOneTitleLabel.setFont(new Font("宋体", Font.PLAIN, 16));
 		NoticeOneTitleLabel.setBounds(56, 190, 550, 15);
 		HomePagePanel.add(NoticeOneTitleLabel);
+		NoticeTwoTitleLabel.setBackground(Color.BLACK);
 		NoticeTwoTitleLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -713,43 +713,43 @@ public class PanelHomePage extends JPanel {
 		HomePagePanel.add(NoticeFiveTitleLabel);
 		
 
-		NoticeOneSourceLabel.setBounds(650, 191, 140, 15);
+		NoticeOneSourceLabel.setBounds(620, 191, 140, 15);
 		HomePagePanel.add(NoticeOneSourceLabel);
 		
 
-		NoticeOneTimeLabel.setBounds(790, 191, 80, 15);
+		NoticeOneTimeLabel.setBounds(760, 191, 90, 15);
 		HomePagePanel.add(NoticeOneTimeLabel);
 		
 
-		NoticeTwoSourceLabel.setBounds(650, 230, 140, 15);
+		NoticeTwoSourceLabel.setBounds(620, 230, 140, 15);
 		HomePagePanel.add(NoticeTwoSourceLabel);
 		
 
-		NoticeThreeSourceLabel.setBounds(650, 273, 140, 15);
+		NoticeThreeSourceLabel.setBounds(620, 273, 140, 15);
 		HomePagePanel.add(NoticeThreeSourceLabel);
 		
 
-		NoticeFourSourceLabel.setBounds(650, 321, 140, 15);
+		NoticeFourSourceLabel.setBounds(620, 321, 140, 15);
 		HomePagePanel.add(NoticeFourSourceLabel);
 		
 
-		NoticeFiveSourceLabel.setBounds(650, 367, 140, 15);
+		NoticeFiveSourceLabel.setBounds(620, 367, 140, 15);
 		HomePagePanel.add(NoticeFiveSourceLabel);
 		
 
-		NoticeTwoTimeLabel.setBounds(790, 230, 80, 15);
+		NoticeTwoTimeLabel.setBounds(760, 230, 90, 15);
 		HomePagePanel.add(NoticeTwoTimeLabel);
 		
 
-		NoticeThreeTimeLabel.setBounds(790, 273, 80, 15);
+		NoticeThreeTimeLabel.setBounds(760, 273, 90, 15);
 		HomePagePanel.add(NoticeThreeTimeLabel);
 		
 
-		NoticeFourTimeLabel.setBounds(790, 321, 80, 15);
+		NoticeFourTimeLabel.setBounds(760, 321, 90, 15);
 		HomePagePanel.add(NoticeFourTimeLabel);
 		
 
-		NoticeFiveTimeLabel.setBounds(790, 367, 80, 15);
+		NoticeFiveTimeLabel.setBounds(760, 367, 90, 15);
 		HomePagePanel.add(NoticeFiveTimeLabel);
 		UpPageButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -761,11 +761,11 @@ public class PanelHomePage extends JPanel {
 		});
 		
 
-		UpPageButton.setBounds(72, 414, 93, 23);
+		UpPageButton.setBounds(46, 414, 93, 23);
 		HomePagePanel.add(UpPageButton);
 		
 
-		lblNewLabel.setBounds(175, 418, 67, 15);
+		lblNewLabel.setBounds(149, 418, 93, 15);
 		HomePagePanel.add(lblNewLabel);
 		
 
@@ -818,6 +818,31 @@ public class PanelHomePage extends JPanel {
 
 		lblNewLabel_1.setBounds(529, 418, 67, 15);
 		HomePagePanel.add(lblNewLabel_1);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(14, 97, 856, 2);
+		HomePagePanel.add(separator);
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(14, 150, 852, 295);
+		
+		HomePagePanel.add(separator_1);
+		separator_3.setBounds(14, 150, 852, 2);
+		
+		HomePagePanel.add(separator_3);
+		separator_4.setBounds(14, 445, 852, 2);
+		
+		HomePagePanel.add(separator_4);
+		separator_5.setOrientation(SwingConstants.VERTICAL);
+		separator_5.setBounds(870, 150, 1, 297);
+		
+		HomePagePanel.add(separator_5);
+		
+		
+		
+		schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
+		collegeDesnotices=collegenoticeoperater.load(collegenoticepath);
+		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
+		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
 		
 		//初始化
 		showNotice(0);

@@ -105,7 +105,7 @@ public class DianFeiQuery {
 			Matcher matcher = pattern.matcher(result);
 			if(matcher.find()) {
 				for(int i=0; i<=matcher.groupCount(); i++){  
-					 System.out.println(matcher.group(i));
+					 //System.out.println(matcher.group(i));
 					 QueryResult=matcher.group(i);
 				 }  
 			}else {

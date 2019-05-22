@@ -40,10 +40,11 @@ public class PanelQueryScores extends JPanel {
 		super();
 		setLayout(new CardLayout(0, 0));
 		add(panelQueryScores);
+		panelQueryScores.setLayout(null);
 			
 		JLabel label_listCourse = new JLabel("我 的 成 绩");
 		label_listCourse.setFont(new Font("宋体", Font.BOLD, 25));
-		label_listCourse.setBounds(349, 97, 226, 31);
+		label_listCourse.setBounds(360, 5, 146, 30);
 		panelQueryScores.add(label_listCourse);
 		
 		initJScrollPane();
@@ -97,13 +98,14 @@ public class PanelQueryScores extends JPanel {
 
         // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
         scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(32, 40, 802, 333);
 
         // 添加 滚动面板 到 内容面板
         panelQueryScores.add(scrollPane);
         
         
 		btnNewButton.setFont(new Font("宋体", Font.BOLD, 20));
-		btnNewButton.setBounds(151, 278, 181, 48);
+		btnNewButton.setBounds(360, 386, 181, 41);
 		//btnNewButton.setBounds(190, 362, 181, 48);
 		//btnNewButton.setBounds(565, 375, 93, 23);
 		panelQueryScores.add(btnNewButton);

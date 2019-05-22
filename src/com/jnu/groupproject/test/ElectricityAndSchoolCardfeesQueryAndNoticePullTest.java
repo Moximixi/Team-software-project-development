@@ -16,23 +16,23 @@ import com.jnu.groupproject.noticeclass.NoticeSerializeOperater;
 import com.jnu.groupproject.noticeclass.SchoolCardQuery;
 
 public class ElectricityAndSchoolCardfeesQueryAndNoticePullTest {
-	/*
+	
 	@Test
 	public void testElectricityfeesQuery() throws Exception,FileNotFoundException,IOException{
 		//测试数据2222
-		String roomaccount="";
+		String roomaccount="2222";
 		DianFeiQuery dianFei=new DianFeiQuery(roomaccount);
-		Assert.assertEquals("",dianFei.getQueryResult());
+		Assert.assertEquals("106.97",dianFei.getQueryResult());
 	}
 	
 	@Test
 	public void testSchoolCardfeesQuery()throws Exception,FileNotFoundException,IOException {
-		//测试数据2016054250 136159
-		String account="",password="";
+		//测试数据2016052390 960406
+		String account="2016052390",password="960406";
 		SchoolCardQuery schoolcardquery=new SchoolCardQuery(account,password);
-		Assert.assertEquals("",schoolcardquery.getQueryResult());
+		Assert.assertEquals("37.38元",schoolcardquery.getQueryResult());
 	}
-	*/
+	
 	
 	@Test
 	public void testNoticePull()throws Exception,FileNotFoundException,IOException {
@@ -45,7 +45,7 @@ public class ElectricityAndSchoolCardfeesQueryAndNoticePullTest {
 		NoticeSerializeOperater<CollegeNotice> noticeserializeoperater=new NoticeSerializeOperater<CollegeNotice>();
 		//反序列化
 		ArrayList<CollegeNotice>  collegeDesnotices=noticeserializeoperater.load(collegenoticepath);
-		Assert.assertEquals("",""+collegeDesnotices.size());
+		Assert.assertEquals("223",""+collegeDesnotices.size());
 	}
 	
 }

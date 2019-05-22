@@ -46,7 +46,7 @@ public class PanelSearch extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelSearch() {
-		super(new BorderLayout());
+		setLayout(null);
 		setLayout(null);
 		
 		JLabel label_range = new JLabel("搜索范围");
@@ -60,14 +60,14 @@ public class PanelSearch extends JPanel {
 		comboBox_range.setBounds(133, 94, 147, 33);
 		add(comboBox_range);
 		
-		JLabel label_keyWord = new JLabel("关键字");
+		JLabel label_keyWord = new JLabel("关 键 字");
 		label_keyWord.setFont(new Font("宋体", Font.BOLD, 20));
-		label_keyWord.setBounds(35, 142, 66, 33);
+		label_keyWord.setBounds(35, 142, 85, 33);
 		add(label_keyWord);
 		
 		textField_keyWord = new JTextField();
 		textField_keyWord.setFont(new Font("宋体", Font.BOLD, 18));
-		textField_keyWord.setBounds(35, 192, 246, 33);
+		textField_keyWord.setBounds(133, 142, 147, 33);
 		add(textField_keyWord);
 		textField_keyWord.setColumns(10);
 		
@@ -85,9 +85,9 @@ public class PanelSearch extends JPanel {
 		//list_searchResults.addListSelectionListener();
 		add(listScrollPane_searchResults);
 		
-		JButton button_search = new JButton("搜索");
+		JButton button_search = new JButton("开始搜索");
 		button_search.setFont(new Font("宋体", Font.BOLD, 18));
-		button_search.setBounds(206, 142, 74, 33);
+		button_search.setBounds(35, 202, 245, 33);
 		button_search.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
