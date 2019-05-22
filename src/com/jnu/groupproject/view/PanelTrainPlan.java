@@ -227,8 +227,8 @@ public class PanelTrainPlan extends JPanel {
 	        byte[] img = response.bodyAsBytes();
 	        System.out.println(img.length);
 	        // 读取文件存储位置
-	        String directory =".\\src\\com\\jnu\\craw\\verificationcode";
-	        savaImage(img, directory, "yzm.png");
+	        String directory =".\\src\\com\\jnu\\groupproject\\data\\yzm";
+	        savaImage(img, directory, "YZM.png");
 	    }
 
 	    /**
@@ -494,7 +494,7 @@ public class PanelTrainPlan extends JPanel {
 	        this.content = content;
 //            GradeOutput gradeOutput = new GradeOutput();
             // 1.访问主页，获取验证码与viewstate
-	        File file=new File(".\\src\\com\\jnu\\craw\\verificationcode\\yzm.png");
+	        File file=new File(".\\src\\com\\jnu\\groupproject\\data\\yzm\\YZM.png");
 	        byte[] fileByte=Files.readAllBytes(file.toPath());
 	        ImageIcon icon = new ImageIcon(fileByte);// 创建1个图标实例
 	        JLabel jlImg = new JLabel(icon);// 1个图片标签,显示图片

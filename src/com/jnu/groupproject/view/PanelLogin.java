@@ -53,7 +53,12 @@ public class PanelLogin extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Menu.panel.removeAll();
-				Menu.panel.add(new PanelHomePage());
+				try {
+					Menu.panel.add(new PanelHomePage());
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
 				Menu.panel.updateUI();
 				log.info("用户登录");	//日志
 			}

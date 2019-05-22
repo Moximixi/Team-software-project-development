@@ -53,7 +53,14 @@ public class PanelUserInfo extends JPanel {
 			new String[] {
 				"New column", "New column", "New column"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(150);
 		add(table);
 		/*
