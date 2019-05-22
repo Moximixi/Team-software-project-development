@@ -2,29 +2,37 @@ package com.jnu.groupproject.view;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
@@ -35,10 +43,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.jnu.groupproject.view.buttonActionListener.MyDailog;
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
 
 public class PanelCourseSelect extends JPanel {
-	private Logger log = Logger.getLogger(PanelUserInfo.class); 
+	
+	private Logger log = Logger.getLogger(PanelUserInfo.class);
+	
+	boolean hadLoggedIn=false;	//是否登录过的标志
+	int courseType=0;			//课程类别下拉框中的第i项
+	int courseCollege=0;		//所属校区下拉框中的第i项
+	WebClient webClient = new WebClient(BrowserVersion.CHROME);
 	
 	//创建选项卡面板对象
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -46,13 +60,19 @@ public class PanelCourseSelect extends JPanel {
 	JPanel panel_queryCourse=new JPanel();
 	JPanel panel_listCourse=new JPanel();
 	JPanel panel_selectedCourse=new JPanel();
-	String YZM;
+	
+	String YZM;	//验证码
+	List<Course> courses=new ArrayList<>();//课程信息
 	
 	public PanelCourseSelect() {
+		
+		
 		
 		super();
 		setLayout(new CardLayout(0, 0));
 		add(tabbedPane, "name_422260517140338");
+		
+		PropertyConfigurator.configure("log4j.properties");
 		
 		initPanelQueryCourse();		//初始化（添加控件）	
 		initPanelListCourse();
@@ -74,42 +94,71 @@ public class PanelCourseSelect extends JPanel {
 		label_courseName.setBounds(116, 76, 116, 34);
 		panel_queryCourse.add(label_courseName);
 		
-		JLabel label_course = new JLabel("所属学院：");
-		label_course.setFont(new Font("宋体", Font.BOLD, 20));
-		label_course.setBounds(116, 146, 116, 34);
-		panel_queryCourse.add(label_course);
+		JLabel label_courseType = new JLabel("课程类别：");
+		label_courseType.setFont(new Font("宋体", Font.BOLD, 20));
+		label_courseType.setBounds(116, 146, 116, 34);
+		panel_queryCourse.add(label_courseType);
 		
 		JLabel label_courseNum = new JLabel("课程编号：");
 		label_courseNum.setFont(new Font("宋体", Font.BOLD, 20));
 		label_courseNum.setBounds(475, 76, 116, 34);
 		panel_queryCourse.add(label_courseNum);
 		
-		JLabel label_courseMajor = new JLabel("所属专业：");
-		label_courseMajor.setFont(new Font("宋体", Font.BOLD, 20));
-		label_courseMajor.setBounds(475, 142, 116, 34);
-		panel_queryCourse.add(label_courseMajor);
+		JLabel label_courseCollege = new JLabel("所属校区：");
+		label_courseCollege.setFont(new Font("宋体", Font.BOLD, 20));
+		label_courseCollege.setBounds(475, 146, 116, 34);
+		panel_queryCourse.add(label_courseCollege);
 		
 		JTextField textField_courseName = new JTextField();	//课程名称输入框
-		textField_courseName.setBounds(220, 79, 112, 33);
+		textField_courseName.setBounds(220, 79, 159, 33);
 		panel_queryCourse.add(textField_courseName);
 		textField_courseName.setColumns(10);
 		
 		JTextField textField_courseNum = new JTextField();	//课程编号输入框
 		textField_courseNum.setColumns(10);
-		textField_courseNum.setBounds(580, 80, 112, 33);
+		textField_courseNum.setBounds(580, 80, 159, 33);
 		panel_queryCourse.add(textField_courseNum);
 		
-		JTextField textField_courseMajor = new JTextField();	//所属学院输入框
-		textField_courseMajor.setColumns(10);
-		textField_courseMajor.setBounds(580, 142, 112, 33);
-		panel_queryCourse.add(textField_courseMajor);
+
+		String[] type={"","全校公选课","学科基础课","专业基础课","专业课","专业选修课","公共选修课"};
+		//JComboBox<String> comboBox_courseType = new JComboBox<>(courseType);
+		JComboBox comboBox_courseType = new JComboBox(type);
+		comboBox_courseType.setFont(new Font("宋体", Font.BOLD, 18));
+		comboBox_courseType.setBounds(222, 147, 157, 33);
+		comboBox_courseType.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (ItemEvent.SELECTED == e.getStateChange()) {
+					log.info("课程类别"+type[comboBox_courseType.getSelectedIndex()]);
+					courseType=comboBox_courseType.getSelectedIndex();
+				}
+			}
+		});
+		panel_queryCourse.add(comboBox_courseType);
 		
-		JTextField textField_courseCollege = new JTextField();	//所属专业输入框
-		textField_courseCollege.setColumns(10);
-		textField_courseCollege.setBounds(222, 147, 112, 33);
-		panel_queryCourse.add(textField_courseCollege);
+		String[] college={"","本部校区","珠海校区","南校区","专业课","深圳校区"};
+		JComboBox comboBox_courseCollege = new JComboBox(college);
+		comboBox_courseCollege.setFont(new Font("宋体", Font.BOLD, 18));
+		comboBox_courseCollege.setBounds(580, 149, 159, 33);
+		comboBox_courseCollege.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (ItemEvent.SELECTED == e.getStateChange()) {
+					log.info("课程类别"+college[comboBox_courseCollege.getSelectedIndex()]);
+					courseCollege=comboBox_courseCollege.getSelectedIndex();
+				}
+			}
+		});
+		panel_queryCourse.add(comboBox_courseCollege);
 		
 		JButton button_cancel = new JButton("清除条件");
+		button_cancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField_courseName.setText("");
+				textField_courseNum.setText("");
+				courseType=0;
+				courseCollege=0;
+			}
+		});
 		button_cancel.setFont(new Font("宋体", Font.BOLD, 20));
 		button_cancel.setBounds(151, 278, 181, 48);
 		panel_queryCourse.add(button_cancel);
@@ -119,48 +168,50 @@ public class PanelCourseSelect extends JPanel {
 			@SuppressWarnings("resource")
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				WebClient webClient = new WebClient(BrowserVersion.CHROME);
-				webClient.getOptions().setThrowExceptionOnScriptError(false);
-				//设置证书
-				webClient.getOptions().setUseInsecureSSL(true);
-				//是否启用js
-				webClient.getOptions().setJavaScriptEnabled(true);
-				//是否启用css
-				webClient.getOptions().setCssEnabled(true);
-				//设置Ajax控制器
-				webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-
-				//获取页面  
-				HtmlPage pageLogin;
+				log.info("点击了[查询选课]的[查询]按钮");
+				//WebClient webClient = new WebClient(BrowserVersion.CHROME);
+				if(!hadLoggedIn) {
+					webClient.getOptions().setThrowExceptionOnScriptError(false);
+					//设置证书
+					webClient.getOptions().setUseInsecureSSL(true);
+					//是否启用js
+					webClient.getOptions().setJavaScriptEnabled(false);
+					//是否启用css
+					webClient.getOptions().setCssEnabled(false);
+					//设置Ajax控制器
+					webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+				}
 				try {
-					pageLogin = webClient.getPage("https://jwxt.jnu.edu.cn/Login.aspx");//登陆页面
-					HtmlInput username = (HtmlInput) pageLogin.getElementById("txtYHBS");//账号输入框的id
-					HtmlInput password = (HtmlInput) pageLogin.getElementById("txtYHMM");//密码输入框的id
-					HtmlInput code=(HtmlInput) pageLogin.getElementById("txtFJM");		//验证码输入栏的id
-					HtmlInput login=(HtmlInput) pageLogin.getElementById("btnLogin");	//登录按钮
-					HtmlImage vaCode=(HtmlImage) pageLogin.getFirstByXPath("//*[@id=\"Table16\"]/tbody/tr[9]/td[3]/img");	//验证码图片
-					
-					//保存验证码图片到项目目录下
-					File file=new File("./src/com/jnu/groupproject/data/yzm.png");
-					if(vaCode!=null) {
-						vaCode.saveAs(file);
+					LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");//屏蔽日志
+					java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
+
+					if(!hadLoggedIn) {	//之前没有登录过，即首次登录，需要模拟登陆
+						hadLoggedIn=true;
+						HtmlPage pageLogin = webClient.getPage("https://jwxt.jnu.edu.cn/Login.aspx");//登陆页面
+						HtmlInput username = (HtmlInput) pageLogin.getElementById("txtYHBS");//账号输入框的id
+						HtmlInput password = (HtmlInput) pageLogin.getElementById("txtYHMM");//密码输入框的id
+						HtmlInput code=(HtmlInput) pageLogin.getElementById("txtFJM");		//验证码输入栏的id
+						HtmlInput login=(HtmlInput) pageLogin.getElementById("btnLogin");	//登录按钮
+						HtmlImage vaCode=(HtmlImage) pageLogin.getFirstByXPath("//*[@id=\"Table16\"]/tbody/tr[9]/td[3]/img");	//验证码图片
+						
+						//保存验证码图片到项目目录下
+						File file=new File("./src/com/jnu/groupproject/data/yzm.png");
+						if(vaCode!=null)	vaCode.saveAs(file);
+						
+						log.info("输入验证码");
+						new MyDailog("验证码信息", "请输入验证码").setVisible(true);
+						//System.out.println("请输入验证码:");
+						//String YZM=new Scanner(System.in).next().trim();
+						
+						username.setAttribute("value","2016052357");
+						password.setAttribute("value","199815");
+						code.setAttribute("value", YZM);
+						pageLogin=login.click();
+						//System.out.println("--------------------------------------登录后的页面-----------------------------------------");
+						//System.out.println(pageLogin.asXml());
 					}
 					
-					//查看你项目下的yzm.png 手动输入
-					System.out.println("请输入验证码:");
-					new MyDailog("验证码信息", "请输入验证码").setVisible(true);
-					//String YZM=new Scanner(System.in).next().trim();
-					
-					username.setAttribute("value","2016052357");
-					password.setAttribute("value","199815");
-					code.setAttribute("value", YZM);
-					pageLogin=login.click();
-					//System.out.println("--------------------------------------登录后的页面-----------------------------------------");
-					//System.out.println(pageLogin.asXml());
-					
 					HtmlPage pageQueryCourse = webClient.getPage("https://jwxt.jnu.edu.cn/Secure/PaiKeXuanKe/wfrm_Pk_RlRscx.aspx");//排课选课信息查询页面
-					
 					HtmlInput courseName = (HtmlInput) pageQueryCourse.getElementById("txtKcmc");//课程名称的id
 					HtmlInput courseNum = (HtmlInput) pageQueryCourse.getElementById("txtKcbh");//课程编号的id
 					courseName.setAttribute("value",textField_courseName.getText());
@@ -172,15 +223,32 @@ public class PanelCourseSelect extends JPanel {
 					HtmlSelect select_term = (HtmlSelect) pageQueryCourse.getElementById("dlstNdxq"); //学期复选框
 					HtmlOption termOption = select_term.getOptionByValue("上");
 					termOption.setAttribute("selected","selected");
+					HtmlSelect select_type = (HtmlSelect) pageQueryCourse.getElementById("dlstKclb"); //课程类别复选框
+					HtmlOption typeOption = select_type.getOption(courseType);
+					typeOption.click();
+					HtmlSelect select_college = (HtmlSelect) pageQueryCourse.getElementById("dlstXqu"); //校区复选框
+					HtmlOption collegeOption = select_college.getOption(courseCollege);
+					collegeOption.click();
 
 					HtmlInput btn_search=(HtmlInput) pageQueryCourse.getElementById("lbtnSearch");
 					pageQueryCourse=btn_search.click();
-					System.out.println("--------------------------------------课程信息-----------------------------------------");
-					System.out.println(pageQueryCourse.asXml());
-					//保存爬取的网页数据
-					File fileQueryCourse=new File("./src/com/jnu/groupproject/data/pageQueryCourse.html");
-					if(pageQueryCourse!=null) {
-						pageQueryCourse.save(fileQueryCourse);
+					//System.out.println("--------------------------------------课程信息-----------------------------------------");
+					//System.out.println(pageQueryCourse.asXml());
+					
+					HtmlTable table=pageQueryCourse.getHtmlElementById("dgrdJXJH");	//排课表
+					
+					courses.clear();   //清空原来的
+					for(int i=1; i<table.getRowCount(); i++) {
+						Course course=new Course();
+						course.setName(table.getRow(i).getCell(1).asText());
+						course.setNum(table.getRow(i).getCell(0).asText());
+						course.setCredit(table.getRow(i).getCell(6).asText());
+						course.setClassTime(table.getRow(i).getCell(8).asText());
+						course.setClassroom(table.getRow(i).getCell(7).asText());
+						course.setNotes(table.getRow(i).getCell(12).asText());
+						course.setExamDate(table.getRow(i).getCell(11).asText());
+						//System.out.println("   Found cell: " + table.getRow(i).getCell(1).asText());
+						courses.add(course);
 					}
 
 				} catch (FailingHttpStatusCodeException e1) {
@@ -195,11 +263,16 @@ public class PanelCourseSelect extends JPanel {
 				} catch (Exception e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
-				}	
+				}	finally {
+					//webClient.close(); //关闭客户端，释放内存
+				}
 					
-				
+				//initPanelListCourse();
+				panel_listCourse.removeAll();
+				initPanelListCourse();
+				tabbedPane.setComponentAt(1, panel_listCourse);
 				tabbedPane.setSelectedIndex(1);	//跳转到开课列表界面
-				log.info("点击了查询成绩按钮");
+				log.info("从[查询选课]跳转到[开课列表]");
 			}
 		});
 		
@@ -209,135 +282,115 @@ public class PanelCourseSelect extends JPanel {
 	}
 	
 	private void initPanelListCourse() {
-		panel_listCourse.setLayout(null);
-		
 		JLabel label_listCourse = new JLabel("开 课 列 表");
 		label_listCourse.setFont(new Font("宋体", Font.BOLD, 25));
 		label_listCourse.setBounds(349, 97, 226, 31);
 		panel_listCourse.add(label_listCourse);
-		
-		JButton button = new JButton("选课");
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				tabbedPane.setSelectedIndex(2);
-				log.info("点击了选课按钮");
-			}
-		});
-		button.setBounds(91, 186, 72, 27);
-		panel_listCourse.add(button);
-		
-		JButton button_1 = new JButton("选课");
-		button_1.setBounds(91, 226, 72, 27);
-		panel_listCourse.add(button_1);
-		
-		JButton button_2 = new JButton("选课");
-		button_2.setBounds(91, 266, 72, 27);
-		panel_listCourse.add(button_2);
-		
-		JButton button_3 = new JButton("选课");
-		button_3.setBounds(91, 306, 72, 27);
-		panel_listCourse.add(button_3);
-		
-		JTable table_courseList = new JTable();
-		table_courseList.setFont(new Font("宋体", Font.BOLD, 20));
-		table_courseList.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_courseList.setRowHeight(40);//指定每一行的行高40
-		
-		table_courseList.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"课程编号", " 课程名", "  学分", "  时间", "  地点", "  备注", "考试时间"},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-					"课程编号", "课程名", "学分", "时间", "地点", "备注", "考试时间"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table_courseList.getColumnModel().getColumn(0).setResizable(false);
-		table_courseList.getColumnModel().getColumn(1).setResizable(false);
-		table_courseList.getColumnModel().getColumn(2).setResizable(false);
-		table_courseList.setBounds(164, 141, 638, 200);
-		panel_listCourse.add(table_courseList);
-		
-		JTable table_background = new JTable();
-		table_background.setBounds(80, 86, 722, 255);
-		panel_listCourse.add(table_background);
+		// 表头（列名）
+        Object[] columnNames = {"课程编号", "课程名", "学分", "时间", "地点", "备注", "考试时间"};
+
+        // 表格所有行数据
+        int rowCount=courses.size();
+        Object[][] rowData = new Object[rowCount][7];
+        for(int i=0; i<rowCount; i++) {
+        	rowData[i][0]=courses.get(i).getNum();
+        	rowData[i][1]=courses.get(i).getName();
+        	rowData[i][2]=courses.get(i).getCredit();
+        	rowData[i][3]=courses.get(i).getClassTime();
+        	rowData[i][4]=courses.get(i).getClassroom();
+        	rowData[i][5]=courses.get(i).getNotes();
+        	rowData[i][6]=courses.get(i).getExamDate();
+        	System.out.println("   xxxxx xxxx: " + courses.get(i).getName());
+        }
+
+        // 创建一个表格，指定 表头 和 所有行数据
+        JTable table = new JTable(rowData, columnNames);
+
+        // 设置表格内容颜色
+        table.setForeground(Color.BLACK);                   // 字体颜色
+        table.setFont(new Font("宋体", Font.PLAIN, 15));      // 字体样式
+        table.setSelectionForeground(Color.DARK_GRAY);      // 选中后字体颜色
+        table.setSelectionBackground(Color.LIGHT_GRAY);     // 选中后字体背景
+        table.setGridColor(Color.GRAY);                     // 网格颜色
+
+        // 设置表头
+        table.getTableHeader().setFont(new Font("宋体", Font.BOLD, 20));  // 设置表头名称字体样式
+        table.getTableHeader().setForeground(Color.BLACK);                // 设置表头名称字体颜色
+        table.getTableHeader().setResizingAllowed(true);               // 设置不允许手动改变列宽
+        table.getTableHeader().setReorderingAllowed(false);             // 设置不允许拖动重新排序各列
+
+        // 设置行高
+        table.setRowHeight(40);
+
+        // 设置列宽
+        table.getColumnModel().getColumn(0).setPreferredWidth(45);
+        table.getColumnModel().getColumn(2).setPreferredWidth(15);
+        table.getColumnModel().getColumn(6).setPreferredWidth(45);
+
+        // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
+        table.setPreferredScrollableViewportSize(new Dimension(800, 350));
+
+        // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // 添加 滚动面板 到 内容面板
+        panel_listCourse.add(scrollPane);
 	}
 	
 	private void initPanelSelectedCourse() {
-		panel_selectedCourse.setLayout(null);
+		JLabel label_selectCourse = new JLabel("已 选 课 程");
+		label_selectCourse.setFont(new Font("宋体", Font.BOLD, 25));
+		label_selectCourse.setBounds(349, 97, 226, 31);
+		panel_selectedCourse.add(label_selectCourse);
 		
-		JLabel label_selectedCourse = new JLabel("已 选 课 程");
-		label_selectedCourse.setFont(new Font("宋体", Font.BOLD, 25));
-		label_selectedCourse.setBounds(349, 97, 226, 31);
-		panel_selectedCourse.add(label_selectedCourse);
-		
-		JButton button = new JButton("退课");
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				tabbedPane.setSelectedIndex(1);
-				log.info("点击了退课按钮");
-			}
-		});
-		button.setBounds(91, 186, 72, 27);
-		panel_selectedCourse.add(button);
-		
-		JButton button_1 = new JButton("退课");
-		button_1.setBounds(91, 226, 72, 27);
-		panel_selectedCourse.add(button_1);
-		
-		JButton button_2 = new JButton("退课");
-		button_2.setBounds(91, 266, 72, 27);
-		panel_selectedCourse.add(button_2);
-		
-		JButton button_3 = new JButton("退课");
-		button_3.setBounds(91, 306, 72, 27);
-		panel_selectedCourse.add(button_3);
-		
-		JTable table_courseSelected = new JTable();
-		table_courseSelected.setFont(new Font("宋体", Font.BOLD, 20));
-		table_courseSelected.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table_courseSelected.setRowHeight(40);//指定每一行的行高40
-		
-		table_courseSelected.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"课程编号", " 课程名", "  学分", "  时间", "  地点", "  备注", "考试时间"},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
-			new String[] {
-					"课程编号", "课程名", "学分", "时间", "地点", "备注", "考试时间"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table_courseSelected.getColumnModel().getColumn(0).setResizable(false);
-		table_courseSelected.getColumnModel().getColumn(1).setResizable(false);
-		table_courseSelected.getColumnModel().getColumn(2).setResizable(false);
-		table_courseSelected.setBounds(164, 141, 638, 200);
-		panel_selectedCourse.add(table_courseSelected);
-		
-		JTable table_background = new JTable();
-		table_background.setBounds(80, 86, 722, 255);
-		panel_selectedCourse.add(table_background);
+		// 表头（列名）
+        Object[] columnNames = {"课程编号", "课程名", "学分", "时间", "地点", "备注", "考试时间"};
+        // 表格所有行数据
+        int rowCount=courses.size();
+        Object[][] rowData = new Object[rowCount][7];
+        for(int i=0; i<rowCount; i++) {
+        	rowData[i][0]=courses.get(i).getNum();
+        	rowData[i][1]=courses.get(i).getName();
+        	rowData[i][2]=courses.get(i).getCredit();
+        	rowData[i][3]=courses.get(i).getClassTime();
+        	rowData[i][4]=courses.get(i).getClassroom();
+        	rowData[i][5]=courses.get(i).getNotes();
+        	rowData[i][6]=courses.get(i).getExamDate();
+        	//System.out.println("   xxxxx xxxx: " + courses.get(i).getName());
+        }
+
+        // 创建一个表格，指定 表头 和 所有行数据
+        JTable table = new JTable(rowData, columnNames);
+
+        // 设置表格内容颜色
+        table.setForeground(Color.BLACK);                   // 字体颜色
+        table.setFont(new Font("宋体", Font.PLAIN, 15));      // 字体样式
+        table.setSelectionForeground(Color.DARK_GRAY);      // 选中后字体颜色
+        table.setSelectionBackground(Color.LIGHT_GRAY);     // 选中后字体背景
+        table.setGridColor(Color.GRAY);                     // 网格颜色
+
+        // 设置表头
+        table.getTableHeader().setFont(new Font("宋体", Font.BOLD, 20));  // 设置表头名称字体样式
+        table.getTableHeader().setForeground(Color.BLACK);                // 设置表头名称字体颜色
+        table.getTableHeader().setResizingAllowed(true);               // 设置不允许手动改变列宽
+        table.getTableHeader().setReorderingAllowed(false);             // 设置不允许拖动重新排序各列
+
+        // 设置行高
+        table.setRowHeight(40);
+
+        // 设置列宽
+        table.getColumnModel().getColumn(0).setPreferredWidth(45);
+        table.getColumnModel().getColumn(2).setPreferredWidth(15);
+        table.getColumnModel().getColumn(6).setPreferredWidth(45);
+
+        // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
+        table.setPreferredScrollableViewportSize(new Dimension(800, 350));
+
+        // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // 添加 滚动面板 到 内容面板
+        panel_selectedCourse.add(scrollPane);
 	}
 	
 	class MyDailog extends JDialog implements ActionListener {
@@ -348,7 +401,9 @@ public class PanelCourseSelect extends JPanel {
 	        this.title = title;
 	        this.content = content;
 	        
-	        ImageIcon icon = new ImageIcon("./src/com/jnu/groupproject/data/yzm.png");
+	        File file = new File("./src/com/jnu/groupproject/data/yzm.png");
+            byte[] fileByte = Files.readAllBytes(file.toPath());
+	        ImageIcon icon = new ImageIcon(fileByte);
 	        JLabel jlImg = new JLabel(icon);
 	        JButton btn_OK = new JButton("确定");
 	        //JButton btn_refres = new JButton("换一张");
@@ -376,5 +431,4 @@ public class PanelCourseSelect extends JPanel {
 	    }
 	    	        
 	}
-	
 }

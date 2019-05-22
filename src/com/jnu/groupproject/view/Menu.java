@@ -1,6 +1,5 @@
 package com.jnu.groupproject.view;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
@@ -15,8 +14,6 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import com.jnu.groupproject.noticeclass.Web;
-
 import chrriis.common.UIUtils;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 
@@ -25,7 +22,7 @@ public class Menu {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
 	private JFrame frame;
 	public static JPanel panel= new JPanel();
-	//private PanelCourseSelect panelCourseSelect=new PanelCourseSelect();
+	private static PanelCourseSelect panelCourseSelect=new PanelCourseSelect();
 	
 	public static void main(String[] args) {
 		UIUtils.setPreferredLookAndFeel();
@@ -121,7 +118,7 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.removeAll();
-				panel.add(new PanelCourseSelect());
+				panel.add(panelCourseSelect);
 				panel.updateUI();
 				log.info("点击菜单[选课系统]");	//1111111111111111111111111
 			}
