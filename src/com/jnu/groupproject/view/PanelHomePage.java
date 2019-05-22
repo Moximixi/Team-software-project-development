@@ -1,6 +1,7 @@
 package com.jnu.groupproject.view;
 
 import javax.swing.JPanel;
+import com.jnu.groupproject.data.*;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 
@@ -142,6 +143,11 @@ public class PanelHomePage extends JPanel {
 		//PropertyConfigurator.configure("log4j.properties");
 		setLayout(null);
 		
+		
+		//首先规定用户信息的路径（需要用到用户信息的界面都要引入该语句）
+		FileHelper fh=new FileHelper("./userinfo.txt");
+		//读取个人信息代码
+		Person person=fh.getObjFromFile(); 
 		
 		
 		HomePagePanel.setBounds(0, 10, 880, 460);
@@ -303,7 +309,10 @@ public class PanelHomePage extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				//这里要关联用户信息
-				SchoolCardQuery schoolcard=new SchoolCardQuery("2016052390","960406");
+				String account,password;
+				account=""+person.getNum();
+				password=""+person.getCard();
+				SchoolCardQuery schoolcard=new SchoolCardQuery(account,password);
 				SchoolCardBalanceLabel.setText("饭卡余额："+schoolcard.getQureyResult());
 				HomePagePanel.updateUI();
 			}
@@ -346,7 +355,9 @@ public class PanelHomePage extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					//这里需要关联用户信息
-					DianFeiQuery dianFei=new DianFeiQuery("3317");
+					String roomaccount;
+					roomaccount=""+person.getRoom();
+					DianFeiQuery dianFei=new DianFeiQuery(roomaccount);
 					ElectricityFeesBalanceLabel.setText("剩余电量："+dianFei.getQueryResult());
 				} catch (Exception e1) {
 					// TODO 自动生成的 catch 块
