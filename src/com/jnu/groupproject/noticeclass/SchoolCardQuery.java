@@ -40,10 +40,10 @@ import com.jnu.groupproject.view.PanelUserInfo;
 public class SchoolCardQuery {
 	public String QueryResult=null;
 	public String SchoolCardYZM=null;  
-	public String getQureyResult() {
+	public String getQueryResult() {
 		return QueryResult;
 	}
-	public void setQureyResult(String queryResult) {
+	public void setQueryResult(String queryResult) {
 		QueryResult = queryResult;
 	}
 	public SchoolCardQuery(String Account,String Password){
