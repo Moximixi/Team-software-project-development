@@ -62,10 +62,10 @@ public class PanelHomePage extends JPanel {
   	static int NoticeFlag=1;
   	
   	//设置路径
-  	static String schoolnoticepath="./src/com/jnu/groupproject/data/schoolnoticecollection.dat";
-  	static String collegenoticepath="./src/com/jnu/groupproject/data/collegenoticecollection.dat";
-  	static String Jwcnoticepath="./src/com/jnu/groupproject/data/Jwcnoticecollection.dat";
-  	static String Jynoticepath="./src/com/jnu/groupproject/data/Jynoticecollection.dat";
+  	static String schoolnoticepath="./src/com/jnu/groupproject/data/schoolnotice.dat";
+  	static String collegenoticepath="./src/com/jnu/groupproject/data/collegenotice.dat";
+  	static String Jwcnoticepath="./src/com/jnu/groupproject/data/Jwcnotice.dat";
+  	static String Jynoticepath="./src/com/jnu/groupproject/data/Jynotice.dat";
   	
   	//通知序列化
   	ArrayList<SchoolNotice> schoolnoticeList=new ArrayList<SchoolNotice>();

@@ -42,7 +42,7 @@ public class SchoolNoticeOperater {
 		//爬取数据并序列化与反序列化
 		//for(int i=1;i<=1;i++) {
 		for(int i=1;i<=PageCount;i++) {
-			String noticeurl=url+"/list"+i+".psp";
+			String noticeurl=noticeurl1+"/list"+i+".psp";
 			log.info(noticeurl);
 			//System.out.println(noticeurl);
 			Document pageDocument = Jsoup.connect(noticeurl).get();
