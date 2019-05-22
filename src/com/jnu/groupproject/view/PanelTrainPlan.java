@@ -69,8 +69,8 @@ public class PanelTrainPlan extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				FileHelper fh=new FileHelper("./userinfo.txt");
 				Person person=fh.getObjFromFile();
-				String xuehao=(String) person.webInfo.get(1);
-				String password=(String) person.webInfo.get(2);
+				String xuehao=(String) person.webInfo.get(4);
+				String password=(String) person.webInfo.get(5);
 	            if(!loginflag) {
 	            try {  
 	                // 2.登录
