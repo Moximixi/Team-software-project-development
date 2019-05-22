@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -17,6 +18,9 @@ public class JwcNoticeOperater {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
 	//NoticeOperater(Elements element){
 	public JwcNoticeOperater() throws Exception,FileNotFoundException,IOException {
+		//配置日记文件
+		PropertyConfigurator.configure("log4j.properties");
+		
 		String url="https://zhjw.jnu.edu.cn/7099/list.htm";
 		String pageurl="https://zhjw.jnu.edu.cn/7099/list";
 		String dataurl="https://zhjw.jnu.edu.cn";

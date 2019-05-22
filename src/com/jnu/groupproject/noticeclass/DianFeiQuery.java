@@ -9,22 +9,29 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.text.InternationalFormatter;
+
+
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.jnu.groupproject.view.PanelUserInfo;
 
 //最终版(DianfeiTest+DianFeiObject)
-public class DianFei {
-	public static String QueryResult;
+public class DianFeiQuery {
+	public static String QueryResult=null;
+
 	public static String getQueryResult() {
 		return QueryResult;
 	}
 	public static void setQueryResult(String queryResult) {
 		QueryResult = queryResult;
 	}
-	public DianFei(String Account)throws Exception{
+	public DianFeiQuery(String Account)throws Exception{
+		
 			//获取Cookie
 			String surl = "http://202.116.25.12/login.aspx";  
 			WebClient client = new WebClient(BrowserVersion.FIREFOX_52);
@@ -98,8 +105,8 @@ public class DianFei {
 			Matcher matcher = pattern.matcher(result);
 			if(matcher.find()) {
 				for(int i=0; i<=matcher.groupCount(); i++){  
-					 //System.out.println(matcher.group(i));
-					QueryResult=matcher.group(i);
+					 System.out.println(matcher.group(i));
+					 QueryResult=matcher.group(i);
 				 }  
 			}else {
 			 System.out.println("No found!");

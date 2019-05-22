@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.apache.bcel.verifier.exc.StaticCodeConstraintException;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -21,6 +22,9 @@ public class CollegeNoticeOperater {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
 	//NoticeOperater(Elements element){
 	public CollegeNoticeOperater() throws Exception,FileNotFoundException,IOException {
+			//配置日记文件
+			PropertyConfigurator.configure("log4j.properties");
+		
 			String url="https://rwxy.jnu.edu.cn/11063/list.htm";
 			String pageurl="https://rwxy.jnu.edu.cn/11063/list";
 			String dataurl="https://rwxy.jnu.edu.cn";

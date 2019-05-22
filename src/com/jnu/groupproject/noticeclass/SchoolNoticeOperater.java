@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -22,6 +23,9 @@ public class SchoolNoticeOperater {
 	private Logger log = Logger.getLogger(PanelUserInfo.class);  
 	//NoticeOperater(Elements element){
 	public SchoolNoticeOperater() throws Exception,FileNotFoundException,IOException {
+		//配置日记文件
+		PropertyConfigurator.configure("log4j.properties");
+		
 		String noticeurl1="https://www.jnu.edu.cn/tz";
 		String noticeurl2="https://xsc.jnu.edu.cn";
 		String url="https://www.jnu.edu.cn/tz/list.psp";

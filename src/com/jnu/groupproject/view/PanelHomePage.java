@@ -22,13 +22,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+//import org.apache.log4j.Logger;
+//import org.apache.log4j.PropertyConfigurator;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.jnu.groupproject.noticeclass.CollegeNotice;
 import com.jnu.groupproject.noticeclass.CollegeNoticeOperater;
-import com.jnu.groupproject.noticeclass.DianFei;
+import com.jnu.groupproject.noticeclass.DianFeiQuery;
 import com.jnu.groupproject.noticeclass.JwcNotice;
 import com.jnu.groupproject.noticeclass.JwcNoticeOperater;
 import com.jnu.groupproject.noticeclass.JyNotice;
@@ -55,26 +55,26 @@ public class PanelHomePage extends JPanel {
 	//空间组
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	public JPanel HomePagePanel = new JPanel();
-    private Logger log = Logger.getLogger(PanelUserInfo.class);  
+    //private Logger log = Logger.getLogger(PanelUserInfo.class);  
     
    //全局变量
   	int pageCount=1;
   	static int NoticeFlag=1;
   	
   	//设置路径
-  	static String schoolnoticepath="./src/com/jnu/groupproject/data/schoolnotice.dat";
-  	static String collegenoticepath="./src/com/jnu/groupproject/data/collegenotice.dat";
-  	static String Jwcnoticepath="./src/com/jnu/groupproject/data/Jwcnotice.dat";
-  	static String Jynoticepath="./src/com/jnu/groupproject/data/Jynotice.dat";
+  	static String schoolnoticepath="./src/com/jnu/groupproject/data/schoolnoticecollection.dat";
+  	static String collegenoticepath="./src/com/jnu/groupproject/data/collegenoticecollection.dat";
+  	static String Jwcnoticepath="./src/com/jnu/groupproject/data/Jwcnoticecollection.dat";
+  	static String Jynoticepath="./src/com/jnu/groupproject/data/Jynoticecollection.dat";
   	
   	//通知序列化
-  	ArrayList<SchoolNotice> schoolnoticeList=new ArrayList<SchoolNotice>();//序列化
-  	ArrayList<SchoolNotice> SchoolNoticeDesnotices=new ArrayList<SchoolNotice>();//反序列化
-  	ArrayList<CollegeNotice> collegenoticeList=new ArrayList<CollegeNotice>();//序列化
-  	ArrayList<CollegeNotice> CollegeNoticeDesnotices=new ArrayList<CollegeNotice>();//反序列化
-  	ArrayList<JwcNotice> JwcnoticeList=new ArrayList<JwcNotice>();//序列化
-  	ArrayList<JwcNotice> JwcNoticeDesnotices=new ArrayList<JwcNotice>();//反序列化
-  	ArrayList<JyNotice> noticeList=new ArrayList<JyNotice>();//序列化
+  	ArrayList<SchoolNotice> schoolnoticeList=new ArrayList<SchoolNotice>();
+  	ArrayList<SchoolNotice> SchoolNoticeDesnotices=new ArrayList<SchoolNotice>();
+  	ArrayList<CollegeNotice> collegenoticeList=new ArrayList<CollegeNotice>();
+  	ArrayList<CollegeNotice> CollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
+  	ArrayList<JwcNotice> JwcnoticeList=new ArrayList<JwcNotice>();
+  	ArrayList<JwcNotice> JwcNoticeDesnotices=new ArrayList<JwcNotice>();
+  	ArrayList<JyNotice> noticeList=new ArrayList<JyNotice>();
   	ArrayList<JyNotice> JyNoticeDesnotices=new ArrayList<JyNotice>();//反序列化
   	//工具类
   	static NoticeSerializeOperater<SchoolNotice> schoolnoticeoperater=new NoticeSerializeOperater<SchoolNotice>();
@@ -102,7 +102,7 @@ public class PanelHomePage extends JPanel {
     public JLabel SchoolCardLabel = new JLabel("一卡通");
     public JLabel ElectricityFeesLabel = new JLabel("电  费");
     public JLabel SchhoForumLabel=new JLabel("学校论坛");
-    public JLabel SchoolCardBalanceLabel = new JLabel("余额：未查询");
+    public JLabel SchoolCardBalanceLabel = new JLabel("饭卡余额：未查询");
     public JLabel SchoolCardStatusLabel = new JLabel("账号状态：正常");
     public JLabel ElectricityStatusLabel = new JLabel("使用状态：正常");
     public JButton SchoolCardQueryButton = new JButton("查询");
@@ -139,7 +139,7 @@ public class PanelHomePage extends JPanel {
     
 
 	public PanelHomePage()throws Exception,FileNotFoundException,IOException {
-		PropertyConfigurator.configure("log4j.properties");
+		//PropertyConfigurator.configure("log4j.properties");
 		setLayout(null);
 		
 		
@@ -304,7 +304,7 @@ public class PanelHomePage extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				//这里要关联用户信息
 				SchoolCardQuery schoolcard=new SchoolCardQuery("2016052390","960406");
-				ElectricityFeesBalanceLabel.setText("余额："+schoolcard.getQureyResult());
+				SchoolCardBalanceLabel.setText("饭卡余额："+schoolcard.getQureyResult());
 				HomePagePanel.updateUI();
 			}
 		});
@@ -346,7 +346,8 @@ public class PanelHomePage extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					//这里需要关联用户信息
-					DianFei dianFei=new DianFei("3320");
+					DianFeiQuery dianFei=new DianFeiQuery("3317");
+					ElectricityFeesBalanceLabel.setText("剩余电量："+dianFei.getQueryResult());
 				} catch (Exception e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();

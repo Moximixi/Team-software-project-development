@@ -1,14 +1,25 @@
 package com.jnu.groupproject.noticeclass;
 
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.HttpClient;
@@ -24,9 +35,11 @@ import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.jnu.groupproject.view.PanelUserInfo;
 
 public class SchoolCardQuery {
-	public  String QueryResult=null;
+	public String QueryResult=null;
+	public String SchoolCardYZM=null;  
 	public String getQureyResult() {
 		return QueryResult;
 	}
@@ -37,7 +50,7 @@ public class SchoolCardQuery {
 		try {
 			String surl = "https://card.jnu.edu.cn/pages/common/homeLogin.action";
 			String imgsurl = "https://card.jnu.edu.cn/pages/common/getCheckpic.action?rand=6384.806794740727";
-			String imgpath="./SchoolCardYzm.jpg";
+			String imgpath="./src/com/jnu/groupproject/data/SchoolCardYzm.jpg";
 			WebClient client = new WebClient(BrowserVersion.FIREFOX_52);
 			client.getOptions().setJavaScriptEnabled(true);	//默认执行j s，如果不执行j s，则可能会登录失败，因为用户名密码框需要js来绘制。
 			client.getOptions().setCssEnabled(false);
@@ -50,12 +63,13 @@ public class SchoolCardQuery {
 			HtmlInput pwd = page.getElementByName("passwd");		//密码
 			HtmlInput yzm = page.getElementByName("rand");		//验证码
 			HtmlInput btn = page.getElementByName("imageField");
-			System.out.println("请输入验证码:");
+			new MyDailog("验证码信息", "请输入验证码").setVisible(true);
+			/*System.out.println("请输入验证码:");
 			BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-			String str = stdin.readLine();
+			String str = stdin.readLine();*/
 			ln.setAttribute("value", Account);
 			pwd.setAttribute("value", Password);
-			yzm.setAttribute("value", str);
+			yzm.setAttribute("value", SchoolCardYZM);
 			HtmlPage htmlPage = btn.click(); //点击
 			//System.out.println(htmlPage.asXml());
 			cookie = client.getCookieManager().getCookies();
@@ -109,7 +123,6 @@ public class SchoolCardQuery {
 				 for(int i=0; i<=matcher.groupCount(); i++){  
 					 //System.out.println(matcher.group(i));
 					 QueryResult=matcher.group(i);
-					 //setQureyResult(matcher.group(i));
 				    }  
 			}else {
 				 System.out.println("No found!");
@@ -118,5 +131,45 @@ public class SchoolCardQuery {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				}
+	}
+	
+	
+	class MyDailog extends JDialog implements ActionListener {
+	    String title;
+	    String content;
+	    JTextField text=new JTextField("请输入验证码");
+	    public MyDailog(String title, String content) throws Exception {
+	        this.title = title;
+	        this.content = content;
+	        
+	        File file = new File("./src/com/jnu/groupproject/data/SchoolCardYZM.jpg");
+            byte[] fileByte = Files.readAllBytes(file.toPath());
+	        ImageIcon icon = new ImageIcon(fileByte);
+	        JLabel jlImg = new JLabel(icon);
+	        JButton btn_OK = new JButton("确定");
+	        //JButton btn_refres = new JButton("换一张");
+	        
+	        btn_OK.addActionListener(this);
+	        add(text);
+	        add(jlImg);	// 向对话框加入图片标签
+	        add(btn_OK);	// 向对话框添加按钮
+	        setLayout(new FlowLayout());// 对话框流式布局
+	        setTitle(title);	// 设置标题
+	        setModal(true);		// 设置为模态窗口
+	        setSize(300, 200);	// 设置对话框大小
+	        setLocationRelativeTo(null);	// 对话框局域屏幕中央
+	        setResizable(false);			// 对话框不可缩放
+	        setDefaultCloseOperation(DISPOSE_ON_CLOSE);// 当对话框窗口的关闭按钮[X]被点击时,销毁对话框
+	    }
+	    
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	    	if (e.getActionCommand().equals("确定")) {// 判断是不是确定按钮被点击
+	    		SchoolCardYZM=text.getText();
+	    		this.setVisible(false);// 对话框不可见
+	    		this.dispose();// 对话框销毁
+	    	}
+	    }
+	    	        
 	}
 }
