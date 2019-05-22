@@ -542,3 +542,8 @@
 2019-05-19 16:35:55 [ INFO ] - [ com.jnu.groupproject.view.Menu$12.mouseClicked(Menu.java:232) ] 点击菜单[用户信息编辑]
 2019-05-19 16:35:55 [ INFO ] - [ com.jnu.groupproject.view.Menu$11.mouseClicked(Menu.java:220) ] 点击菜单[用户信息管理]
 2019-05-19 16:35:57 [ INFO ] - [ com.jnu.groupproject.view.Menu$12.mouseClicked(Menu.java:232) ] 点击菜单[用户信息编辑]
+2019-05-22 15:39:03 [ INFO ] - [ com.jnu.groupproject.view.Menu$5.mouseClicked(Menu.java:140) ] 点击菜单[培养方案]
+2019-05-22 15:39:04 [ INFO ] - [ com.jnu.groupproject.view.Menu$4.mouseClicked(Menu.java:123) ] 点击菜单[选课系统]
+2019-05-22 15:39:13 [ INFO ] - [ com.jnu.groupproject.view.PanelCourseSelect$4.mouseClicked(PanelCourseSelect.java:171) ] 点击了[查询选课]的[查询]按钮
+2019-05-22 15:39:15 [ INFO ] - [ com.jnu.groupproject.view.PanelCourseSelect$4.mouseClicked(PanelCourseSelect.java:201) ] 输入验证码
+2019-05-22 15:39:25 [ INFO ] - [ com.jnu.groupproject.view.PanelCourseSelect$4.mouseClicked(PanelCourseSelect.java:275) ] 从[查询选课]跳转到[开课列表]

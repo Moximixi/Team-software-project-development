@@ -1,12 +1,25 @@
 package com.jnu.groupproject.view;
 
 import java.awt.Color;
+
+
+
 import java.awt.FlowLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -34,6 +47,7 @@ import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import com.jnu.groupproject.data.*;
 
 public class PanelTrainPlan extends JPanel {
 	/**
@@ -43,31 +57,8 @@ public class PanelTrainPlan extends JPanel {
 	private String YZM;
 	JPanel PanelTrainPlan=new JPanel();
 	JButton button_view = new JButton("查看");
-	
+	boolean loginflag=false;//是否已经登录的标志
 	public PanelTrainPlan() throws Exception {
-		
-//		table_trainplan = new JTable();
-//		table_trainplan.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//				{null, null, null, null},
-//			},
-//			new String[] {
-//				"New column", "New column", "New column", "New column"
-//			}
-//		));
 		
 		add(PanelTrainPlan);
 		PanelTrainPlan.add(button_view);
@@ -76,12 +67,12 @@ public class PanelTrainPlan extends JPanel {
 		button_view.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String xuehao = new String("2016052378");
-	            String password = new String("19961210");
-	            // Console con = System.console();
-	            // String pswd = new String(con.readPassword());// 因为读取的是字符数组,所以需要用new
-
-	            try {    
+				FileHelper fh=new FileHelper("./userinfo.txt");
+				Person person=fh.getObjFromFile();
+				String xuehao=(String) person.webInfo.get(1);
+				String password=(String) person.webInfo.get(2);
+	            if(!loginflag) {
+	            try {  
 	                // 2.登录
 	            	DownloadLoginfo downloadLoginfo = new DownloadLoginfo();
 	            	LoginClass loginClass = new LoginClass();
@@ -91,11 +82,10 @@ public class PanelTrainPlan extends JPanel {
 	                for (Entry<String, String> entry : loginClass.getCookies().entrySet()) {
 	                    System.out.println("key:" + entry.getKey() + ";value" + entry.getValue());
 	                }
+	                loginflag=true;
 	               CrawTrainplanData crawGrade = new CrawTrainplanData();
 	               String html_content=crawGrade.crawtrainplanpage(downloadLoginfo.getCookies(), downloadLoginfo.getViewState());
 	               TrainplanOutput gradeOutput=new TrainplanOutput();
-
-//	                   String html_content = crawGrade.crawGrade( downloadLoginfo.getCookies());
 	                gradeOutput.gettrainplandata(html_content);
 	                gradeOutput.outputDatas2Html();
 	                PanelTrainPlan.add(table_trainplan);
@@ -104,43 +94,17 @@ public class PanelTrainPlan extends JPanel {
 	            } catch (Exception e1) {
 	                e1.printStackTrace();
 	            	}
-				
-			}
-			
+				setVisible(false);
+	            }
+	            if(loginflag) {
+	            	JTable table=table_trainplan;
+	            	PanelTrainPlan.add(table_trainplan);
+	            }
+	            PanelTrainPlan.removeAll();
+	            PanelTrainPlan.add(table_trainplan);
+				}
 		});
 		
-
-//		trainplan_table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"       \u9AD8\u82F1\u8BFE\u7A0B\u7FA4", "4.0", " \u8F6F\u4EF6\u5DE5\u7A0B\u4E13\u4E1A\u57FA\u7840\u77E5\u8BC6\u7FA4", "", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4", null},
-//				{" \u4F53\u80B2\u7ADE\u6280\u4E0E\u4F11\u95F2\u8FD0\u52A8\u8BFE\u7A0B\u7FA4", "2.0", "    \u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4", "5.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E00\uFF09", null},
-//				{"  \u521B\u65B0\u521B\u4E1A\u5FC3\u7406\u7C7B\u8BFE\u7A0B\u7FA4", "6.0", "   \u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", "5.0", "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E8C\uFF09", null},
-//				{"       \u827A\u672F\u7D20\u517B\u7C7B", "2.0", "    \u5B9E\u9A8C\u6280\u80FD\u57F9\u517B\u73AF\u8282", null, "\u8F6F\u4EF6\u5DE5\u7A0B\u77E5\u8BC6\u7FA4\uFF08\u4E09\uFF09", null},
-//				{"      \u7ECF\u7BA1\u6CD5\u7C7B", "2.0", "     \u521B\u65B0\u521B\u4E1A\u77E5\u8BC6\u7FA4", null, "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", "5.0"},
-//				{null, null, null, null, "\u6269\u5C55\u77E5\u8BC6\u7FA4", "5.0"},
-//				{null, null, null, null, "\u8F6F\u4EF6\u7CFB\u7EDF\u5E94\u7528\u77E5\u8BC6\u7FA4", null},
-//				{null, null, null, null, "\u521B\u65B0\u521B\u4E1A\u77E5\u8BC6\u7FA4", null},
-//			},
-//			new String[] {
-//					"\u901A\u8BC6\u9009\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206", "\u57FA\u7840\u6559\u80B2\u5FC5\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206", "\u57FA\u7840\u6559\u80B2\u9009\u4FEE\u8BFE\u7A0B\u7FA4", "\u5B66\u5206"
-//			}
-//		){
-//			boolean[] columnEditables = new boolean[] {
-//					false, true, true, true, true, true
-//				};
-//				public boolean isCellEditable(int row, int column) {
-//					return columnEditables[column];
-//				}
-//			});
-//		trainplan_table.getColumnModel().getColumn(0).setPreferredWidth(215);
-//		trainplan_table.getColumnModel().getColumn(0).setMinWidth(27);
-//		trainplan_table.getColumnModel().getColumn(0).setMaxWidth(220);
-//		trainplan_table.getColumnModel().getColumn(1).setPreferredWidth(50);
-//		trainplan_table.getColumnModel().getColumn(2).setPreferredWidth(190);
-//		trainplan_table.getColumnModel().getColumn(3).setPreferredWidth(50);
-//		trainplan_table.getColumnModel().getColumn(4).setPreferredWidth(164);
-//		trainplan_table.getColumnModel().getColumn(5).setPreferredWidth(50);
-//		trainplan_table.setBackground(SystemColor.textHighlightText);
 	}
 	
 	public class DownloadLoginfo {
@@ -385,28 +349,6 @@ public class PanelTrainPlan extends JPanel {
 	     */
 	    public void outputDatas2Html() throws IOException {
 	        if (datas != null && datas.size() > 0) {
-	            // 读取文件存储位置
-	            String directory =".\\src\\com\\jnu\\craw\\html";
-	            
-	            File file = new File(directory+"\\gradeOut.html");
-	            // 如果文件不存在就创建文件
-	            if (!file.exists()) {
-	                file.createNewFile();
-	            }
-	            // 构造FileWriter用于向文件中输出信息(此构造方法可以接收file参数，也可以接收fileName参数)
-	            FileWriter fileWriter = new FileWriter(file);
-	            // 开始写入数据
-	            fileWriter.write("<html>");
-	            fileWriter.write("<head>");
-	            fileWriter.write("<title>xxx成绩单</title>");
-	            fileWriter
-	                    .write("<style>table{width:100%;table-layout: fixed;word-break: break-all; word-wrap: break-word;}"
-	                            + "table td{border:1px solid black;width:300px}</style>");
-	            fileWriter.write("</head>");
-	            fileWriter.write("<body>");
-	            fileWriter.write("<table cellpadding='0' cellspacing='0' style='text-align:center;'>");
-	            fileWriter.write(
-	                    "<tr style='background-color:#95caca;font-size:20px'><td>要求学分</td><td>已修学分</td><td>还差</td>");
 	            int i=1;
 	            for (Map<String, Object> data : datas) {
 	            
@@ -417,17 +359,7 @@ public class PanelTrainPlan extends JPanel {
 	                model.setValueAt(study, i,2);
 		            model.setValueAt(need, i,3);
 		            i++;
-	                fileWriter.write("<tr>");
-	                fileWriter.write("<td>" + request + "</td>");
-	                fileWriter.write("<td>" + study + "</td>");
-	                fileWriter.write("<td>" + need + "</td>");
-	                fileWriter.write("</tr>");
 	            }
-	            fileWriter.write("</table>");
-	            fileWriter.write("</body>");
-	            fileWriter.write("</html>");
-	            // 关闭文件流
-	            fileWriter.close();
 	      
 		        table_trainplan = new JTable(model);
 		        table_trainplan.getColumnModel().getColumn(0).setPreferredWidth(250);
@@ -493,9 +425,7 @@ public class PanelTrainPlan extends JPanel {
 	        connect.cookies(cookies);
 	        
 	        Document document = connect.post();
-	        System.out.println("-----------爬到的成绩的上一个页面--------------");
 	        String html = document.toString();
-	        System.out.println(html);
 	        // 重新获取到viewState
 	        this.getViewState(html);
 	        return html;
@@ -544,9 +474,6 @@ public class PanelTrainPlan extends JPanel {
 	        for (Entry<String, String> entry : cookies.entrySet()) {
 	            System.out.println(entry.getKey() + "-" + entry.getValue());
 	        }
-//	        System.out.println("---------获取的登录之后的页面-----------");
-//	        String body = res.body();// 获取响应体
-//	        System.out.println(body);
 	    }
 
 	    public Map<String, String> getCookies() {
@@ -567,7 +494,9 @@ public class PanelTrainPlan extends JPanel {
 	        this.content = content;
 //            GradeOutput gradeOutput = new GradeOutput();
             // 1.访问主页，获取验证码与viewstate
-	        ImageIcon icon = new ImageIcon(".\\src\\com\\jnu\\craw\\verificationcode\\yzm.png");// 创建1个图标实例
+	        File file=new File(".\\src\\com\\jnu\\craw\\verificationcode\\yzm.png");
+	        byte[] fileByte=Files.readAllBytes(file.toPath());
+	        ImageIcon icon = new ImageIcon(fileByte);// 创建1个图标实例
 	        JLabel jlImg = new JLabel(icon);// 1个图片标签,显示图片
 	        JButton jb = new JButton("确定");// 创建1个按钮
 	        jb.addActionListener(this);
