@@ -44,6 +44,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
+import com.jnu.groupproject.data.FileHelper;
+import com.jnu.groupproject.data.Person;
 
 public class PanelCourseSelect extends JPanel {
 	
@@ -197,14 +199,20 @@ public class PanelCourseSelect extends JPanel {
 						//保存验证码图片到项目目录下
 						File file=new File("./src/com/jnu/groupproject/data/yzm.png");
 						if(vaCode!=null)	vaCode.saveAs(file);
+						else 				System.out.println("++++++++++++++++空+++++++++++++++++++++++");
 						
 						log.info("输入验证码");
 						new MyDailog("验证码信息", "请输入验证码").setVisible(true);
 						//System.out.println("请输入验证码:");
 						//String YZM=new Scanner(System.in).next().trim();
 						
-						username.setAttribute("value","2016052357");
-						password.setAttribute("value","199815");
+						FileHelper fh=new FileHelper("./userinfo.txt");
+					    Person person=fh.getObjFromFile();
+					    String xuehao=(String) person.webInfo.get(4);
+					    String pwd=(String) person.webInfo.get(5);
+						
+						username.setAttribute("value",xuehao);
+						password.setAttribute("value",pwd);
 						code.setAttribute("value", YZM);
 						pageLogin=login.click();
 						//System.out.println("--------------------------------------登录后的页面-----------------------------------------");
