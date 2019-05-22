@@ -1,17 +1,5 @@
 package com.jnu.groupproject.view;
 
-import javax.swing.JPanel;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-
-//import team.six.panel.queryscores.PanelQueryScores;
-//import team.six.panel.search.PanelSearch;
-
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -19,6 +7,18 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+
+//import team.six.panel.queryscores.PanelQueryScores;
+//import team.six.panel.search.PanelSearch;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 public class PanelDocument extends JPanel {
 
@@ -33,7 +33,7 @@ public class PanelDocument extends JPanel {
 		label_recentDoc.setBounds(179, 128, 89, 40);
 		add(label_recentDoc);
 		
-		String[] recentDoc={"请假条.doc","课程替换申请.doc","补选课申请.doc"};
+		String[] recentDoc={"普通申请表.doc","补选课申请.doc","冲突选课申请表.doc"};
 		JComboBox comboBox_recentDoc = new JComboBox(recentDoc);
 		comboBox_recentDoc.setFont(new Font("宋体", Font.BOLD, 18));
 		comboBox_recentDoc.setBounds(281, 128, 252, 40);
@@ -46,7 +46,7 @@ public class PanelDocument extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String recentDoc = (String) comboBox_recentDoc.getSelectedItem();
-				ArrayList<File> files = PanelSearch.searchFiles(new File("C:\\Users\\chris ben\\git\\Team-software-project-development\\src\\com\\jnu\\groupproject\\data"), recentDoc);
+				ArrayList<File> files = PanelSearch.searchFiles(new File("src\\com\\jnu\\groupproject\\data"), recentDoc);
 				if(files.size()==0) {
 					// 进行逻辑处理即可
 					//System.out.println("触发了事件");
@@ -76,7 +76,7 @@ public class PanelDocument extends JPanel {
 		label_allDoc.setBounds(181, 252, 87, 40);
 		add(label_allDoc);
 		
-		String[] allDoc={"请假条.doc","奖学金申请.doc","课程替换申请.doc","补选课申请.doc","创新学分申请.doc","转专业申请.doc"};
+		String[] allDoc={"普通申请表.doc","补选课申请.doc","冲突选课申请表.doc","暑假留校住宿申请表.doc","学生寒暑假留校家长同意书.doc","补选课申请.doc","实验报告专用格式.doc","转专业申请表（内招生）.pdf"};
 		JComboBox comboBox_allDoc = new JComboBox(allDoc);
 		comboBox_allDoc.setFont(new Font("宋体", Font.BOLD, 18));
 		comboBox_allDoc.setBounds(281, 253, 252, 39);
@@ -89,7 +89,7 @@ public class PanelDocument extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String allDoc = (String) comboBox_allDoc.getSelectedItem();
-				ArrayList<File> files = PanelSearch.searchFiles(new File("C:\\Users\\chris ben\\git\\Team-software-project-development\\src\\com\\jnu\\groupproject\\data"), allDoc);
+				ArrayList<File> files = PanelSearch.searchFiles(new File("src\\com\\jnu\\groupproject\\data"), allDoc);
 				if(files.size()==0) {
 					// 进行逻辑处理即可
 					//System.out.println("触发了事件");

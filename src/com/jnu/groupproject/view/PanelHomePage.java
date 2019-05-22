@@ -247,7 +247,7 @@ public class PanelHomePage extends JPanel {
 		
 
 		ElectricityFeesLabel.setFont(new Font("宋体", Font.PLAIN, 18));
-		ElectricityFeesLabel.setBounds(320, 41, 67, 40);
+		ElectricityFeesLabel.setBounds(360, 41, 67, 40);
 		HomePagePanel.add(ElectricityFeesLabel);
 		
 
@@ -288,21 +288,25 @@ public class PanelHomePage extends JPanel {
 		HomePagePanel.add(EnterSchoolFroumButton);
 		
 
-		SchoolCardBalanceLabel.setBounds(100, 41, 106, 15);
+		SchoolCardBalanceLabel.setBounds(100, 41, 132, 15);
 		HomePagePanel.add(SchoolCardBalanceLabel);
 		
 
-		SchoolCardStatusLabel.setBounds(100, 66, 110, 15);
+		SchoolCardStatusLabel.setBounds(100, 66, 142, 15);
 		HomePagePanel.add(SchoolCardStatusLabel);
 		ElectricityFeesBalanceLabel.setText("剩余电量：未查询");
 		
 
-		ElectricityFeesBalanceLabel.setBounds(380, 41, 127, 15);
+		ElectricityFeesBalanceLabel.setBounds(420, 41, 127, 15);
 		HomePagePanel.add(ElectricityFeesBalanceLabel);
 		
 
-		ElectricityStatusLabel.setBounds(380, 66, 130, 15);
+		ElectricityStatusLabel.setBounds(420, 66, 130, 15);
 		HomePagePanel.add(ElectricityStatusLabel);
+		SchoolCardQueryButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
 
 		SchoolCardQueryButton.addMouseListener(new MouseAdapter() {
@@ -317,8 +321,12 @@ public class PanelHomePage extends JPanel {
 				HomePagePanel.updateUI();
 			}
 		});
-		SchoolCardQueryButton.setBounds(200, 37, 93, 23);
+		SchoolCardQueryButton.setBounds(227, 33, 93, 23);
 		HomePagePanel.add(SchoolCardQueryButton);
+		SchoolCardRecordButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 
 		SchoolCardRecordButton.addMouseListener(new MouseAdapter() {
@@ -348,7 +356,7 @@ public class PanelHomePage extends JPanel {
 				});
 			}
 		});
-		SchoolCardRecordButton.setBounds(200, 62, 93, 23);
+		SchoolCardRecordButton.setBounds(227, 58, 93, 23);
 		HomePagePanel.add(SchoolCardRecordButton);
 		ElectricityQueryButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -368,7 +376,7 @@ public class PanelHomePage extends JPanel {
 		ElectricityQueryButton.setText("查询");
 		
 
-		ElectricityQueryButton.setBounds(490, 37, 93, 23);
+		ElectricityQueryButton.setBounds(548, 33, 93, 23);
 		HomePagePanel.add(ElectricityQueryButton);
 		ElectricityChargeRecordButton.setText("查看记录");
 		
@@ -400,7 +408,7 @@ public class PanelHomePage extends JPanel {
 				});
 			}
 		});
-		ElectricityChargeRecordButton.setBounds(490, 62, 93, 23);
+		ElectricityChargeRecordButton.setBounds(548, 58, 93, 23);
 		HomePagePanel.add(ElectricityChargeRecordButton);
 		UpdataAllNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
