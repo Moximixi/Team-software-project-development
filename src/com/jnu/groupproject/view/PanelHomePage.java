@@ -313,7 +313,7 @@ public class PanelHomePage extends JPanel {
 				account=""+person.getNum();
 				password=""+person.getCard();
 				SchoolCardQuery schoolcard=new SchoolCardQuery(account,password);
-				SchoolCardBalanceLabel.setText("饭卡余额："+schoolcard.getQureyResult());
+				SchoolCardBalanceLabel.setText("饭卡余额："+schoolcard.getQueryResult());
 				HomePagePanel.updateUI();
 			}
 		});
