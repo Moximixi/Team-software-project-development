@@ -55,7 +55,7 @@ public class PanelUserInfo extends JPanel {
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, true, true
+				false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
