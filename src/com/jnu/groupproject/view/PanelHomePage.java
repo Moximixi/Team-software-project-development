@@ -594,8 +594,12 @@ public class PanelHomePage extends JPanel {
 						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						 if(NoticeFlag==1) 
 								frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
-							else if(NoticeFlag==2) 
+							else if(NoticeFlag==2&&CollegeFlag==1) 
 								frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+							else if(NoticeFlag==2&&CollegeFlag==2) 
+								frame.getContentPane().add(new Web(GJScollegeDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+							else if(NoticeFlag==2&&CollegeFlag==3) 
+								frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
 							else if(NoticeFlag==3) 
 								frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
 							else 
@@ -634,8 +638,12 @@ public class PanelHomePage extends JPanel {
 		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		                if(NoticeFlag==1) 
 							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
-						else if(NoticeFlag==2) 
-							frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
+		                else if(NoticeFlag==2&&CollegeFlag==1) 
+							frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2&&CollegeFlag==2) 
+							frame.getContentPane().add(new Web(GJScollegeDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2&&CollegeFlag==3) 
+							frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==3) 
 							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
 						else 
@@ -673,8 +681,12 @@ public class PanelHomePage extends JPanel {
 		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		                if(NoticeFlag==1) 
 							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
-						else if(NoticeFlag==2) 
+		                else if(NoticeFlag==2&&CollegeFlag==1) 
 							frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2&&CollegeFlag==2) 
+							frame.getContentPane().add(new Web(GJScollegeDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2&&CollegeFlag==3) 
+							frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==3) 
 							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
 						else 
@@ -712,8 +724,12 @@ public class PanelHomePage extends JPanel {
 		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		                if(NoticeFlag==1) 
 							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
-						else if(NoticeFlag==2) 
+		                else if(NoticeFlag==2&&CollegeFlag==1) 
 							frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2&&CollegeFlag==2) 
+							frame.getContentPane().add(new Web(GJScollegeDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2&&CollegeFlag==3) 
+							frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==3) 
 							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
 						else 
@@ -751,8 +767,12 @@ public class PanelHomePage extends JPanel {
 		                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		                if(NoticeFlag==1) 
 							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
-						else if(NoticeFlag==2) 
+		                else if(NoticeFlag==2&&CollegeFlag==1) 
 							frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2&&CollegeFlag==2) 
+							frame.getContentPane().add(new Web(GJScollegeDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
+						else if(NoticeFlag==2&&CollegeFlag==3) 
+							frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==3) 
 							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
 						else 
