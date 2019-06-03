@@ -20,7 +20,7 @@ import com.jnu.groupproject.view.PanelUserInfo;
 
 public class RWCollegeNoticeOperater {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
-	//NoticeOperater(Elements element){
+	//public static void main(String[] args)throws Exception,FileNotFoundException,IOException {
 	public RWCollegeNoticeOperater() throws Exception,FileNotFoundException,IOException {
 			//配置日记文件
 			PropertyConfigurator.configure("log4j.properties");

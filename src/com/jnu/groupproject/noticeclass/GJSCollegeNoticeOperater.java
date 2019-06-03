@@ -21,14 +21,15 @@ import com.jnu.groupproject.view.PanelUserInfo;
 
 public class GJSCollegeNoticeOperater {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
-	//NoticeOperater(Elements element){
+	
 	public GJSCollegeNoticeOperater() throws Exception,FileNotFoundException,IOException {
+	//public static void main(String[] args)throws Exception,FileNotFoundException,IOException {
 			//配置日记文件
 			PropertyConfigurator.configure("log4j.properties");
 			//人文学院
 			String url="https://gjsxy.jnu.edu.cn/tzgg/list.htm";
-			String pageurl="https://rwxy.jnu.edu.cn/11063/list";
-			String dataurl="https://rwxy.jnu.edu.cn";
+			String pageurl="https://gjsxy.jnu.edu.cn/tzgg/list";
+			String dataurl="https://gjsxy.jnu.edu.cn";
 			String collegnoticepath="./src/com/jnu/groupproject/data/GJScollegenotice.dat";
 			ArrayList<CollegeNotice> noticeList=new ArrayList<CollegeNotice>();
 			NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<CollegeNotice>();
@@ -36,19 +37,21 @@ public class GJSCollegeNoticeOperater {
 			//获取人文学院最大页数
 			Elements PageCountElement=document.getElementsByAttributeValue("class","all_pages");
 			int PageCount=Integer.valueOf(PageCountElement.text()).intValue();
+			//System.out.println(PageCount);
+			
 			//爬取数据并序列化与反序列化
+			//for(int i=1;i<=2;i++) {
 			for(int i=1;i<=PageCount;i++) {
 				String noticeurl=null;
 				noticeurl=pageurl+i+".htm";
-				//System.out.println(noticeurl);
 				log.info(noticeurl);
 				Document pageDocument = Jsoup.connect(noticeurl).get();
 				
-	            Elements elements=pageDocument.getElementsByAttributeValue("class", "news_list list2");
+	            Elements elements=pageDocument.getElementsByAttributeValue("class", "common-list");
 	            Elements element=elements.get(0).getElementsByTag("li");
 	            for(int pageNoticesize=0;pageNoticesize<element.size();pageNoticesize++) {
 	            	Elements element1=element.get(pageNoticesize).getElementsByTag("a");//标题
-					Elements element2=element.get(pageNoticesize).getElementsByClass("news_meta");//日期
+					Elements element2=element.get(pageNoticesize).getElementsByTag("span");//日期
 					Elements element3=element.get(pageNoticesize).getElementsByTag("a");//链接
 					String title=null;
 					String time=null;
@@ -63,7 +66,8 @@ public class GJSCollegeNoticeOperater {
 						}
 					}
 					if(element1.text().length()!=0) {
-						title=element1.get(0).attr("title");//标题
+						title=element1.get(0).text();//标题
+						//System.out.println(title);
 						notice.setTitle(title);
 					}
 					if(element2.text().length()!=0) {
@@ -81,8 +85,7 @@ public class GJSCollegeNoticeOperater {
 			//测试序列化
 			noticeoperater.save(noticeList, collegnoticepath);
 			ArrayList<CollegeNotice> Desnotices=noticeoperater.load(collegnoticepath);
-			//System.out.println("成功爬取学院通知："+Desnotices.size());
-			log.info("成功爬取人文学院通知："+Desnotices.size());
+			log.info("成功爬取国际商学院通知："+Desnotices.size());
 		}
 }
 
