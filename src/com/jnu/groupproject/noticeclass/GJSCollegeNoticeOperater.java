@@ -26,7 +26,7 @@ public class GJSCollegeNoticeOperater {
 	//public static void main(String[] args)throws Exception,FileNotFoundException,IOException {
 			//配置日记文件
 			PropertyConfigurator.configure("log4j.properties");
-			//人文学院
+			//国际商学院
 			String url="https://gjsxy.jnu.edu.cn/tzgg/list.htm";
 			String pageurl="https://gjsxy.jnu.edu.cn/tzgg/list";
 			String dataurl="https://gjsxy.jnu.edu.cn";
@@ -34,7 +34,7 @@ public class GJSCollegeNoticeOperater {
 			ArrayList<CollegeNotice> noticeList=new ArrayList<CollegeNotice>();
 			NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<CollegeNotice>();
 			Document document = Jsoup.connect(url).get();
-			//获取人文学院最大页数
+			//获取国际商学院最大页数
 			Elements PageCountElement=document.getElementsByAttributeValue("class","all_pages");
 			int PageCount=Integer.valueOf(PageCountElement.text()).intValue();
 			//System.out.println(PageCount);

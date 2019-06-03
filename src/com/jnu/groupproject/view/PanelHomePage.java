@@ -31,6 +31,8 @@ import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.jnu.groupproject.noticeclass.CollegeNotice;
 import com.jnu.groupproject.noticeclass.RWCollegeNoticeOperater;
 import com.jnu.groupproject.noticeclass.DianFeiQuery;
+import com.jnu.groupproject.noticeclass.FYCollegeNoticeOperater;
+import com.jnu.groupproject.noticeclass.GJSCollegeNoticeOperater;
 import com.jnu.groupproject.noticeclass.JwcNotice;
 import com.jnu.groupproject.noticeclass.JwcNoticeOperater;
 import com.jnu.groupproject.noticeclass.JyNotice;
@@ -473,12 +475,16 @@ public class PanelHomePage extends JPanel {
 		});
 		ElectricityChargeRecordButton.setBounds(548, 58, 93, 23);
 		HomePagePanel.add(ElectricityChargeRecordButton);
+		
+		//一键更新
 		UpdataAllNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
 					SchoolNoticeOperater schoolnoticeoperater=new SchoolNoticeOperater();
-					RWCollegeNoticeOperater collegenoticeoperater=new RWCollegeNoticeOperater();
+					RWCollegeNoticeOperater RWcollegenoticeoperater=new RWCollegeNoticeOperater();
+					GJSCollegeNoticeOperater GJScollegenoticeoperater=new GJSCollegeNoticeOperater();
+					FYCollegeNoticeOperater FYcollegenoticeoperater=new FYCollegeNoticeOperater();
 					JwcNoticeOperater Jwcnoticeoperater=new JwcNoticeOperater();
 					JyNoticeOperater Jynoticeoperater=new JyNoticeOperater();
 				} catch (FileNotFoundException e) {
@@ -517,7 +523,15 @@ public class PanelHomePage extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
-					RWCollegeNoticeOperater collegenoticeoperater=new RWCollegeNoticeOperater();
+					if(CollegeFlag==1) {
+						RWCollegeNoticeOperater RWcollegenoticeoperater=new RWCollegeNoticeOperater();
+						}
+					else if(CollegeFlag==2) {
+						GJSCollegeNoticeOperater GJScollegenoticeoperater=new GJSCollegeNoticeOperater();
+					}
+					else {
+						FYCollegeNoticeOperater FYcollegenoticeoperater=new FYCollegeNoticeOperater();
+					}
 					HomePagePanel.updateUI();
 				} catch (FileNotFoundException e) {
 					// TODO 自动生成的 catch 块
@@ -639,7 +653,7 @@ public class PanelHomePage extends JPanel {
 		                if(NoticeFlag==1) 
 							frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
 		                else if(NoticeFlag==2&&CollegeFlag==1) 
-							frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+							frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==2&&CollegeFlag==2) 
 							frame.getContentPane().add(new Web(GJScollegeDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==2&&CollegeFlag==3) 

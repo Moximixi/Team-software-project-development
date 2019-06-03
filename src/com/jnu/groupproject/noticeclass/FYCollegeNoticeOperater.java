@@ -13,9 +13,9 @@ import org.jsoup.select.Elements;
 import com.jnu.groupproject.view.PanelUserInfo;
 
 public class FYCollegeNoticeOperater {
-	//private Logger log = Logger.getLogger(PanelUserInfo.class); 
-		//public FanYiCollegeNoticeOperater() throws Exception,FileNotFoundException,IOException {
-		public static void main(String[] args)throws Exception,FileNotFoundException,IOException {
+	private Logger log = Logger.getLogger(PanelUserInfo.class); 
+		public FYCollegeNoticeOperater() throws Exception,FileNotFoundException,IOException {
+		//public static void main(String[] args)throws Exception,FileNotFoundException,IOException {
 				//人文学院
 				String url="https://translation.jnu.edu.cn/7832/list1.htm";
 				String pageurl="https://translation.jnu.edu.cn/7832/list";
@@ -24,7 +24,7 @@ public class FYCollegeNoticeOperater {
 				ArrayList<CollegeNotice> noticeList=new ArrayList<CollegeNotice>();
 				NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<CollegeNotice>();
 				Document document = Jsoup.connect(url).get();
-				//获取人文学院最大页数
+				//获取翻译学院最大页数
 				Elements PageCountElement=document.getElementsByAttributeValue("class","all_pages");
 				int PageCount=Integer.valueOf(PageCountElement.text()).intValue();
 				//System.out.println(PageCount);
@@ -34,7 +34,7 @@ public class FYCollegeNoticeOperater {
 				for(int i=1;i<=PageCount;i++) {
 					String noticeurl=null;
 					noticeurl=pageurl+i+".htm";
-					//log.info(noticeurl);
+					log.info(noticeurl);
 					Document pageDocument = Jsoup.connect(noticeurl).get();
 					
 		            Elements elements=pageDocument.getElementsByAttributeValue("class", "xwlb");
@@ -75,6 +75,6 @@ public class FYCollegeNoticeOperater {
 				//测试序列化
 				noticeoperater.save(noticeList, collegnoticepath);
 				ArrayList<CollegeNotice> Desnotices=noticeoperater.load(collegnoticepath);
-				//log.info("成功爬取人文学院通知："+Desnotices.size());
+				log.info("成功爬取翻译学院通知："+Desnotices.size());
 			}
 }
