@@ -1,3 +1,4 @@
+//GuoJiShangCollegeNoticeOperater
 package com.jnu.groupproject.noticeclass;
 
 import java.io.BufferedWriter;
@@ -18,28 +19,24 @@ import com.jnu.groupproject.view.PanelUserInfo;
 
 
 
-public class CollegeNoticeOperater {
+public class GJSCollegeNoticeOperater {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
 	//NoticeOperater(Elements element){
-	public CollegeNoticeOperater() throws Exception,FileNotFoundException,IOException {
+	public GJSCollegeNoticeOperater() throws Exception,FileNotFoundException,IOException {
 			//配置日记文件
 			PropertyConfigurator.configure("log4j.properties");
-		
-			String url="https://rwxy.jnu.edu.cn/11063/list.htm";
+			//人文学院
+			String url="https://gjsxy.jnu.edu.cn/tzgg/list.htm";
 			String pageurl="https://rwxy.jnu.edu.cn/11063/list";
 			String dataurl="https://rwxy.jnu.edu.cn";
-			String collegnoticepath="./src/com/jnu/groupproject/data/collegenotice.dat";
+			String collegnoticepath="./src/com/jnu/groupproject/data/GJScollegenotice.dat";
 			ArrayList<CollegeNotice> noticeList=new ArrayList<CollegeNotice>();
 			NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<CollegeNotice>();
 			Document document = Jsoup.connect(url).get();
-			
-			//获取最大页数
+			//获取人文学院最大页数
 			Elements PageCountElement=document.getElementsByAttributeValue("class","all_pages");
 			int PageCount=Integer.valueOf(PageCountElement.text()).intValue();
-
-			
 			//爬取数据并序列化与反序列化
-			//for(int i=1;i<=1;i++) {
 			for(int i=1;i<=PageCount;i++) {
 				String noticeurl=null;
 				noticeurl=pageurl+i+".htm";
@@ -85,6 +82,7 @@ public class CollegeNoticeOperater {
 			noticeoperater.save(noticeList, collegnoticepath);
 			ArrayList<CollegeNotice> Desnotices=noticeoperater.load(collegnoticepath);
 			//System.out.println("成功爬取学院通知："+Desnotices.size());
-			log.info("成功爬取学院通知："+Desnotices.size());
+			log.info("成功爬取人文学院通知："+Desnotices.size());
 		}
 }
+

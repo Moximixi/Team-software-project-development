@@ -29,7 +29,6 @@ public class JyNoticeOperater {
 				//System.out.println(document.text());
 				//获取最大页数
 				Elements PageCountElement=document.getElementsByAttributeValue("class", "list_g_1");
-				//int PageCount=1;
 				int PageCount=Integer.valueOf(PageCountElement.text().substring(5, 7)).intValue();
 				//System.out.println(PageCount);
 				//爬取数据并序列化与反序列化

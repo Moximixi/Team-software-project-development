@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.jnu.groupproject.noticeclass.CollegeNotice;
-import com.jnu.groupproject.noticeclass.CollegeNoticeOperater;
+import com.jnu.groupproject.noticeclass.RWCollegeNoticeOperater;
 import com.jnu.groupproject.noticeclass.DianFeiQuery;
 import com.jnu.groupproject.noticeclass.NoticeSerializeOperater;
 import com.jnu.groupproject.noticeclass.SchoolCardQuery;
@@ -40,7 +40,7 @@ public class ElectricityAndSchoolCardfeesQueryAndNoticePullTest {
 		//路径
 		String collegenoticepath="./src/com/jnu/groupproject/data/collegenotice.dat";
 		//声明定义工具类
-		CollegeNoticeOperater collegenoticeoperater=new CollegeNoticeOperater();
+		RWCollegeNoticeOperater collegenoticeoperater=new RWCollegeNoticeOperater();
 		//序列化
 		NoticeSerializeOperater<CollegeNotice> noticeserializeoperater=new NoticeSerializeOperater<CollegeNotice>();
 		//反序列化

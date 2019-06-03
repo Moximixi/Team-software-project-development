@@ -29,7 +29,7 @@ import javax.swing.table.TableColumnModel;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.jnu.groupproject.noticeclass.CollegeNotice;
-import com.jnu.groupproject.noticeclass.CollegeNoticeOperater;
+import com.jnu.groupproject.noticeclass.RWCollegeNoticeOperater;
 import com.jnu.groupproject.noticeclass.DianFeiQuery;
 import com.jnu.groupproject.noticeclass.JwcNotice;
 import com.jnu.groupproject.noticeclass.JwcNoticeOperater;
@@ -410,7 +410,7 @@ public class PanelHomePage extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				try {
 					SchoolNoticeOperater schoolnoticeoperater=new SchoolNoticeOperater();
-					CollegeNoticeOperater collegenoticeoperater=new CollegeNoticeOperater();
+					RWCollegeNoticeOperater collegenoticeoperater=new RWCollegeNoticeOperater();
 					JwcNoticeOperater Jwcnoticeoperater=new JwcNoticeOperater();
 					JyNoticeOperater Jynoticeoperater=new JyNoticeOperater();
 				} catch (FileNotFoundException e) {
@@ -449,7 +449,7 @@ public class PanelHomePage extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
-					CollegeNoticeOperater collegenoticeoperater=new CollegeNoticeOperater();
+					RWCollegeNoticeOperater collegenoticeoperater=new RWCollegeNoticeOperater();
 					HomePagePanel.updateUI();
 				} catch (FileNotFoundException e) {
 					// TODO 自动生成的 catch 块
