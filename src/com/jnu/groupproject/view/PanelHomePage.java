@@ -41,6 +41,8 @@ import com.jnu.groupproject.noticeclass.JwcNotice;
 import com.jnu.groupproject.noticeclass.JwcNoticeOperater;
 import com.jnu.groupproject.noticeclass.JyNotice;
 import com.jnu.groupproject.noticeclass.JyNoticeOperater;
+import com.jnu.groupproject.noticeclass.News;
+import com.jnu.groupproject.noticeclass.NewsOperater;
 import com.jnu.groupproject.noticeclass.NoticeSerializeOperater;
 import com.jnu.groupproject.noticeclass.SchoolCardQuery;
 import com.jnu.groupproject.noticeclass.SchoolNotice;
@@ -49,6 +51,7 @@ import com.jnu.groupproject.noticeclass.Web;
 
 import chrriis.common.UIUtils;
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
+import net.sourceforge.htmlunit.corejs.javascript.ast.ThrowStatement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -75,7 +78,8 @@ public class PanelHomePage extends JPanel {
   	int pageCount=1;
   	int maxpageCount=Integer.MAX_VALUE;
   	static int CollegeFlag=1;//1人文、2国际商、3翻译
-  	static int NoticeFlag=1;//1校内、2院内、3教务处、4就业、5其他新闻
+  	static int NoticeFlag=1;//1校内、2院内、3教务处、4就业、5新浪新闻
+  	static int NewsFlag=1;//1全部、2热点、3国内、4国外、5军事、6文化
   	
   	//设置路径
   	static String schoolnoticepath="./src/com/jnu/groupproject/data/schoolnotice.dat";
@@ -84,20 +88,13 @@ public class PanelHomePage extends JPanel {
   	static String FYcollegenoticepath="./src/com/jnu/groupproject/data/FYcollegenotice.dat";
   	static String Jwcnoticepath="./src/com/jnu/groupproject/data/Jwcnotice.dat";
   	static String Jynoticepath="./src/com/jnu/groupproject/data/Jynotice.dat";
+  	static String newspath="./src/com/jnu/groupproject/data/news.dat";
+  	static String RDnewspath="./src/com/jnu/groupproject/data/RDnews.dat";
+  	static String GNnewspath="./src/com/jnu/groupproject/data/GNnews.dat";
+  	static String GWnewspath="./src/com/jnu/groupproject/data/GWnews.dat";
+  	static String JSnewspath="./src/com/jnu/groupproject/data/JSnews.dat";
+  	static String WHnewspath="./src/com/jnu/groupproject/data/WHnews.dat";
   	
-  	//通知序列化
-//  	ArrayList<SchoolNotice> schoolnoticeList=new ArrayList<SchoolNotice>();
-//  	ArrayList<SchoolNotice> SchoolNoticeDesnotices=new ArrayList<SchoolNotice>();
-//  	ArrayList<CollegeNotice> RWcollegenoticeList=new ArrayList<CollegeNotice>();
-//  	ArrayList<CollegeNotice> RWCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
-//  	ArrayList<CollegeNotice> GJScollegenoticeList=new ArrayList<CollegeNotice>();
-//  	ArrayList<CollegeNotice> GJSCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
-//  	ArrayList<CollegeNotice> FYcollegenoticeList=new ArrayList<CollegeNotice>();
-//  	ArrayList<CollegeNotice> FYCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
-//  	ArrayList<JwcNotice> JwcnoticeList=new ArrayList<JwcNotice>();
-//  	ArrayList<JwcNotice> JwcNoticeDesnotices=new ArrayList<JwcNotice>();
-//  	ArrayList<JyNotice> noticeList=new ArrayList<JyNotice>();
-//  	ArrayList<JyNotice> JyNoticeDesnotices=new ArrayList<JyNotice>();
   	//工具类,爬取通知
   	static NoticeSerializeOperater<SchoolNotice> schoolnoticeoperater=new NoticeSerializeOperater<SchoolNotice>();
   	static NoticeSerializeOperater<CollegeNotice> RWcollegenoticeoperater=new NoticeSerializeOperater<CollegeNotice>();
@@ -105,6 +102,7 @@ public class PanelHomePage extends JPanel {
   	static NoticeSerializeOperater<CollegeNotice> FYcollegenoticeoperater=new NoticeSerializeOperater<CollegeNotice>();
   	static NoticeSerializeOperater<JwcNotice> Jwcnoticeoperater=new NoticeSerializeOperater<JwcNotice>();
   	static NoticeSerializeOperater<JyNotice> Jynoticeoperater=new NoticeSerializeOperater<JyNotice>();
+  	static NoticeSerializeOperater<News> newsoperater=new NoticeSerializeOperater<News>();
   	//反序列化通知
   	static ArrayList<SchoolNotice> schoolDesnotices;
   	static ArrayList<CollegeNotice> RWcollegeDesnotices;
@@ -112,6 +110,12 @@ public class PanelHomePage extends JPanel {
   	static ArrayList<CollegeNotice> FYcollegeDesnotices;
   	static ArrayList<JwcNotice> JwcDesnotices;
   	static ArrayList<JyNotice> JyDesnotices;
+  	static ArrayList<News> Desnews;
+  	static ArrayList<News> RD_Desnews;//热点
+  	static ArrayList<News> GN_Desnews;//国内
+  	static ArrayList<News> GW_Desnews;//国外
+  	static ArrayList<News> JS_Desnews;//军事
+  	static ArrayList<News> WH_Desnews;//文化
     public JButton ElectricityChargeRecordButton=new JButton();
     public JLabel ElectricityFeesBalanceLabel=new JLabel();
     public JButton ElectricityQueryButton=new JButton() ;
@@ -161,13 +165,15 @@ public class PanelHomePage extends JPanel {
     public JButton DownPageButton = new JButton("下一页");
     public JButton PageChangeButton = new JButton("跳转");
     public JLabel lblNewLabel_1 = new JLabel("跳转页码");
+    public JButton updateNewsButton = new JButton("更新新闻");
     public JComboBox CollegeBox = new JComboBox();
-    public JRadioButton NewsButton = new JRadioButton("其他新闻");
+    public JRadioButton XLNewsButton = new JRadioButton("新浪新闻");
     private final JSeparator separator_1 = new JSeparator();
     private final JSeparator separator_3 = new JSeparator();
     private final JSeparator separator_4 = new JSeparator();
     private final JSeparator separator_5 = new JSeparator();
     private final JComboBox NewsBox = new JComboBox();
+    
     
 
 	//爬取新闻
@@ -178,6 +184,26 @@ public class PanelHomePage extends JPanel {
 		FYcollegeDesnotices=RWcollegenoticeoperater.load(FYcollegenoticepath);
 		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
 		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
+		Desnews=newsoperater.load(newspath);
+		RD_Desnews=newsoperater.load(RDnewspath);
+		GN_Desnews=newsoperater.load(GNnewspath);
+		GW_Desnews=newsoperater.load(GWnewspath);
+		JS_Desnews=newsoperater.load(JSnewspath);
+		WH_Desnews=newsoperater.load(WHnewspath);
+		
+		if(NewsFlag==1) 
+			Desnews=newsoperater.load(newspath);
+		else if(NewsFlag==2) 
+			Desnews=RD_Desnews;
+		else if(NewsFlag==3) 
+			Desnews=GN_Desnews;
+		else if(NewsFlag==4) 
+			Desnews=GW_Desnews;
+		else if(NewsFlag==5) 
+			Desnews=JS_Desnews;
+		else
+			Desnews=WH_Desnews;
+		
     }
     
     public PanelHomePage()throws Exception,FileNotFoundException,IOException {
@@ -185,18 +211,13 @@ public class PanelHomePage extends JPanel {
 		setLayout(null);
 		
 		//反序列化
-//		ArrayList<SchoolNotice> schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
-//		ArrayList<CollegeNotice> RWcollegeDesnotices=RWcollegenoticeoperater.load(RWcollegenoticepath);
-//		ArrayList<CollegeNotice> GJScollegeDesnotices=GJScollegenoticeoperater.load(GJScollegenoticepath);
-//		ArrayList<CollegeNotice> FYcollegeDesnotices=RWcollegenoticeoperater.load(FYcollegenoticepath);
-//		ArrayList<JwcNotice> JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
-//		ArrayList<JyNotice> JyDesnotices=Jynoticeoperater.load(Jynoticepath);
 		schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
 		RWcollegeDesnotices=RWcollegenoticeoperater.load(RWcollegenoticepath);
 		GJScollegeDesnotices=GJScollegenoticeoperater.load(GJScollegenoticepath);
 		FYcollegeDesnotices=RWcollegenoticeoperater.load(FYcollegenoticepath);
 		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
 		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
+		Desnews=newsoperater.load(newspath);
 		
 		
 		//首先规定用户信息的路径（需要用到用户信息的界面都要引入该语句）
@@ -230,6 +251,7 @@ public class PanelHomePage extends JPanel {
 				
 				//删除
 				HomePagePanel.remove(CollegeBox);
+				HomePagePanel.remove(updateNewsButton);
 				HomePagePanel.remove(NewsBox);
 			}
 		});
@@ -248,6 +270,7 @@ public class PanelHomePage extends JPanel {
 				setRWCollegeNotice((pageCount-1)*5);
 				maxpageCount=RWcollegeDesnotices.size()/5;
 				TotalPageCountLabel.setText(""+RWcollegeDesnotices.size()/5);
+				HomePagePanel.remove(updateNewsButton);
 				HomePagePanel.updateUI();
 				
 				CollegeBox.addItemListener(new ItemListener(){
@@ -287,7 +310,7 @@ public class PanelHomePage extends JPanel {
 				HomePagePanel.remove(NewsBox);
 				//新加
 				CollegeBox.setModel(new DefaultComboBoxModel(new String[] {"人文学院", "翻译学院", "国际商学院"}));
-				CollegeBox.setBounds(560, 158, 93, 21);
+				CollegeBox.setBounds(600, 158, 93, 21);
 				HomePagePanel.add(CollegeBox);
 			}
 		});
@@ -306,6 +329,7 @@ public class PanelHomePage extends JPanel {
 				setJwcNotice((pageCount-1)*5);
 				maxpageCount=JwcDesnotices.size()/5;
 				TotalPageCountLabel.setText(""+JwcDesnotices.size()/5);
+				HomePagePanel.remove(updateNewsButton);
 				HomePagePanel.updateUI();
 				
 				//删除
@@ -328,6 +352,7 @@ public class PanelHomePage extends JPanel {
 				setJyNotice((pageCount-1)*5);
 				maxpageCount=JyDesnotices.size()/5;
 				TotalPageCountLabel.setText(""+JyDesnotices.size()/5);
+				HomePagePanel.remove(updateNewsButton);
 				HomePagePanel.updateUI();
 				
 				//删除
@@ -520,6 +545,7 @@ public class PanelHomePage extends JPanel {
 					FYCollegeNoticeOperater FYcollegenoticeoperater=new FYCollegeNoticeOperater();
 					JwcNoticeOperater Jwcnoticeoperater=new JwcNoticeOperater();
 					JyNoticeOperater Jynoticeoperater=new JyNoticeOperater();
+					NewsOperater Newsoperater=new NewsOperater();
 					UpdateNotice();
 					showNotice((pageCount-1)*5);
 					HomePagePanel.updateUI();
@@ -589,10 +615,6 @@ public class PanelHomePage extends JPanel {
 
 		UpdateCollegeNoticeButton.setBounds(427, 123, 134, 23);
 		HomePagePanel.add(UpdateCollegeNoticeButton);
-		UpdateJwcNoticeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		UpdateJwcNoticeButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -650,7 +672,7 @@ public class PanelHomePage extends JPanel {
 						JFrame frame = new JFrame("通知");
 		                //设置窗体关闭的时候不关闭应用程序
 						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-						 if(NoticeFlag==1) 
+						 	if(NoticeFlag==1) 
 								frame.getContentPane().add(new Web(schoolDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
 							else if(NoticeFlag==2&&CollegeFlag==1) 
 								frame.getContentPane().add(new Web(RWcollegeDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
@@ -660,8 +682,10 @@ public class PanelHomePage extends JPanel {
 								frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
 							else if(NoticeFlag==3) 
 								frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
-							else 
+							else if(NoticeFlag==4) 
 								frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
+							else 
+								frame.getContentPane().add(new Web(Desnews.get(pageCount*5-5).getUrl()), BorderLayout.CENTER);
 						frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						frame.setLocationByPlatform(true);
 		                //让窗体可见
@@ -704,8 +728,10 @@ public class PanelHomePage extends JPanel {
 							frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==3) 
 							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
-						else 
+						else if(NoticeFlag==4) 
 							frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
+						else 
+							frame.getContentPane().add(new Web(Desnews.get(pageCount*5-4).getUrl()), BorderLayout.CENTER);
 		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		                frame.setLocationByPlatform(true);
 		                //让窗体可见
@@ -747,8 +773,10 @@ public class PanelHomePage extends JPanel {
 							frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==3) 
 							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
-						else 
+						else if(NoticeFlag==4) 
 							frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
+						else 
+							frame.getContentPane().add(new Web(Desnews.get(pageCount*5-3).getUrl()), BorderLayout.CENTER);
 		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		                frame.setLocationByPlatform(true);
 		                //让窗体可见
@@ -790,8 +818,10 @@ public class PanelHomePage extends JPanel {
 							frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==3) 
 							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
-						else 
+						else if(NoticeFlag==4) 
 							frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
+						else 
+							frame.getContentPane().add(new Web(Desnews.get(pageCount*5-2).getUrl()), BorderLayout.CENTER);
 		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		                frame.setLocationByPlatform(true);
 		                //让窗体可见
@@ -833,8 +863,10 @@ public class PanelHomePage extends JPanel {
 							frame.getContentPane().add(new Web(FYcollegeDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
 						else if(NoticeFlag==3) 
 							frame.getContentPane().add(new Web(JwcDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
-						else 
+						else if(NoticeFlag==4) 
 							frame.getContentPane().add(new Web(JyDesnotices.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
+						else 
+							frame.getContentPane().add(new Web(Desnews.get(pageCount*5-1).getUrl()), BorderLayout.CENTER);
 		                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		                frame.setLocationByPlatform(true);
 		                //让窗体可见
@@ -991,14 +1023,149 @@ public class PanelHomePage extends JPanel {
 		separator_5.setBounds(870, 150, 1, 297);
 		
 		HomePagePanel.add(separator_5);
-		buttonGroup.add(NewsButton);
-		NewsButton.addMouseListener(new MouseAdapter() {
+		buttonGroup.add(XLNewsButton);
+		XLNewsButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//新加
-				NewsBox.setModel(new DefaultComboBoxModel(new String[] {"新浪新闻"}));
-				NewsBox.setBounds(631, 158, 84, 21);
+				//显示
+				pageCount=1;
+				NoticeFlag=5;
+				PageCountLabel.setText(""+pageCount);
+				setNews((pageCount-1)*5);
+				maxpageCount=Desnews.size()/5;
+				TotalPageCountLabel.setText(""+Desnews.size()/5);
+				HomePagePanel.updateUI();
+				
+				//删除
+				HomePagePanel.remove(CollegeBox);
+				HomePagePanel.remove(NewsBox);
+				
+				//新加上下文
+				NewsBox.setModel(new DefaultComboBoxModel(new String[] {"全部","热点", "国内", "国际", "军事", "文化"}));
+				NewsBox.setBounds(600, 158, 84, 21);
 				HomePagePanel.add(NewsBox);
+				
+				//新加更新按钮
+				updateNewsButton.addMouseListener(new MouseAdapter(){
+					@Override
+					public void mouseClicked(MouseEvent arg0){
+						try {
+							NewsOperater Newsoperater=new NewsOperater();
+							UpdateNotice();
+							showNotice((pageCount-1)*5);
+							HomePagePanel.updateUI();
+						} catch (FileNotFoundException e) {
+							// TODO 自动生成的 catch 块
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO 自动生成的 catch 块
+							e.printStackTrace();
+						} catch (Exception e) {
+							// TODO 自动生成的 catch 块
+							e.printStackTrace();
+						}
+					}
+				});
+				//添加按钮
+				updateNewsButton.setBounds(700, 157, 93, 23);
+				HomePagePanel.add(updateNewsButton);
+				
+				//点击事件
+				NewsBox.addItemListener(new ItemListener(){
+					   @Override
+					   public void itemStateChanged(ItemEvent e){
+						   //如果选中了一个 
+						   if (e.getStateChange() == ItemEvent.SELECTED){
+							   //这里写你的任务 ，比如取到现在的值  
+							   String text=(String) NewsBox.getSelectedItem(); 
+							   //System.out.println(text);
+							   if(text=="全部") {
+								    NewsFlag=1;
+								   	pageCount=1;
+									PageCountLabel.setText(""+pageCount);
+									try {
+										UpdateNotice();
+									} catch (Exception e1) {
+										// TODO 自动生成的 catch 块
+										e1.printStackTrace();
+									}
+									maxpageCount=Desnews.size()/5;
+									TotalPageCountLabel.setText(""+Desnews.size()/5);
+									setNews((pageCount-1)*5);
+							   }
+							   else if(text=="热点") {
+								    NewsFlag=2;
+								   	pageCount=1;
+									PageCountLabel.setText(""+pageCount);
+									try {
+										UpdateNotice();
+									} catch (Exception e1) {
+										// TODO 自动生成的 catch 块
+										e1.printStackTrace();
+									}
+									maxpageCount=Desnews.size()/5;
+									TotalPageCountLabel.setText(""+Desnews.size()/5);
+									setNews((pageCount-1)*5);
+							   }else if(text=="国内") {
+								    NewsFlag=3;
+								 	pageCount=1;
+								 	CollegeFlag=2;
+									PageCountLabel.setText(""+pageCount);
+									try {
+										UpdateNotice();
+									} catch (Exception e1) {
+										// TODO 自动生成的 catch 块
+										e1.printStackTrace();
+									}
+									maxpageCount=Desnews.size()/5;
+									TotalPageCountLabel.setText(""+Desnews.size()/5);
+									setNews((pageCount-1)*5);
+							   }else if(text=="国际"){
+								    NewsFlag=4;
+								 	pageCount=1;
+								 	CollegeFlag=1;
+									PageCountLabel.setText(""+pageCount);
+									try {
+										UpdateNotice();
+									} catch (Exception e1) {
+										// TODO 自动生成的 catch 块
+										e1.printStackTrace();
+									}
+									maxpageCount=Desnews.size()/5;
+									TotalPageCountLabel.setText(""+Desnews.size()/5);
+									setNews((pageCount-1)*5);
+							   }else if(text=="军事"){
+								   NewsFlag=5;
+								   pageCount=1;
+								   CollegeFlag=1;
+								   PageCountLabel.setText(""+pageCount);
+								   try {
+										UpdateNotice();
+									} catch (Exception e1) {
+										// TODO 自动生成的 catch 块
+										e1.printStackTrace();
+									}
+								   maxpageCount=Desnews.size()/5;
+								   TotalPageCountLabel.setText(""+Desnews.size()/5);
+								   setNews((pageCount-1)*5);
+							   }else{//文化
+								   NewsFlag=6;
+								   pageCount=1;
+								   CollegeFlag=1;
+								   PageCountLabel.setText(""+pageCount);
+								   try {
+										UpdateNotice();
+									} catch (Exception e1) {
+										// TODO 自动生成的 catch 块
+										e1.printStackTrace();
+									}
+								   maxpageCount=Desnews.size()/5;
+								   TotalPageCountLabel.setText(""+Desnews.size()/5);
+								   setNews((pageCount-1)*5);
+							   }
+						   }
+					   }
+					  });
 				//删除
 				HomePagePanel.remove(CollegeBox);
 				HomePagePanel.updateUI();
@@ -1006,16 +1173,11 @@ public class PanelHomePage extends JPanel {
 		});
 		
 		
-		NewsButton.setFont(new Font("宋体", Font.PLAIN, 14));
-		NewsButton.setBounds(454, 157, 93, 23);
-		HomePagePanel.add(NewsButton);
 		
 		
-		
-
-		
-		
-		
+		XLNewsButton.setFont(new Font("宋体", Font.PLAIN, 14));
+		XLNewsButton.setBounds(454, 157, 93, 23);
+		HomePagePanel.add(XLNewsButton);
 		
 		
 		//初始化
@@ -1056,6 +1218,11 @@ public class PanelHomePage extends JPanel {
 			PageCountLabel.setText(""+pageCount);
 			maxpageCount=JyDesnotices.size()/5;
 			TotalPageCountLabel.setText(""+JyDesnotices.size()/5);
+		}else {
+			setNews(begin);
+			PageCountLabel.setText(""+pageCount);
+			maxpageCount=Desnews.size()/5;
+			TotalPageCountLabel.setText(""+Desnews.size()/5);
 		}
 	}
 	
@@ -1171,6 +1338,30 @@ public class PanelHomePage extends JPanel {
 		NoticeFiveTitleLabel.setText(JyDesnotices.get(begin+4).getTitle());
 		NoticeFiveTimeLabel.setText(JyDesnotices.get(begin+4).getTime());
 		NoticeFiveSourceLabel.setText(JyDesnotices.get(begin+4).getSource());
+		HomePagePanel.updateUI();
+	}
+	
+	public  void setNews(int begin) {
+		NoticeOneTitleLabel.setText(Desnews.get(begin).getTitle());
+		NoticeOneTimeLabel.setText(Desnews.get(begin).getTime());
+		NoticeOneSourceLabel.setText(Desnews.get(begin).getSource());
+		//NoticeOneSourceLabel.setText("");
+		NoticeTwoTitleLabel.setText(Desnews.get(begin+1).getTitle());
+		NoticeTwoTimeLabel.setText(Desnews.get(begin+1).getTime());
+		NoticeTwoSourceLabel.setText(Desnews.get(begin+1).getSource());
+		//NoticeTwoSourceLabel.setText("");
+		NoticeThreeTitleLabel.setText(Desnews.get(begin+2).getTitle());
+		NoticeThreeTimeLabel.setText(Desnews.get(begin+2).getTime());
+		NoticeThreeSourceLabel.setText(Desnews.get(begin+2).getSource());
+		//NoticeThreeSourceLabel.setText("");
+		NoticeFourTitleLabel.setText(Desnews.get(begin+3).getTitle());
+		NoticeFourTimeLabel.setText(Desnews.get(begin+3).getTime());
+		NoticeFourSourceLabel.setText(Desnews.get(begin+3).getSource());
+		//NoticeFourSourceLabel.setText("");
+		NoticeFiveTitleLabel.setText(Desnews.get(begin+4).getTitle());
+		NoticeFiveTimeLabel.setText(Desnews.get(begin+4).getTime());
+		NoticeFiveSourceLabel.setText(Desnews.get(begin+4).getSource());
+		//NoticeFiveSourceLabel.setText("");
 		HomePagePanel.updateUI();
 	}
 }
