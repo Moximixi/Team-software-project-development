@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
+import javax.sound.midi.MidiDevice.Info;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
@@ -23,6 +24,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 //import org.apache.log4j.Logger;
 //import org.apache.log4j.PropertyConfigurator;
@@ -65,10 +69,11 @@ public class PanelHomePage extends JPanel {
 	//空间组
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	public JPanel HomePagePanel = new JPanel();
-    //private Logger log = Logger.getLogger(PanelUserInfo.class);  
+    private Logger log = Logger.getLogger(PanelUserInfo.class);  
     
    //全局变量
   	int pageCount=1;
+  	int maxpageCount=Integer.MAX_VALUE;
   	static int CollegeFlag=1;//1人文、2国际商、3翻译
   	static int NoticeFlag=1;//1校内、2院内、3教务处、4就业、5其他新闻
   	
@@ -165,7 +170,7 @@ public class PanelHomePage extends JPanel {
     
 
 	public PanelHomePage()throws Exception,FileNotFoundException,IOException {
-		//PropertyConfigurator.configure("log4j.properties");
+		PropertyConfigurator.configure("log4j.properties");
 		setLayout(null);
 		
 		
@@ -194,6 +199,7 @@ public class PanelHomePage extends JPanel {
 				NoticeFlag=1;
 				PageCountLabel.setText(""+pageCount);
 				setSchoolNotice((pageCount-1)*5);
+				maxpageCount=schoolDesnotices.size()/5;
 				TotalPageCountLabel.setText(""+schoolDesnotices.size()/5);
 				HomePagePanel.updateUI();
 				
@@ -215,6 +221,7 @@ public class PanelHomePage extends JPanel {
 				NoticeFlag=2;
 				PageCountLabel.setText(""+pageCount);
 				setRWCollegeNotice((pageCount-1)*5);
+				maxpageCount=RWcollegeDesnotices.size()/5;
 				TotalPageCountLabel.setText(""+RWcollegeDesnotices.size()/5);
 				HomePagePanel.updateUI();
 				
@@ -231,18 +238,21 @@ public class PanelHomePage extends JPanel {
 							   	pageCount=1;
 							   	CollegeFlag=3;
 								PageCountLabel.setText(""+pageCount);
+								maxpageCount=FYcollegeDesnotices.size()/5;
 								TotalPageCountLabel.setText(""+FYcollegeDesnotices.size()/5);
 							   setFYCollegeNotice((pageCount-1)*5);
 						   }else if(text=="国际商学院") {
 							 	pageCount=1;
 							 	CollegeFlag=2;
 								PageCountLabel.setText(""+pageCount);
+								maxpageCount=GJScollegeDesnotices.size()/5;
 								TotalPageCountLabel.setText(""+GJScollegeDesnotices.size()/5);
 							    setGJSCollegeNotice((pageCount-1)*5);
 						   }else {
 							 	pageCount=1;
 							 	CollegeFlag=1;
 								PageCountLabel.setText(""+pageCount);
+								maxpageCount=RWcollegeDesnotices.size()/5;
 								TotalPageCountLabel.setText(""+RWcollegeDesnotices.size()/5);
 							   setRWCollegeNotice((pageCount-1)*5);
 						   }
@@ -270,6 +280,7 @@ public class PanelHomePage extends JPanel {
 				NoticeFlag=3;
 				PageCountLabel.setText(""+pageCount);
 				setJwcNotice((pageCount-1)*5);
+				maxpageCount=JwcDesnotices.size()/5;
 				TotalPageCountLabel.setText(""+JwcDesnotices.size()/5);
 				HomePagePanel.updateUI();
 				
@@ -291,6 +302,7 @@ public class PanelHomePage extends JPanel {
 				NoticeFlag=4;
 				PageCountLabel.setText(""+pageCount);
 				setJyNotice((pageCount-1)*5);
+				maxpageCount=JyDesnotices.size()/5;
 				TotalPageCountLabel.setText(""+JyDesnotices.size()/5);
 				HomePagePanel.updateUI();
 				
@@ -856,9 +868,13 @@ public class PanelHomePage extends JPanel {
 		UpPageButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				pageCount--;
-				showNotice((pageCount-1)*5);
-				PageCountLabel.setText(""+pageCount);
+				if(pageCount==1)
+					log.info("这已经是第一页了");
+				else {
+					pageCount--;
+					showNotice((pageCount-1)*5);
+					PageCountLabel.setText(""+pageCount);
+				}
 			}
 		});
 		
@@ -888,9 +904,14 @@ public class PanelHomePage extends JPanel {
 		DownPageButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				pageCount++;
-				showNotice((pageCount-1)*5);
-				PageCountLabel.setText(""+pageCount);
+				//最大页码
+				if(pageCount==maxpageCount)
+					log.info("这已经是最后一页了");
+				else {
+					pageCount++;
+					showNotice((pageCount-1)*5);
+					PageCountLabel.setText(""+pageCount);
+				}
 			}
 		});
 		
@@ -981,26 +1002,32 @@ public class PanelHomePage extends JPanel {
 		if(NoticeFlag==1) {
 			setSchoolNotice(begin);
 			PageCountLabel.setText(""+pageCount);
+			maxpageCount=schoolDesnotices.size()/5;
 			TotalPageCountLabel.setText(""+schoolDesnotices.size()/5);
 		}else if(NoticeFlag==2&&CollegeFlag==1) {
 			setRWCollegeNotice(begin);
 			PageCountLabel.setText(""+pageCount);
+			maxpageCount=RWcollegeDesnotices.size()/5;
 			TotalPageCountLabel.setText(""+RWcollegeDesnotices.size()/5);
 		}else if(NoticeFlag==2&&CollegeFlag==2) {
 			setGJSCollegeNotice(begin);
 			PageCountLabel.setText(""+pageCount);
+			maxpageCount=GJScollegeDesnotices.size()/5;
 			TotalPageCountLabel.setText(""+GJScollegeDesnotices.size()/5);
 		}else if(NoticeFlag==2&&CollegeFlag==3) {
 			setFYCollegeNotice(begin);
 			PageCountLabel.setText(""+pageCount);
+			maxpageCount=FYcollegeDesnotices.size()/5;
 			TotalPageCountLabel.setText(""+FYcollegeDesnotices.size()/5);
 		}else if(NoticeFlag==3) {
 			setJwcNotice(begin);
 			PageCountLabel.setText(""+pageCount);
+			maxpageCount=JwcDesnotices.size()/5;
 			TotalPageCountLabel.setText(""+JwcDesnotices.size()/5);
 		}else if(NoticeFlag==4) {
 			setJyNotice(begin);
 			PageCountLabel.setText(""+pageCount);
+			maxpageCount=JyDesnotices.size()/5;
 			TotalPageCountLabel.setText(""+JyDesnotices.size()/5);
 		}
 	}
