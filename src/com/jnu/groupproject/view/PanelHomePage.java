@@ -86,25 +86,26 @@ public class PanelHomePage extends JPanel {
   	static String Jynoticepath="./src/com/jnu/groupproject/data/Jynotice.dat";
   	
   	//通知序列化
-  	ArrayList<SchoolNotice> schoolnoticeList=new ArrayList<SchoolNotice>();
-  	ArrayList<SchoolNotice> SchoolNoticeDesnotices=new ArrayList<SchoolNotice>();
-  	ArrayList<CollegeNotice> RWcollegenoticeList=new ArrayList<CollegeNotice>();
-  	ArrayList<CollegeNotice> RWCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
-  	ArrayList<CollegeNotice> GJScollegenoticeList=new ArrayList<CollegeNotice>();
-  	ArrayList<CollegeNotice> GJSCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
-  	ArrayList<CollegeNotice> FYcollegenoticeList=new ArrayList<CollegeNotice>();
-  	ArrayList<CollegeNotice> FYCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
-  	ArrayList<JwcNotice> JwcnoticeList=new ArrayList<JwcNotice>();
-  	ArrayList<JwcNotice> JwcNoticeDesnotices=new ArrayList<JwcNotice>();
-  	ArrayList<JyNotice> noticeList=new ArrayList<JyNotice>();
-  	ArrayList<JyNotice> JyNoticeDesnotices=new ArrayList<JyNotice>();//反序列化
-  	//工具类
+//  	ArrayList<SchoolNotice> schoolnoticeList=new ArrayList<SchoolNotice>();
+//  	ArrayList<SchoolNotice> SchoolNoticeDesnotices=new ArrayList<SchoolNotice>();
+//  	ArrayList<CollegeNotice> RWcollegenoticeList=new ArrayList<CollegeNotice>();
+//  	ArrayList<CollegeNotice> RWCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
+//  	ArrayList<CollegeNotice> GJScollegenoticeList=new ArrayList<CollegeNotice>();
+//  	ArrayList<CollegeNotice> GJSCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
+//  	ArrayList<CollegeNotice> FYcollegenoticeList=new ArrayList<CollegeNotice>();
+//  	ArrayList<CollegeNotice> FYCollegeNoticeDesnotices=new ArrayList<CollegeNotice>();
+//  	ArrayList<JwcNotice> JwcnoticeList=new ArrayList<JwcNotice>();
+//  	ArrayList<JwcNotice> JwcNoticeDesnotices=new ArrayList<JwcNotice>();
+//  	ArrayList<JyNotice> noticeList=new ArrayList<JyNotice>();
+//  	ArrayList<JyNotice> JyNoticeDesnotices=new ArrayList<JyNotice>();
+  	//工具类,爬取通知
   	static NoticeSerializeOperater<SchoolNotice> schoolnoticeoperater=new NoticeSerializeOperater<SchoolNotice>();
   	static NoticeSerializeOperater<CollegeNotice> RWcollegenoticeoperater=new NoticeSerializeOperater<CollegeNotice>();
   	static NoticeSerializeOperater<CollegeNotice> GJScollegenoticeoperater=new NoticeSerializeOperater<CollegeNotice>();
   	static NoticeSerializeOperater<CollegeNotice> FYcollegenoticeoperater=new NoticeSerializeOperater<CollegeNotice>();
   	static NoticeSerializeOperater<JwcNotice> Jwcnoticeoperater=new NoticeSerializeOperater<JwcNotice>();
   	static NoticeSerializeOperater<JyNotice> Jynoticeoperater=new NoticeSerializeOperater<JyNotice>();
+  	//反序列化通知
   	static ArrayList<SchoolNotice> schoolDesnotices;
   	static ArrayList<CollegeNotice> RWcollegeDesnotices;
   	static ArrayList<CollegeNotice> GJScollegeDesnotices;
@@ -169,9 +170,33 @@ public class PanelHomePage extends JPanel {
     private final JComboBox NewsBox = new JComboBox();
     
 
-	public PanelHomePage()throws Exception,FileNotFoundException,IOException {
+	//爬取新闻
+    public void UpdateNotice() throws Exception,FileNotFoundException,IOException{
+    	schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
+		RWcollegeDesnotices=RWcollegenoticeoperater.load(RWcollegenoticepath);
+		GJScollegeDesnotices=GJScollegenoticeoperater.load(GJScollegenoticepath);
+		FYcollegeDesnotices=RWcollegenoticeoperater.load(FYcollegenoticepath);
+		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
+		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
+    }
+    
+    public PanelHomePage()throws Exception,FileNotFoundException,IOException {
 		PropertyConfigurator.configure("log4j.properties");
 		setLayout(null);
+		
+		//反序列化
+//		ArrayList<SchoolNotice> schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
+//		ArrayList<CollegeNotice> RWcollegeDesnotices=RWcollegenoticeoperater.load(RWcollegenoticepath);
+//		ArrayList<CollegeNotice> GJScollegeDesnotices=GJScollegenoticeoperater.load(GJScollegenoticepath);
+//		ArrayList<CollegeNotice> FYcollegeDesnotices=RWcollegenoticeoperater.load(FYcollegenoticepath);
+//		ArrayList<JwcNotice> JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
+//		ArrayList<JyNotice> JyDesnotices=Jynoticeoperater.load(Jynoticepath);
+		schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
+		RWcollegeDesnotices=RWcollegenoticeoperater.load(RWcollegenoticepath);
+		GJScollegeDesnotices=GJScollegenoticeoperater.load(GJScollegenoticepath);
+		FYcollegeDesnotices=RWcollegenoticeoperater.load(FYcollegenoticepath);
+		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
+		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
 		
 		
 		//首先规定用户信息的路径（需要用到用户信息的界面都要引入该语句）
@@ -225,7 +250,6 @@ public class PanelHomePage extends JPanel {
 				TotalPageCountLabel.setText(""+RWcollegeDesnotices.size()/5);
 				HomePagePanel.updateUI();
 				
-				//新加的
 				CollegeBox.addItemListener(new ItemListener(){
 				   @Override
 				   public void itemStateChanged(ItemEvent e){
@@ -240,7 +264,7 @@ public class PanelHomePage extends JPanel {
 								PageCountLabel.setText(""+pageCount);
 								maxpageCount=FYcollegeDesnotices.size()/5;
 								TotalPageCountLabel.setText(""+FYcollegeDesnotices.size()/5);
-							   setFYCollegeNotice((pageCount-1)*5);
+							    setFYCollegeNotice((pageCount-1)*5);
 						   }else if(text=="国际商学院") {
 							 	pageCount=1;
 							 	CollegeFlag=2;
@@ -254,7 +278,7 @@ public class PanelHomePage extends JPanel {
 								PageCountLabel.setText(""+pageCount);
 								maxpageCount=RWcollegeDesnotices.size()/5;
 								TotalPageCountLabel.setText(""+RWcollegeDesnotices.size()/5);
-							   setRWCollegeNotice((pageCount-1)*5);
+							    setRWCollegeNotice((pageCount-1)*5);
 						   }
 					   }
 				   }
@@ -380,10 +404,7 @@ public class PanelHomePage extends JPanel {
 
 		ElectricityStatusLabel.setBounds(420, 66, 130, 15);
 		HomePagePanel.add(ElectricityStatusLabel);
-		SchoolCardQueryButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		
 
 		SchoolCardQueryButton.addMouseListener(new MouseAdapter() {
@@ -499,6 +520,9 @@ public class PanelHomePage extends JPanel {
 					FYCollegeNoticeOperater FYcollegenoticeoperater=new FYCollegeNoticeOperater();
 					JwcNoticeOperater Jwcnoticeoperater=new JwcNoticeOperater();
 					JyNoticeOperater Jynoticeoperater=new JyNoticeOperater();
+					UpdateNotice();
+					showNotice((pageCount-1)*5);
+					HomePagePanel.updateUI();
 				} catch (FileNotFoundException e) {
 					// TODO 自动生成的 catch 块
 					e.printStackTrace();
@@ -520,6 +544,8 @@ public class PanelHomePage extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				try {
 					SchoolNoticeOperater schoolnoticeoperater=new SchoolNoticeOperater();
+					UpdateNotice();
+					showNotice((pageCount-1)*5);
 					HomePagePanel.updateUI();
 				} catch (Exception e) {
 					// TODO 自动生成的 catch 块
@@ -544,6 +570,8 @@ public class PanelHomePage extends JPanel {
 					else {
 						FYCollegeNoticeOperater FYcollegenoticeoperater=new FYCollegeNoticeOperater();
 					}
+					UpdateNotice();
+					showNotice((pageCount-1)*5);
 					HomePagePanel.updateUI();
 				} catch (FileNotFoundException e) {
 					// TODO 自动生成的 catch 块
@@ -570,6 +598,8 @@ public class PanelHomePage extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				try {
 					JwcNoticeOperater Jwcnoticeoperater=new JwcNoticeOperater();
+					UpdateNotice();
+					showNotice((pageCount-1)*5);
 					HomePagePanel.updateUI();
 				} catch (FileNotFoundException e) {
 					// TODO 自动生成的 catch 块
@@ -592,6 +622,8 @@ public class PanelHomePage extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				try {
 					JyNoticeOperater Jynoticeoperater=new JyNoticeOperater();
+					UpdateNotice();
+					showNotice((pageCount-1)*5);
 					HomePagePanel.updateUI();
 				} catch (FileNotFoundException e) {
 					// TODO 自动生成的 catch 块
@@ -984,12 +1016,7 @@ public class PanelHomePage extends JPanel {
 		
 		
 		
-		schoolDesnotices=schoolnoticeoperater.load(schoolnoticepath);
-		RWcollegeDesnotices=RWcollegenoticeoperater.load(RWcollegenoticepath);
-		GJScollegeDesnotices=GJScollegenoticeoperater.load(GJScollegenoticepath);
-		FYcollegeDesnotices=RWcollegenoticeoperater.load(FYcollegenoticepath);
-		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
-		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
+		
 		
 		//初始化
 		showNotice(0);
