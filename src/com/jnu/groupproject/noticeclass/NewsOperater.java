@@ -4,9 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+
+import com.jnu.groupproject.view.PanelUserInfo;
 
 //Document pageDocument = Jsoup.connect("https://news.sina.com.cn/china/").get();
 //Elements elements=pageDocument.getElementsByAttributeValue("class", "news-2");
@@ -14,7 +18,9 @@ import org.jsoup.select.Elements;
 //System.out.println();
 
 public class NewsOperater {
+	private Logger log = Logger.getLogger(PanelUserInfo.class); 
 	public NewsOperater() throws Exception,FileNotFoundException,IOException {
+		PropertyConfigurator.configure("log4j.properties");
 	//public static void main(String[] args)throws Exception,FileNotFoundException,IOException {
 		//序列化
 		ArrayList<News> newsList=new ArrayList<News>();
@@ -133,7 +139,8 @@ public class NewsOperater {
 		newsoperater.save(JSnewsList, JSnewspath);
 		newsoperater.save(WHnewsList, WHnewspath);
 		ArrayList<News> Desnews=newsoperater.load(newspath);
-		System.out.println("成功爬取新闻："+Desnews.size());
+		//System.out.println("成功爬取新闻："+Desnews.size());
+		log.info("成功爬取学院通知："+Desnews.size());
 	}
 }
 

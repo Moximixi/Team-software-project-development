@@ -184,7 +184,31 @@ public class PanelHomePage extends JPanel {
 		FYcollegeDesnotices=RWcollegenoticeoperater.load(FYcollegenoticepath);
 		JwcDesnotices=Jwcnoticeoperater.load(Jwcnoticepath);
 		JyDesnotices=Jynoticeoperater.load(Jynoticepath);
-		Desnews=newsoperater.load(newspath);
+//		Desnews=newsoperater.load(newspath);
+//		RD_Desnews=newsoperater.load(RDnewspath);
+//		GN_Desnews=newsoperater.load(GNnewspath);
+//		GW_Desnews=newsoperater.load(GWnewspath);
+//		JS_Desnews=newsoperater.load(JSnewspath);
+//		WH_Desnews=newsoperater.load(WHnewspath);
+//		
+//		if(NewsFlag==1) 
+//			Desnews=newsoperater.load(newspath);
+//		else if(NewsFlag==2) 
+//			Desnews=RD_Desnews;
+//		else if(NewsFlag==3) 
+//			Desnews=GN_Desnews;
+//		else if(NewsFlag==4) 
+//			Desnews=GW_Desnews;
+//		else if(NewsFlag==5) 
+//			Desnews=JS_Desnews;
+//		else
+//			Desnews=WH_Desnews;
+		
+    }
+    
+    //
+    public void UpdateNews() throws Exception,FileNotFoundException,IOException{
+    	Desnews=newsoperater.load(newspath);
 		RD_Desnews=newsoperater.load(RDnewspath);
 		GN_Desnews=newsoperater.load(GNnewspath);
 		GW_Desnews=newsoperater.load(GWnewspath);
@@ -203,7 +227,6 @@ public class PanelHomePage extends JPanel {
 			Desnews=JS_Desnews;
 		else
 			Desnews=WH_Desnews;
-		
     }
     
     public PanelHomePage()throws Exception,FileNotFoundException,IOException {
@@ -547,6 +570,7 @@ public class PanelHomePage extends JPanel {
 					JyNoticeOperater Jynoticeoperater=new JyNoticeOperater();
 					NewsOperater Newsoperater=new NewsOperater();
 					UpdateNotice();
+					UpdateNews();
 					showNotice((pageCount-1)*5);
 					HomePagePanel.updateUI();
 				} catch (FileNotFoundException e) {
@@ -1051,7 +1075,7 @@ public class PanelHomePage extends JPanel {
 					public void mouseClicked(MouseEvent arg0){
 						try {
 							NewsOperater Newsoperater=new NewsOperater();
-							UpdateNotice();
+							UpdateNews();
 							showNotice((pageCount-1)*5);
 							HomePagePanel.updateUI();
 						} catch (FileNotFoundException e) {
@@ -1084,7 +1108,7 @@ public class PanelHomePage extends JPanel {
 								   	pageCount=1;
 									PageCountLabel.setText(""+pageCount);
 									try {
-										UpdateNotice();
+										UpdateNews();
 									} catch (Exception e1) {
 										// TODO 自动生成的 catch 块
 										e1.printStackTrace();
@@ -1098,7 +1122,7 @@ public class PanelHomePage extends JPanel {
 								   	pageCount=1;
 									PageCountLabel.setText(""+pageCount);
 									try {
-										UpdateNotice();
+										UpdateNews();
 									} catch (Exception e1) {
 										// TODO 自动生成的 catch 块
 										e1.printStackTrace();
@@ -1112,7 +1136,7 @@ public class PanelHomePage extends JPanel {
 								 	CollegeFlag=2;
 									PageCountLabel.setText(""+pageCount);
 									try {
-										UpdateNotice();
+										UpdateNews();
 									} catch (Exception e1) {
 										// TODO 自动生成的 catch 块
 										e1.printStackTrace();
@@ -1126,7 +1150,7 @@ public class PanelHomePage extends JPanel {
 								 	CollegeFlag=1;
 									PageCountLabel.setText(""+pageCount);
 									try {
-										UpdateNotice();
+										UpdateNews();
 									} catch (Exception e1) {
 										// TODO 自动生成的 catch 块
 										e1.printStackTrace();
@@ -1140,7 +1164,7 @@ public class PanelHomePage extends JPanel {
 								   CollegeFlag=1;
 								   PageCountLabel.setText(""+pageCount);
 								   try {
-										UpdateNotice();
+										UpdateNews();
 									} catch (Exception e1) {
 										// TODO 自动生成的 catch 块
 										e1.printStackTrace();
@@ -1154,7 +1178,7 @@ public class PanelHomePage extends JPanel {
 								   CollegeFlag=1;
 								   PageCountLabel.setText(""+pageCount);
 								   try {
-										UpdateNotice();
+										UpdateNews();
 									} catch (Exception e1) {
 										// TODO 自动生成的 catch 块
 										e1.printStackTrace();
