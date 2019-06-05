@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -85,9 +86,29 @@ public class PanelSearch extends JPanel {
 		//list_searchResults.addListSelectionListener();
 		add(listScrollPane_searchResults);
 		
+		JCheckBox checkBox_renWen = new JCheckBox("人文学院");
+		checkBox_renWen.setBounds(40, 185, 110, 25);
+		checkBox_renWen.setFont(new Font("宋体", Font.PLAIN, 14));
+		add(checkBox_renWen);
+		
+		JCheckBox checkBox_fanYi = new JCheckBox("翻译学院");
+		checkBox_fanYi.setBounds(40, 215, 110, 25);
+		checkBox_fanYi.setFont(new Font("宋体", Font.PLAIN, 14));
+		add(checkBox_fanYi);
+		
+		JCheckBox checkBox_guoShang = new JCheckBox("国际商学院");
+		checkBox_guoShang.setBounds(170, 185, 110, 25);
+		checkBox_guoShang.setFont(new Font("宋体", Font.PLAIN, 14));
+		add(checkBox_guoShang);
+		
+		JCheckBox checkBox_dianQi = new JCheckBox("电气信息学院");
+		checkBox_dianQi.setBounds(170, 215, 110, 25);
+		checkBox_dianQi.setFont(new Font("宋体", Font.PLAIN, 14));
+		add(checkBox_dianQi);
+		
 		JButton button_search = new JButton("开始搜索");
 		button_search.setFont(new Font("宋体", Font.BOLD, 18));
-		button_search.setBounds(35, 202, 245, 33);
+		button_search.setBounds(35, 245, 245, 33);
 		button_search.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -145,23 +166,70 @@ public class PanelSearch extends JPanel {
 					selectedNoticeNumber.clear();
 					selectedNoticeTitle.clear();
 					NoticeSerializeOperater collegeNoticeOperater=new NoticeSerializeOperater<CollegeNotice>();
-					try {
-						collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/collegenotice.dat");
-						for(int i=0;i<collegeNoticeList.size();i++) {
-							CollegeNotice collegenotice = collegeNoticeList.get(i);
-							if (collegenotice.getTitle().contains(keyword)) {
-								selectedNoticeNumber.add(i);
-								selectedNoticeTitle.add(collegenotice.getTitle());
+					if(checkBox_renWen.isSelected()) {
+						try {
+							collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/RWcollegenotice.dat");
+							for(int i=0;i<collegeNoticeList.size();i++) {
+								CollegeNotice collegenotice = collegeNoticeList.get(i);
+								if (collegenotice.getTitle().contains(keyword)) {
+									selectedNoticeNumber.add(i);
+									selectedNoticeTitle.add(collegenotice.getTitle());
+								}	
 							}	
-						}	
-				        label_searchResults.setText("搜索结果("+selectedNoticeTitle.size()+")");
-				        list_searchResultsModel.removeAllElements();
-				        for (int i = 0;i<selectedNoticeTitle.size();i++) {
-							list_searchResultsModel.addElement((i+1)+"、"+selectedNoticeTitle.get(i));
-						}	
-					} catch (Exception e1) {
-						e1.printStackTrace();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 					}
+					if(checkBox_fanYi.isSelected()) {
+						try {
+							collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/FYcollegenotice.dat");
+							for(int i=0;i<collegeNoticeList.size();i++) {
+								CollegeNotice collegenotice = collegeNoticeList.get(i);
+								if (collegenotice.getTitle().contains(keyword)) {
+									selectedNoticeNumber.add(i);
+									selectedNoticeTitle.add(collegenotice.getTitle());
+								}	
+							}	
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					if(checkBox_guoShang.isSelected()) {
+						try {
+							collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/GJScollegenotice.dat");
+							for(int i=0;i<collegeNoticeList.size();i++) {
+								CollegeNotice collegenotice = collegeNoticeList.get(i);
+								if (collegenotice.getTitle().contains(keyword)) {
+									selectedNoticeNumber.add(i);
+									selectedNoticeTitle.add(collegenotice.getTitle());
+								}	
+							}	
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					if(checkBox_dianQi.isSelected()) {
+						try {
+							collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/DQcollegenotice.dat");
+							for(int i=0;i<collegeNoticeList.size();i++) {
+								CollegeNotice collegenotice = collegeNoticeList.get(i);
+								if (collegenotice.getTitle().contains(keyword)) {
+									selectedNoticeNumber.add(i);
+									selectedNoticeTitle.add(collegenotice.getTitle());
+								}	
+							}	
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					
+				    label_searchResults.setText("搜索结果("+selectedNoticeTitle.size()+")");
+				    list_searchResultsModel.removeAllElements();
+				    for (int i = 0;i<selectedNoticeTitle.size();i++) {
+						list_searchResultsModel.addElement((i+1)+"、"+selectedNoticeTitle.get(i));
+					}	
+					
 					updateUI();
 			        break;
 			        
