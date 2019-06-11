@@ -24,11 +24,10 @@ import javax.swing.JTextField;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import com.jnu.groupproject.noticeclass.CollegeNotice;
-import com.jnu.groupproject.noticeclass.JwcNotice;
-import com.jnu.groupproject.noticeclass.JyNotice;
+
+
+import com.jnu.groupproject.noticeclass.Notice;
 import com.jnu.groupproject.noticeclass.NoticeSerializeOperater;
-import com.jnu.groupproject.noticeclass.SchoolNotice;
 import com.jnu.groupproject.noticeclass.Web;
 
 //import team.six.panel.queryscores.PanelQueryScores;
@@ -38,10 +37,10 @@ public class PanelSearch extends JPanel {
 	private JTextField textField_keyWord;
 	ArrayList<Integer> selectedNoticeNumber=new ArrayList<>();
 	ArrayList<String> selectedNoticeTitle=new ArrayList<>();
-	ArrayList<SchoolNotice> schoolnoticeList= new ArrayList<SchoolNotice>();
-	ArrayList<CollegeNotice> collegeNoticeList= new ArrayList<CollegeNotice>();
-	ArrayList<JwcNotice> JwcNoticeList= new ArrayList<JwcNotice>();
-	ArrayList<JyNotice> JyNoticeList= new ArrayList<JyNotice>();
+	ArrayList<Notice> schoolnoticeList= new ArrayList<Notice>();
+	ArrayList<Notice> collegeNoticeList= new ArrayList<Notice>();
+	ArrayList<Notice> JwcNoticeList= new ArrayList<Notice>();
+	ArrayList<Notice> JyNoticeList= new ArrayList<Notice>();
 	String selectedRange;
 	/**
 	 * Create the panel.
@@ -139,13 +138,13 @@ public class PanelSearch extends JPanel {
 			        updateUI();
 			        break;
 				case "校内通知": 
-					NoticeSerializeOperater schoolnoticeoperater=new NoticeSerializeOperater<SchoolNotice>();
+					NoticeSerializeOperater schoolnoticeoperater=new NoticeSerializeOperater<Notice>();
 					try {
 						selectedNoticeNumber.clear();
 						selectedNoticeTitle.clear();
 						schoolnoticeList = schoolnoticeoperater.load("./src/com/jnu/groupproject/data/schoolnotice.dat");
 						for(int i=0;i<schoolnoticeList.size();i++) {
-							SchoolNotice schoolnotice = schoolnoticeList.get(i);
+							Notice schoolnotice = schoolnoticeList.get(i);
 							if (schoolnotice.getTitle().contains(keyword)) {
 								selectedNoticeNumber.add(i);
 								selectedNoticeTitle.add(schoolnotice.getTitle());
@@ -165,12 +164,12 @@ public class PanelSearch extends JPanel {
 				case "学院通知": 
 					selectedNoticeNumber.clear();
 					selectedNoticeTitle.clear();
-					NoticeSerializeOperater collegeNoticeOperater=new NoticeSerializeOperater<CollegeNotice>();
+					NoticeSerializeOperater collegeNoticeOperater=new NoticeSerializeOperater<Notice>();
 					if(checkBox_renWen.isSelected()) {
 						try {
 							collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/RWcollegenotice.dat");
 							for(int i=0;i<collegeNoticeList.size();i++) {
-								CollegeNotice collegenotice = collegeNoticeList.get(i);
+								Notice collegenotice = collegeNoticeList.get(i);
 								if (collegenotice.getTitle().contains(keyword)) {
 									selectedNoticeNumber.add(i);
 									selectedNoticeTitle.add(collegenotice.getTitle());
@@ -184,7 +183,7 @@ public class PanelSearch extends JPanel {
 						try {
 							collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/FYcollegenotice.dat");
 							for(int i=0;i<collegeNoticeList.size();i++) {
-								CollegeNotice collegenotice = collegeNoticeList.get(i);
+								Notice collegenotice = collegeNoticeList.get(i);
 								if (collegenotice.getTitle().contains(keyword)) {
 									selectedNoticeNumber.add(i);
 									selectedNoticeTitle.add(collegenotice.getTitle());
@@ -198,7 +197,7 @@ public class PanelSearch extends JPanel {
 						try {
 							collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/GJScollegenotice.dat");
 							for(int i=0;i<collegeNoticeList.size();i++) {
-								CollegeNotice collegenotice = collegeNoticeList.get(i);
+								Notice collegenotice = collegeNoticeList.get(i);
 								if (collegenotice.getTitle().contains(keyword)) {
 									selectedNoticeNumber.add(i);
 									selectedNoticeTitle.add(collegenotice.getTitle());
@@ -212,7 +211,7 @@ public class PanelSearch extends JPanel {
 						try {
 							collegeNoticeList = collegeNoticeOperater.load("./src/com/jnu/groupproject/data/DQcollegenotice.dat");
 							for(int i=0;i<collegeNoticeList.size();i++) {
-								CollegeNotice collegenotice = collegeNoticeList.get(i);
+								Notice collegenotice = collegeNoticeList.get(i);
 								if (collegenotice.getTitle().contains(keyword)) {
 									selectedNoticeNumber.add(i);
 									selectedNoticeTitle.add(collegenotice.getTitle());
@@ -236,11 +235,11 @@ public class PanelSearch extends JPanel {
 				case "教务处通知": 
 					selectedNoticeNumber.clear();
 					selectedNoticeTitle.clear();
-					NoticeSerializeOperater JwcNoticeOperater=new NoticeSerializeOperater<JwcNotice>();
+					NoticeSerializeOperater JwcNoticeOperater=new NoticeSerializeOperater<Notice>();
 					try {
 						JwcNoticeList = JwcNoticeOperater.load("./src/com/jnu/groupproject/data/Jwcnotice.dat");
 						for(int i=0;i<JwcNoticeList.size();i++) {
-							JwcNotice Jwcnotice = JwcNoticeList.get(i);
+							Notice Jwcnotice = JwcNoticeList.get(i);
 							if (Jwcnotice.getTitle().contains(keyword)) {
 								selectedNoticeNumber.add(i);
 								selectedNoticeTitle.add(Jwcnotice.getTitle());
@@ -260,11 +259,11 @@ public class PanelSearch extends JPanel {
 				case "就业通知": 
 					selectedNoticeNumber.clear();
 					selectedNoticeTitle.clear();
-					NoticeSerializeOperater JyNoticeOperater=new NoticeSerializeOperater<JyNotice>();
+					NoticeSerializeOperater JyNoticeOperater=new NoticeSerializeOperater<Notice>();
 					try {
 						JyNoticeList = JyNoticeOperater.load("./src/com/jnu/groupproject/data/Jynotice.dat");
 						for(int i=0;i<JyNoticeList.size();i++) {
-							JyNotice Jynotice = JyNoticeList.get(i);
+							Notice Jynotice = JyNoticeList.get(i);
 							if (Jynotice.getTitle().contains(keyword)) {
 								selectedNoticeNumber.add(i);
 								selectedNoticeTitle.add(Jynotice.getTitle());
@@ -313,7 +312,7 @@ public class PanelSearch extends JPanel {
 				case "校内通知": 
 					int visiualSeletedSchoolNotice =  list_searchResults.getSelectedIndex();
 					int realSeletedSchoolNotice = selectedNoticeNumber.get(visiualSeletedSchoolNotice);
-					SchoolNotice seletedSchoolNotice = schoolnoticeList.get(realSeletedSchoolNotice);
+					Notice seletedSchoolNotice = schoolnoticeList.get(realSeletedSchoolNotice);
 					//这一部分打开网页
 					JFrame frame_schoolNotice = new JFrame("校内通知");
 					//设置窗体关闭的时候不关闭应用程序
@@ -335,7 +334,7 @@ public class PanelSearch extends JPanel {
 				case "学院通知": 
 					int visiualSeletedCollegeNotice =  list_searchResults.getSelectedIndex();
 					int realSeletedCollegeNotice = selectedNoticeNumber.get(visiualSeletedCollegeNotice);
-					CollegeNotice seletedCollegeNotice = collegeNoticeList.get(realSeletedCollegeNotice);
+					Notice seletedCollegeNotice = collegeNoticeList.get(realSeletedCollegeNotice);
 					//这一部分打开网页
 					JFrame frame_collegeNotice = new JFrame("校内通知");
 					//设置窗体关闭的时候不关闭应用程序
@@ -358,7 +357,7 @@ public class PanelSearch extends JPanel {
 				case "教务处通知": 
 					int visiualSeletedJwcNotice =  list_searchResults.getSelectedIndex();
 					int realSeletedJwcNotice = selectedNoticeNumber.get(visiualSeletedJwcNotice);
-					JwcNotice seletedJwcNotice = JwcNoticeList.get(realSeletedJwcNotice);
+					Notice seletedJwcNotice = JwcNoticeList.get(realSeletedJwcNotice);
 					//这一部分打开网页
 					JFrame frame_JwcNotice = new JFrame("校内通知");
 					//设置窗体关闭的时候不关闭应用程序
@@ -381,7 +380,7 @@ public class PanelSearch extends JPanel {
 				case "就业通知": 
 					int visiualSeletedJyNotice =  list_searchResults.getSelectedIndex();
 					int realSeletedJyNotice = selectedNoticeNumber.get(visiualSeletedJyNotice);
-					JyNotice seletedJyNotice = JyNoticeList.get(realSeletedJyNotice);
+					Notice seletedJyNotice = JyNoticeList.get(realSeletedJyNotice);
 					//这一部分打开网页
 					JFrame frame_JyNotice = new JFrame("校内通知");
 					//设置窗体关闭的时候不关闭应用程序

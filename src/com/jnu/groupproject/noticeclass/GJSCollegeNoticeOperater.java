@@ -31,8 +31,8 @@ public class GJSCollegeNoticeOperater {
 			String pageurl="https://gjsxy.jnu.edu.cn/tzgg/list";
 			String dataurl="https://gjsxy.jnu.edu.cn";
 			String collegnoticepath="./src/com/jnu/groupproject/data/GJScollegenotice.dat";
-			ArrayList<CollegeNotice> noticeList=new ArrayList<CollegeNotice>();
-			NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<CollegeNotice>();
+			ArrayList<Notice> noticeList=new ArrayList<Notice>();
+			NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<Notice>();
 			Document document = Jsoup.connect(url).get();
 			//获取国际商学院最大页数
 			Elements PageCountElement=document.getElementsByAttributeValue("class","all_pages");
@@ -56,8 +56,8 @@ public class GJSCollegeNoticeOperater {
 					String title=null;
 					String time=null;
 					String collegeurl=null;
-					String source="学院通知";
-					CollegeNotice notice=new CollegeNotice();
+					String source="国家商学院通知";
+					Notice notice=new Notice();
 					if(element3.text().length()!=0) {
 						if(element3.get(0).attr("href").charAt(0)=='/') {
 							collegeurl=dataurl+element3.get(0).attr("href");
@@ -84,7 +84,8 @@ public class GJSCollegeNoticeOperater {
 			}
 			//测试序列化
 			noticeoperater.save(noticeList, collegnoticepath);
-			ArrayList<CollegeNotice> Desnotices=noticeoperater.load(collegnoticepath);
+			ArrayList<Notice> Desnotices=noticeoperater.load(collegnoticepath);
+			//System.out.println(Desnotices.size());
 			log.info("成功爬取国际商学院通知："+Desnotices.size());
 		}
 }

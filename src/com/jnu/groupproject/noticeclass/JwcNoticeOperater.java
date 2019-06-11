@@ -16,7 +16,7 @@ import com.jnu.groupproject.view.PanelUserInfo;
 
 public class JwcNoticeOperater {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
-	//NoticeOperater(Elements element){
+	//public static void main(String[] args)throws Exception,FileNotFoundException,IOException {
 	public JwcNoticeOperater() throws Exception,FileNotFoundException,IOException {
 		//配置日记文件
 		PropertyConfigurator.configure("log4j.properties");
@@ -25,15 +25,15 @@ public class JwcNoticeOperater {
 		String pageurl="https://zhjw.jnu.edu.cn/7099/list";
 		String dataurl="https://zhjw.jnu.edu.cn";
 		String Jwcnoticepath="./src/com/jnu/groupproject/data/Jwcnotice.dat";
-		ArrayList<JwcNotice> noticeList=new ArrayList<JwcNotice>();
-		NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<JwcNotice>();
+		ArrayList<Notice> noticeList=new ArrayList<Notice>();
+		NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<Notice>();
 		Document document = Jsoup.connect(url).get();
 				
 		//获取最大页数
 		Elements PageCountElement=document.getElementsByClass("all_pages");
 		int PageCount=Integer.valueOf(PageCountElement.text()).intValue();
 		//System.out.println(PageCount);
-		//第9页   转发关于组织学习新闻学、广告学专业认证经验的通知
+
 		//爬取数据并序列化与反序列化
 		//for(int i=1;i<=1;i++) {
 		for(int i=1;i<=PageCount;i++) {
@@ -50,7 +50,7 @@ public class JwcNoticeOperater {
 				String time=null;
 				String Jwcurl=null;
 				String source="教务处通知";
-				JwcNotice notice=new JwcNotice();
+				Notice notice=new Notice();
 				if(element3.text().length()!=0) {
 					if(element3.get(0).attr("href").charAt(0)=='/')
 						Jwcurl=dataurl+element3.get(0).attr("href");
@@ -79,7 +79,7 @@ public class JwcNoticeOperater {
 		}
 				//测试序列化
 		noticeoperater.save(noticeList, Jwcnoticepath);
-		ArrayList<JwcNotice> Desnotices=noticeoperater.load(Jwcnoticepath);
+		ArrayList<Notice> Desnotices=noticeoperater.load(Jwcnoticepath);
 		//System.out.println("成功爬取教务处通知："+Desnotices.size());
 		log.info("成功爬取教务处通知："+Desnotices.size());
 	}

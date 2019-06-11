@@ -43,7 +43,6 @@ public class NewsOperater {
 		Document pageDocument = Jsoup.connect("https://news.sina.com.cn/").get();
 		Elements elements=pageDocument.getElementsByAttributeValue("id", "ad_entry_b2");
 		Elements element=elements.get(0).getElementsByTag("a");
-		//System.out.println(element.size());
 		for(int i=0;i<element.size();i++) {
 			News news=new News();
 			String title=element.get(i).text();
@@ -53,15 +52,12 @@ public class NewsOperater {
 			news.setSource("热点新闻");
 			RDnewsList.add(news);
 			newsList.add(news);
-			//System.out.println(title);
-			//System.out.println(href);
 				}
 		
 		//国内新闻
 		pageDocument = Jsoup.connect("https://news.sina.com.cn/china/").get();
 		elements=pageDocument.getElementsByAttributeValue("class", "news-2");
 		element=elements.get(0).getElementsByTag("a");
-		//System.out.println(element.size());
 		for(int i=0;i<element.size();i++) {
 			News news=new News();
 			String title=element.get(i).text();
@@ -71,15 +67,12 @@ public class NewsOperater {
 			news.setSource("国内新闻");
 			GNnewsList.add(news);
 			newsList.add(news);
-//			System.out.println(title);
-//			System.out.println(href);
 		}
 		
 		//国际新闻
 		pageDocument = Jsoup.connect("https://news.sina.com.cn/world/").get();
 		elements=pageDocument.getElementsByAttributeValue("class", "blk122");
 		element=elements.get(0).getElementsByTag("a");
-		//System.out.println(element.size());
 		for(int i=0;i<element.size();i++) {
 			News news=new News();
 			String title=element.get(i).text();
@@ -89,15 +82,12 @@ public class NewsOperater {
 			news.setSource("国际新闻");
 			GWnewsList.add(news);
 			newsList.add(news);
-			//System.out.println(title);
-			//System.out.println(href);
 		}
 		
 		//军事新闻
 		pageDocument = Jsoup.connect("https://mil.news.sina.com.cn/").get();
 		elements=pageDocument.getElementsByAttributeValue("class", "fs_right");
 		element=elements.get(0).getElementsByTag("a");
-		//System.out.println(element.size());
 		for(int i=0;i<element.size();i++) {
 			News news=new News();
 			String title=element.get(i).text();
@@ -110,15 +100,12 @@ public class NewsOperater {
 				JSnewsList.add(news);
 				newsList.add(news);
 			}
-			//System.out.println(title);
-			//System.out.println(href);
 		}
 		
 		//文化新闻
 		pageDocument = Jsoup.connect("http://cul.news.sina.com.cn/").get();
 		elements=pageDocument.getElementsByAttributeValue("class", "blk12");
 		element=elements.get(0).getElementsByTag("a");
-		//System.out.println(element.size());
 		for(int i=0;i<element.size();i++) {
 			News news=new News();
 			String title=element.get(i).text();
@@ -128,8 +115,6 @@ public class NewsOperater {
 			news.setSource("文化新闻");
 			WHnewsList.add(news);
 			newsList.add(news);
-			//System.out.println(title);
-			//System.out.println(href);
 		}
 		
 		newsoperater.save(newsList, newspath);
@@ -139,8 +124,7 @@ public class NewsOperater {
 		newsoperater.save(JSnewsList, JSnewspath);
 		newsoperater.save(WHnewsList, WHnewspath);
 		ArrayList<News> Desnews=newsoperater.load(newspath);
-		//System.out.println("成功爬取新闻："+Desnews.size());
-		log.info("成功爬取学院通知："+Desnews.size());
+		log.info("成功爬取新浪新闻："+Desnews.size());
 	}
 }
 

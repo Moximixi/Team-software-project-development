@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.bcel.verifier.exc.StaticCodeConstraintException;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
@@ -15,35 +16,34 @@ import com.jnu.groupproject.view.PanelUserInfo;
 public class JyNoticeOperater {
 	private Logger log = Logger.getLogger(PanelUserInfo.class); 
 	//JyNoticeOperater(Elements element){
+	//public static void main(String []args)throws Exception,FileNotFoundException,IOException {
 	public JyNoticeOperater() throws Exception,FileNotFoundException,IOException {
 				//配置日记文件
 				PropertyConfigurator.configure("log4j.properties");
 		
-				String url="http://zhxgb.jnu.edu.cn/employment/info/";
-				String pageurl="http://zhxgb.jnu.edu.cn/employment/info/index_";
-				String dataurl="http://zhxgb.jnu.edu.cn";
+				String url="https://zhxgb.jnu.edu.cn/jyxx_12387/";
+				String pageurl="https://zhxgb.jnu.edu.cn/jyxx_12387/list";
+				String dataurl="https://zhxgb.jnu.edu.cn/";
 				String Jynoticepath="./src/com/jnu/groupproject/data/Jynotice.dat";
-				ArrayList<JyNotice> noticeList=new ArrayList<JyNotice>();
-				NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<JyNotice>();
+				ArrayList<Notice> noticeList=new ArrayList<Notice>();
+				NoticeSerializeOperater noticeoperater=new NoticeSerializeOperater<Notice>();
 				Document document = Jsoup.connect(url).get();
 				//System.out.println(document.text());
 				//获取最大页数
-				Elements PageCountElement=document.getElementsByAttributeValue("class", "list_g_1");
-				int PageCount=Integer.valueOf(PageCountElement.text().substring(5, 7)).intValue();
+				Elements PageCountElement=document.getElementsByAttributeValue("class", "all_pages");
+				int PageCount=Integer.valueOf(PageCountElement.text().toString());
 				//System.out.println(PageCount);
 				//爬取数据并序列化与反序列化
+				//for(int i=1;i<=1;i++){
 				for(int i=1;i<=PageCount;i++){
 					String noticeurl=null;
-					if(i==1)
-						noticeurl=url;
-					else 
-						noticeurl=pageurl+i+".html";
+					noticeurl=pageurl+i+".htm";
 					//System.out.println(noticeurl);
 					log.info(noticeurl);
 					Document pageDocument = Jsoup.connect(noticeurl).get();
 		            Elements elementslist=pageDocument.select("div");
 		            Elements elements=elementslist.get(10).getElementsByTag("li");
-		            for(int pageNoticesize=28;pageNoticesize<elements.size()-8;pageNoticesize++) {
+		            for(int pageNoticesize=28;pageNoticesize<elements.size()-10;pageNoticesize++) {
 		            	Elements element1=elements.get(pageNoticesize).getElementsByTag("a");//标题
 						Elements element2=elements.get(pageNoticesize).getElementsByClass("list_date_1");//日期
 						Elements element3=elements.get(pageNoticesize).getElementsByTag("a");//链接
@@ -51,10 +51,10 @@ public class JyNoticeOperater {
 						String time=null;
 						String collegeurl=null;
 						String source="就业通知";
-						JyNotice notice=new JyNotice();
+						Notice notice=new Notice();
 						if(element3.text().length()!=0) {
 							collegeurl=dataurl+element3.get(0).attr("href");
-							notice=new JyNotice(collegeurl);
+							notice=new Notice();
 							notice.setUrl(collegeurl);
 						}
 						if(element1.text().length()!=0) {
@@ -73,7 +73,7 @@ public class JyNoticeOperater {
 				}
 				//测试序列化
 				noticeoperater.save(noticeList, Jynoticepath);
-				ArrayList<JwcNotice> Desnotices=noticeoperater.load(Jynoticepath);
+				ArrayList<Notice> Desnotices=noticeoperater.load(Jynoticepath);
 				//System.out.println("成功爬取就业通知："+Desnotices.size());
 				log.info("成功爬取就业通知："+Desnotices.size());
 			
