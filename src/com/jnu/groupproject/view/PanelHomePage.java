@@ -83,7 +83,7 @@ public class PanelHomePage extends JPanel {
 	static int JyNoticeFlag=0;//0代表未选中，1代表选中
 	static int JwcNoticeFlag=0;//0代表未选中，1代表选中
 	static int NoticeOrNewsFlag=0;//0代表通知，1代表新闻
-	static int NewsFlag = 1;// 1全部、2热点、3国内、4国外、5军事、6文化
+	static int NewsFlag = 0;// 1全部、2热点、3国内、4国外、5军事、6文化
 	static int XLFlag=0;//0代表未选中，1代表选中
 	
 	
